@@ -146,26 +146,26 @@ h1 {
 .ant-layout {
   min-height: 100vh;
   .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    float: left;
+    position: relative;
+    height: 64px;
+    padding-left: 24px;
+    overflow: hidden;
+    box-shadow: 1px 1px 0 0 #e8e8e8;
   }
   .trigger {
-    font-size: 18px;
     line-height: 64px;
-    padding: 0 24px;
     cursor: pointer;
-    transition: color 0.3s;
+    height:64px;
+    padding:0 24px;
+    font-size:20px;
+    transition:all .3s,padding 0s;
     &:hover {
-      color: #1890ff;
+      background:rgba(0,0,0,.025)
     }
   }
   .ant-layout-sider {
     transition: all 0.2s;
     background-color: white;
-    -webkit-box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
     box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
     .ant-menu-item .anticon, .ant-menu-submenu-title .anticon {
       font-size: 16px;

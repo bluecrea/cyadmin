@@ -7,7 +7,7 @@ module.exports = {
         modifyVars: {
           'primary-color': '#fb7000',
           'link-color': '#fb7000',
-          'border-radius-base': '6px'
+          'border-radius-base': '3px'
         },
         javascriptEnabled: true
       }

@@ -1,24 +1,43 @@
 <template>
   <a-layout-sider v-model:collapsed="collapsed" :trigger="null" width="256px">
     <div class="logo" />
-    <a-menu mode="inline" v-model:selectedKeys="selectedKeys">
-      <a-menu-item key="1">
-        <user-outlined />
-        <span>nav 1</span>
-      </a-menu-item>
-      <a-menu-item key="2">
-        <video-camera-outlined />
-        <span>nav 2</span>
-      </a-menu-item>
-      <a-menu-item key="3">
-        <upload-outlined />
-        <span>nav 3</span>
-      </a-menu-item>
+    <a-menu
+        theme="light"
+        mode="inline"
+        :openKeys="openKeys"
+        :default-selected-keys="['1']"
+        :selectedKeys="[$route.path]"
+        @openChange="onOpenChange"
+    >
+      <a-sub-menu key="/dashboard">
+        <template v-slot:title>
+          <ControlOutlined />
+          <span>控制台</span>
+        </template>
+        <a-menu-item key="/dashboard/workplace">
+          <router-link to="/dashboard/workplace">
+            <span>首页</span>
+          </router-link>
+        </a-menu-item>
+        <a-menu-item key="2">option2</a-menu-item>
+        <a-menu-item key="3">option3</a-menu-item>
+        <a-menu-item key="4">option4</a-menu-item>
+      </a-sub-menu>
+      <a-sub-menu key="sub2">
+        <template v-slot:title>
+          <VideoCameraOutlined />
+          <span>subnav 2</span>
+        </template>
+        <a-menu-item key="5">option5</a-menu-item>
+        <a-menu-item key="6">option6</a-menu-item>
+        <a-menu-item key="7">option7</a-menu-item>
+        <a-menu-item key="8">option8</a-menu-item>
+      </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 <script>
-import { UserOutlined, LaptopOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue';
+import { ControlOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue';
 
 export default {
   props: {
@@ -28,16 +47,15 @@ export default {
     }
   },
   components: {
-    UserOutlined,
-    LaptopOutlined,
+    ControlOutlined,
     VideoCameraOutlined,
     UploadOutlined
   },
   data() {
     return {
-      rootSubmenuKeys: ['sub1', 'sub2'],
-      selectedKeys: ['1'],
+      rootSubmenuKeys: ['/dashboard', 'sub2'],
       openKeys: [],
+      selectedKeys: []
     }
   },
   methods: {
@@ -49,25 +67,6 @@ export default {
         this.openKeys = latestOpenKey ? [latestOpenKey] : [];
       }
     },
-  }
+  },
 }
 </script>
-<style>
-#components-layout-demo-custom-trigger .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
-}
-
-#components-layout-demo-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-}
-</style>
