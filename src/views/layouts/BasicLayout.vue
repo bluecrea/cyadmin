@@ -9,6 +9,7 @@
             @click="() => (collapsed = !collapsed)"
         />
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+      <Header />
       </a-layout-header>
       <a-layout-content style="height: 100%; margin:10px 15px;">
         <router-view />
@@ -22,7 +23,8 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue'
-import LeftSide from '@/components/LeftSide/LeftSide'
+import LeftSide from '@/components/LeftSide'
+import Header from '@/components/Header'
 
 export default {
   name: 'BasicLayout',
@@ -30,6 +32,7 @@ export default {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     LeftSide,
+    Header,
   },
   data() {
     return {

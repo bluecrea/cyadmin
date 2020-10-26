@@ -7,9 +7,11 @@ import './router/config'
 
 import {
   Alert,
+  Avatar,
   Button,
   ConfigProvider,
   Checkbox,
+  Dropdown,
   Form,
   Input,
   Menu,
@@ -20,9 +22,11 @@ const app = createApp(App)
 
 app.use(store)
   .use(Alert)
+  .use(Avatar)
   .use(Button)
   .use(ConfigProvider)
   .use(Checkbox)
+  .use(Dropdown)
   .use(Form)
   .use(Input)
   .use(Menu)
