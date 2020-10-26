@@ -1,27 +1,35 @@
 <template>
   <a-layout>
-    <left-sider :collapsed="collapsed"/>
+    <left-side :collapsed="collapsed"/>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
-        <a-icon
+        <menu-unfold-outlined
+            v-if="collapsed"
             class="trigger"
-            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
         />
+        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
       </a-layout-header>
       <a-layout-content style="height: 100%; margin:10px 15px;">
         <router-view />
       </a-layout-content>
-      <global-footer />
     </a-layout>
   </a-layout>
 </template>
 
 <script>
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons-vue'
+import LeftSide from '@/components/LeftSide/LeftSide'
+
 export default {
   name: 'BasicLayout',
   components: {
-
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+    LeftSide,
   },
   data() {
     return {

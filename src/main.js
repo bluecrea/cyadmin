@@ -12,6 +12,7 @@ import {
   Checkbox,
   Form,
   Input,
+  Menu,
   Layout
 } from "ant-design-vue"
 
@@ -24,5 +25,6 @@ app.use(store)
   .use(Checkbox)
   .use(Form)
   .use(Input)
+  .use(Menu)
   .use(Layout)
   .use(router).mount('#app')

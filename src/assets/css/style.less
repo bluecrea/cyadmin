@@ -142,3 +142,37 @@ h1 {
     }
   }
 }
+// 主框架样式
+.ant-layout {
+  min-height: 100vh;
+  .logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 28px 16px 0;
+    float: left;
+  }
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover {
+      color: #1890ff;
+    }
+  }
+  .ant-layout-sider {
+    transition: all 0.2s;
+    background-color: white;
+    -webkit-box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+    box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+    .ant-menu-item .anticon, .ant-menu-submenu-title .anticon {
+      font-size: 16px;
+      + span {
+        font-size: 16px;
+      }
+    }
+  }
+}
+

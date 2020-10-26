@@ -2,7 +2,10 @@
   <div class="main">
     <div class="login-main">
       <div class="container">
-        <a-form class="user-layout-login">
+        <a-form
+            class="user-layout-login"
+            @submit="onSubmit"
+        >
           <div class="login-box">
             <div class="login-logo">
               <img src="https://preview.pro.antdv.com/assets/logo.b36f7a7f.svg" alt="logo" class="logo">
@@ -34,7 +37,11 @@
               </div>
               <div class="login-footer">
                 <div class="right">
-                  <a-button size="large" type="primary" style="font-size: 15px; width: 95px" @click="onSubmit">
+                  <a-button
+                      size="large"
+                      type="primary"
+                      htmlType="submit"
+                      style="font-size: 15px; width: 95px">
                     登录
                   </a-button>
                 </div>
@@ -51,6 +58,7 @@
 </template>
 <script>
 import { reactive, toRaw } from 'vue';
+import {useRouter} from 'vue-router'
 import { useForm } from '@ant-design-vue/use';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 
@@ -79,11 +87,14 @@ export default {
       ],
     });
     const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef);
+    const router = useRouter()
     const onSubmit = e => {
       e.preventDefault();
       validate()
           .then(() => {
             console.log(toRaw(modelRef));
+            sessionStorage.setItem('userInfo', JSON.stringify(toRaw(modelRef)))
+            router.push({path: '/dashboard/workplace'})
           })
           .catch(err => {
           });
@@ -102,16 +113,9 @@ export default {
     }
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault()
-      const { form: { validateFields }} = this
-      validateFields({ force: true },(err, values) => {
-
-      })
-    },
-    onChange(e) {
-      console.log(`checked = ${e.target.checked}`);
-    },
+    onSubmit() {
+      console.log('in')
+    }
   }
 }
 </script>

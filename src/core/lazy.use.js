@@ -1,10 +1,26 @@
 import { createApp } from 'vue'
-import {
-  Button
-} from "ant-design-vue"
-import router from "@/router";
+import App from '@/App.vue'
 
-const app = createApp({})
+import {
+  Alert,
+  Button,
+  ConfigProvider,
+  Checkbox,
+  Form,
+  Input,
+  Menu,
+  Layout
+} from "ant-design-vue"
+
+
+const app = createApp(App)
 
 app.use(Button)
-  .use(router).mount('#app')
+app.use(Alert)
+app.use(Button)
+app.use(ConfigProvider)
+app.use(Checkbox)
+app.use(Form)
+app.use(Input)
+app.use(Menu)
+app.use(Layout)
