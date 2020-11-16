@@ -113,9 +113,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      console.log('in')
-    }
+
   }
 }
 </script>

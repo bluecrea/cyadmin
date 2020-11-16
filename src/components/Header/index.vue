@@ -9,9 +9,10 @@
       </span>
       <template v-slot:overlay>
         <a-menu @click="handleMenuClick">
-          <a-menu-item key="1"><UserOutlined />1st menu item</a-menu-item>
-          <a-menu-item key="2"><UserOutlined />2nd menu item</a-menu-item>
-          <a-menu-item key="3"><UserOutlined />3rd item</a-menu-item>
+          <a-menu-item key="1"><UserOutlined />个人中心</a-menu-item>
+          <a-menu-item key="2"><SettingOutlined />个人设置</a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="3"><ExportOutlined />退出登录</a-menu-item>
         </a-menu>
       </template>
     </a-dropdown>
@@ -19,15 +20,26 @@
   </div>
 </template>
 <script>
-import { UserOutlined } from '@ant-design/icons-vue';
+import { UserOutlined, SettingOutlined, ExportOutlined } from '@ant-design/icons-vue';
+import { useRoute, useRouter } from 'vue-router'
+
 export default {
   components: {
-    UserOutlined
+    UserOutlined,
+    SettingOutlined,
+    ExportOutlined
   },
-  methods: {
-    handleMenuClick(e) {
-      console.log('click', e);
-    },
+  setup() {
+    const router = useRouter()
+    const handleMenuClick = e => {
+      if (e.key === '3') {
+        sessionStorage.removeItem('userInfo')
+        router.push('/')
+      }
+    }
+    return {
+      handleMenuClick
+    }
   },
 }
 </script>
