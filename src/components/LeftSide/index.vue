@@ -16,7 +16,7 @@
         </template>
         <a-menu-item key="/dashboard/workplace">
           <router-link to="/dashboard/workplace">
-            <span>首页</span>
+            <span>账户管理</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="2">option2</a-menu-item>
