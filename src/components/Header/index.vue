@@ -1,5 +1,5 @@
 <template>
-  <div class="global-header">
+  <header class="global-header">
     <a-dropdown>
       <span class="account-avatar">
         <a-avatar style="backgroundColor: #fde3cf" @click="e => e.preventDefault()" class="global-header-avatar">
@@ -17,7 +17,7 @@
       </template>
     </a-dropdown>
 
-  </div>
+  </header>
 </template>
 <script>
 import { UserOutlined, SettingOutlined, ExportOutlined } from '@ant-design/icons-vue';

@@ -4,20 +4,21 @@ import App from '@/App.vue'
 import {
   Alert,
   Button,
+  Breadcrumb,
   ConfigProvider,
   Checkbox,
   Form,
   Input,
   Menu,
-  Layout
+  Layout,
 } from "ant-design-vue"
 
 
 const app = createApp(App)
 
-app.use(Button)
 app.use(Alert)
 app.use(Button)
+app.use(Breadcrumb)
 app.use(ConfigProvider)
 app.use(Checkbox)
 app.use(Form)

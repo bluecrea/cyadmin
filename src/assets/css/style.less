@@ -167,6 +167,8 @@ h1 {
     }
   }
   .ant-layout-sider {
+    position: relative;
+    z-index: 10;
     transition: all 0.2s;
     background-color: white;
     box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
@@ -177,27 +179,54 @@ h1 {
       }
     }
   }
-  .global-header {
-    margin-right: 10px;
-    box-sizing: border-box;
-    float: right;
-    height: 100%;
-    margin-left: auto;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    .account-avatar {
-      display: inline-block;
+  .ant-layout-header {
+    position: relative;
+    z-index: 9;
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    .global-header {
+      margin-right: 10px;
+      box-sizing: border-box;
+      float: right;
       height: 100%;
-      padding: 0 12px;
-      cursor: pointer;
-      color: #999;
-      transition: all .3s;
-      &:hover{
-        background:rgba(0,0,0,.025)
+      margin-left: auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      .account-avatar {
+        display: inline-block;
+        height: 100%;
+        padding: 0 12px;
+        cursor: pointer;
+        color: #999;
+        transition: all .3s;
+        &:hover{
+          background:rgba(0,0,0,.025)
+        }
+        .global-header-avatar {
+          margin-right: 8px;
+        }
       }
-      .global-header-avatar {
-        margin-right: 8px;
+    }
+  }
+}
+//workPlace
+.work-place {
+  .header-wrap {
+    background-color: #fff;
+    .grid-content {
+      width: 100%;
+      min-height: 100%;
+      transition: .3s;
+      .page-header {
+        margin: 0;
+        color: rgba(0,0,0,.65);
+        font-size: 14px;
+        font-variant: tabular-nums;
+        line-height: 1.5;
+        list-style: none;
+        font-feature-settings: "tnum";
+        position: relative;
+        padding: 16px 24px;
       }
     }
   }

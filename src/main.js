@@ -9,6 +9,7 @@ import {
   Alert,
   Avatar,
   Button,
+  Breadcrumb,
   ConfigProvider,
   Checkbox,
   Dropdown,
@@ -24,6 +25,7 @@ app.use(store)
   .use(Alert)
   .use(Avatar)
   .use(Button)
+  .use(Breadcrumb)
   .use(ConfigProvider)
   .use(Checkbox)
   .use(Dropdown)

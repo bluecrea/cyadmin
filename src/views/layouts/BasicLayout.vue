@@ -11,7 +11,7 @@
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
       <Header />
       </a-layout-header>
-      <a-layout-content style="height: 100%; margin:10px 15px;">
+      <a-layout-content>
         <router-view />
       </a-layout-content>
     </a-layout>
