@@ -16,7 +16,8 @@ import {
   Form,
   Input,
   Menu,
-  Layout
+  Layout,
+  Tooltip
 } from "ant-design-vue"
 
 const app = createApp(App)
@@ -33,4 +34,5 @@ app.use(store)
   .use(Input)
   .use(Menu)
   .use(Layout)
+  .use(Tooltip)
   .use(router).mount('#app')

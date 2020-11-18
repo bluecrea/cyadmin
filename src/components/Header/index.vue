@@ -1,5 +1,23 @@
 <template>
   <header class="global-header">
+    <div class="bar-utilities">
+      <span class="bar-icon">
+        <a-tooltip placement="bottom">
+          <template #title>
+            通知
+          </template>
+          <BellOutlined style="font-size: 18px;" />
+        </a-tooltip>
+      </span>
+      <span class="bar-icon">
+        <a-tooltip>
+          <template #title>
+            帮助
+          </template>
+          <QuestionCircleOutlined style="font-size: 18px;" />
+        </a-tooltip>
+      </span>
+    </div>
     <a-dropdown>
       <span class="account-avatar">
         <a-avatar style="backgroundColor: #fde3cf" @click="e => e.preventDefault()" class="global-header-avatar">
@@ -20,14 +38,16 @@
   </header>
 </template>
 <script>
-import { UserOutlined, SettingOutlined, ExportOutlined } from '@ant-design/icons-vue';
+import { UserOutlined, SettingOutlined, ExportOutlined,BellOutlined,QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { useRoute, useRouter } from 'vue-router'
 
 export default {
   components: {
     UserOutlined,
     SettingOutlined,
-    ExportOutlined
+    ExportOutlined,
+    BellOutlined,
+    QuestionCircleOutlined
   },
   setup() {
     const router = useRouter()
