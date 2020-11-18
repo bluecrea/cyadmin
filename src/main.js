@@ -12,6 +12,7 @@ import {
   Breadcrumb,
   ConfigProvider,
   Checkbox,
+  Collapse,
   Dropdown,
   Form,
   Input,
@@ -23,16 +24,17 @@ import {
 const app = createApp(App)
 
 app.use(store)
-  .use(Alert)
-  .use(Avatar)
-  .use(Button)
-  .use(Breadcrumb)
-  .use(ConfigProvider)
-  .use(Checkbox)
-  .use(Dropdown)
-  .use(Form)
-  .use(Input)
-  .use(Menu)
-  .use(Layout)
-  .use(Tooltip)
-  .use(router).mount('#app')
+    .use(Alert)
+    .use(Avatar)
+    .use(Button)
+    .use(Breadcrumb)
+    .use(ConfigProvider)
+    .use(Collapse)
+    .use(Checkbox)
+    .use(Dropdown)
+    .use(Form)
+    .use(Input)
+    .use(Menu)
+    .use(Layout)
+    .use(Tooltip)
+    .use(router).mount('#app')
