@@ -223,7 +223,7 @@ h1 {
     }
   }
 }
-//workPlace
+// Components
 .header-wrap {
   border-bottom: 1px solid #e8e8e8;
   background:#fff url("~@/assets/images/landing_banner_bg.png") no-repeat right top;
@@ -255,6 +255,57 @@ h1 {
           font-weight: 600;
           font-size: 20px;
           line-height: 32px;
+        }
+      }
+    }
+  }
+}
+
+//workPlace
+.work-place {
+  .panel-body {
+    padding: 24px;
+    .card-collapse {
+      .ant-collapse {
+        box-shadow: 0 1px 2px 0 rgba(150, 150, 150, 0.3);
+        //box-shadow: rgba(0, 0, 0, 0.05) 0 2px 5px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+        margin-top: 4px !important;
+        font-size: 17px;
+        .ant-collapse-header {
+          padding: 18px 16px;
+        }
+        .collapse-content {
+          display: flex;
+          flex-grow: 1;
+          .scorecard-cell {
+            box-sizing: border-box;
+            display: table-cell;
+            flex-basis: 0;
+            flex-grow: 1;
+            margin: 0;
+            position: relative;
+            vertical-align: top;
+            text-align: center;
+            min-width: 140px;
+            dl {
+              dt {
+                word-break: break-word;
+                font-size: 15px;
+                padding-bottom: 5px;
+              }
+              dd {
+                color: black;
+                font-size: 26px;
+                line-height: 30px;
+              }
+            }
+          }
+        }
+      }
+      .ant-collapse-borderless {
+        background-color: white;
+        & > .ant-collapse-item {
+          border-bottom: none;
         }
       }
     }
