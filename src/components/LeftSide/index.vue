@@ -19,7 +19,11 @@
             <span>概览</span>
           </router-link>
         </a-menu-item>
-        <a-menu-item key="2">option2</a-menu-item>
+        <a-menu-item key="/dashboard/keep">
+          <router-link to="/dashboard/keep">
+            <span>待办事项</span>
+          </router-link>
+        </a-menu-item>
         <a-menu-item key="3">option3</a-menu-item>
         <a-menu-item key="4">option4</a-menu-item>
       </a-sub-menu>

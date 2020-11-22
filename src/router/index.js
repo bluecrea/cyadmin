@@ -23,6 +23,12 @@ const routes = [
         component: () => import('@/views/Dashboard/Workplace'),
         meta:{ title: '首页'}
       },
+      {
+        path: '/dashboard/keep',
+        name: 'Keep',
+        component: () => import('@/views/Dashboard/Keep'),
+        meta:{ title: '待办事项'}
+      },
     ]
   }
 ]
