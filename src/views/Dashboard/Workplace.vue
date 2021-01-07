@@ -1,6 +1,6 @@
 <template>
   <div class="work-place">
-    <Header-bar bar-name="概览" first-menu="控制台"></Header-bar>
+    <Header-bar bar-name="概览" first-menu="控制台"/>
     <div class="panel-body">
       <div class="card-collapse">
         <a-collapse expand-icon-position="right" v-model:activeKey="activeKey" :bordered="false">
@@ -38,12 +38,13 @@
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import HeaderBar from '@/components/HeaderBar'
 import { TeamOutlined, UsergroupAddOutlined, FileTextOutlined, PieChartOutlined } from '@ant-design/icons-vue';
 
 export default {
+  name: 'workplace',
   components: {
     HeaderBar,
     TeamOutlined,

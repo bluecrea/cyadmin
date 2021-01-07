@@ -13,6 +13,7 @@ import {
   ConfigProvider,
   Checkbox,
   Collapse,
+  Card,
   Dropdown,
   Form,
   Input,
@@ -28,6 +29,7 @@ app.use(store)
     .use(Avatar)
     .use(Button)
     .use(Breadcrumb)
+    .use(Card)
     .use(ConfigProvider)
     .use(Collapse)
     .use(Checkbox)

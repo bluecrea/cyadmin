@@ -5,7 +5,7 @@
         theme="light"
         mode="inline"
         :openKeys="openKeys"
-        :default-selected-keys="['1']"
+        :default-selected-keys="['/dashboard']"
         :selectedKeys="[$route.path]"
         @openChange="onOpenChange"
     >
@@ -19,9 +19,9 @@
             <span>概览</span>
           </router-link>
         </a-menu-item>
-        <a-menu-item key="/dashboard/keep">
-          <router-link to="/dashboard/keep">
-            <span>待办事项</span>
+        <a-menu-item key="/dashboard/addRecipes">
+          <router-link to="/dashboard/addRecipes">
+            <span>添加菜谱</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="3">option3</a-menu-item>
