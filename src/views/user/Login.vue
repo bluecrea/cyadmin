@@ -2,10 +2,7 @@
   <div class="main">
     <div class="login-main">
       <div class="container">
-        <a-form
-            class="user-layout-login"
-            @submit="onSubmit"
-        >
+        <a-form class="user-layout-login" @submit="onSubmit">
           <div class="login-box">
             <div class="login-logo">
               <img src="https://preview.pro.antdv.com/assets/logo.b36f7a7f.svg" alt="logo" class="logo">
@@ -92,7 +89,7 @@ export default {
       e.preventDefault();
       validate()
           .then(() => {
-            console.log(toRaw(modelRef));
+            //console.log(toRaw(modelRef));
             sessionStorage.setItem('userInfo', JSON.stringify(toRaw(modelRef)))
             router.push({path: '/dashboard/workplace'})
           })

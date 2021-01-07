@@ -14,9 +14,13 @@ import {
   Checkbox,
   Collapse,
   Card,
+  Cascader,
   Dropdown,
   Form,
   Input,
+  Radio,
+  Select,
+  Slider,
   Menu,
   Layout,
   Tooltip
@@ -25,18 +29,22 @@ import {
 const app = createApp(App)
 
 app.use(store)
-    .use(Alert)
-    .use(Avatar)
-    .use(Button)
-    .use(Breadcrumb)
-    .use(Card)
-    .use(ConfigProvider)
-    .use(Collapse)
-    .use(Checkbox)
-    .use(Dropdown)
-    .use(Form)
-    .use(Input)
-    .use(Menu)
-    .use(Layout)
-    .use(Tooltip)
-    .use(router).mount('#app')
+  .use(Alert)
+  .use(Avatar)
+  .use(Button)
+  .use(Breadcrumb)
+  .use(Card)
+  .use(Cascader)
+  .use(ConfigProvider)
+  .use(Collapse)
+  .use(Checkbox)
+  .use(Dropdown)
+  .use(Form)
+  .use(Input)
+  .use(Radio)
+  .use(Select)
+  .use(Slider)
+  .use(Menu)
+  .use(Layout)
+  .use(Tooltip)
+  .use(router).mount('#app')

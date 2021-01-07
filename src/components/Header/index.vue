@@ -54,7 +54,7 @@ export default {
     const handleMenuClick = e => {
       if (e.key === '3') {
         sessionStorage.removeItem('userInfo')
-        router.push('/')
+        router.push('/login')
       }
     }
     return {
