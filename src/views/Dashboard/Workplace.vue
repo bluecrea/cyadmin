@@ -1,6 +1,6 @@
 <template>
   <div class="work-place">
-    <Header-bar bar-name="概览" first-menu="控制台"/>
+    <header-bar bar-name="概览" first-menu="控制台"/>
     <div class="panel-body">
       <div class="card-collapse">
         <a-collapse expand-icon-position="right" v-model:activeKey="activeKey" :bordered="false">
@@ -8,25 +8,25 @@
             <div class="collapse-content">
               <div class="scorecard-cell">
                 <dl>
-                  <dt><TeamOutlined /> 用户总数</dt>
+                  <dt><a-icon type="team" /> 用户总数</dt>
                   <dd>1024</dd>
                 </dl>
               </div>
               <div class="scorecard-cell">
                 <dl>
-                  <dt><UsergroupAddOutlined /> 新增用户数</dt>
+                  <dt><a-icon type="usergroup-add" /> 新增用户数</dt>
                   <dd>1024</dd>
                 </dl>
               </div>
               <div class="scorecard-cell">
                 <dl>
-                  <dt><FileTextOutlined /> 菜谱总数</dt>
+                  <dt><a-icon type="file-text" /> 菜谱总数</dt>
                   <dd>1024</dd>
                 </dl>
               </div>
               <div class="scorecard-cell">
                 <dl>
-                  <dt><PieChartOutlined /> 积分总消耗</dt>
+                  <dt><a-icon type="pay-circle" /> 积分总消耗</dt>
                   <dd>1024</dd>
                 </dl>
               </div>
@@ -41,16 +41,11 @@
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
-import { TeamOutlined, UsergroupAddOutlined, FileTextOutlined, PieChartOutlined } from '@ant-design/icons-vue';
 
 export default {
   name: 'workplace',
   components: {
-    HeaderBar,
-    TeamOutlined,
-    UsergroupAddOutlined,
-    FileTextOutlined,
-    PieChartOutlined
+    HeaderBar
   },
   data() {
     return {

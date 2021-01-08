@@ -1,6 +1,8 @@
 <template>
   <a-config-provider :locale="locale">
-    <router-view/>
+    <div id="app">
+      <router-view/>
+    </div>
   </a-config-provider>
 </template>
 

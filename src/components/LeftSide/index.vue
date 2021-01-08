@@ -10,10 +10,10 @@
         @openChange="onOpenChange"
     >
       <a-sub-menu key="/dashboard">
-        <template v-slot:title>
-          <ControlOutlined />
+        <span slot="title">
+          <a-icon type="dashboard" />
           <span>控制台</span>
-        </template>
+        </span>
         <a-menu-item key="/dashboard/workplace">
           <router-link to="/dashboard/workplace">
             <span>概览</span>
@@ -28,10 +28,10 @@
         <a-menu-item key="4">option4</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
-        <template v-slot:title>
-          <VideoCameraOutlined />
-          <span>subnav 2</span>
-        </template>
+        <span slot="title">
+          <a-icon type="book" />
+          <span>菜谱管理</span>
+        </span>
         <a-menu-item key="5">option5</a-menu-item>
         <a-menu-item key="6">option6</a-menu-item>
         <a-menu-item key="7">option7</a-menu-item>
@@ -41,7 +41,6 @@
   </a-layout-sider>
 </template>
 <script>
-import { ControlOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue';
 
 export default {
   props: {
@@ -50,15 +49,10 @@ export default {
       default: false,
     }
   },
-  components: {
-    ControlOutlined,
-    VideoCameraOutlined,
-    UploadOutlined
-  },
   data() {
     return {
       rootSubmenuKeys: ['/dashboard', 'sub2'],
-      openKeys: [],
+      openKeys: ['/dashboard'],
       selectedKeys: []
     }
   },

@@ -4,7 +4,7 @@
       <div class="page-header">
         <a-breadcrumb>
           <a-breadcrumb-item href="">
-            <home-outlined />
+            <a-icon type="home" />
           </a-breadcrumb-item>
           <a-breadcrumb-item>{{ firstMenu }}</a-breadcrumb-item>
           <a-breadcrumb-item>{{ barName }}</a-breadcrumb-item>
@@ -18,12 +18,9 @@
 </template>
 
 <script>
-import { HomeOutlined } from '@ant-design/icons-vue';
 
 export default {
-  components: {
-    HomeOutlined
-  },
+  name: 'HeaderBar',
   props: {
     firstMenu: {
       type: String,

@@ -1,6 +1,5 @@
 module.exports = {
   productionSourceMap: false,
-
   css: {
     loaderOptions: {
       less: {
@@ -12,5 +11,8 @@ module.exports = {
         javascriptEnabled: true
       }
     }
+  },
+  devServer: {
+    port: 3000
   },
 }

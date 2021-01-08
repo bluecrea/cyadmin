@@ -2,7 +2,7 @@
   <div class="main">
     <div class="login-main">
       <div class="container">
-        <a-form class="user-layout-login" @submit="onSubmit">
+        <a-form class="user-layout-login" :form="form" @submit="onSubmit">
           <div class="login-box">
             <div class="login-logo">
               <img src="https://preview.pro.antdv.com/assets/logo.b36f7a7f.svg" alt="logo" class="logo">
@@ -16,15 +16,30 @@
                 <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
               </div>
               <div class="form-login">
-                <a-form-item v-bind="validateInfos.username">
-                  <a-input size="large" v-model:value="modelRef.username" type="text" placeholder="请输入用户名/手机号码">
-                    <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+                <a-form-item>
+                  <a-input
+                      size="large"
+                      type="text"
+                      placeholder="请输入用户名/手机号码"
+                      v-decorator="[
+                        'username',
+                        {rules: [{ required: true, message: '用户名不能为空' }], validateTrigger: 'blur'}
+                      ]"
+                  >
+                    <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
                   </a-input>
                 </a-form-item>
-                <a-form-item v-bind="validateInfos.password">
-                  <a-input size="large" v-model:value="modelRef.password" type="password" placeholder="请输入密码">
-                    <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
-                  </a-input>
+                <a-form-item>
+                  <a-input-password
+                      size="large"
+                      placeholder="请输入密码"
+                      v-decorator="[
+                        'password',
+                        {rules: [{ required: true, message: '密码不能为空' }], validateTrigger: 'blur'}
+                      ]"
+                  >
+                    <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                  </a-input-password>
                 </a-form-item>
                 <a-form-item>
                   <!--<a-checkbox v-model:checked="checked" @change="onChange">自动登录</a-checkbox>-->
@@ -38,9 +53,9 @@
                       size="large"
                       type="primary"
                       htmlType="submit"
-                      style="font-size: 15px; width: 95px">
-                    登录
-                  </a-button>
+                      :loading="state.loginBtn"
+                      :disabled="state.loginBtn"
+                      style="font-size: 15px; width: 95px">登录</a-button>
                 </div>
                 <div class="left">
                   <a href="#">创建账号</a>
@@ -54,63 +69,44 @@
   </div>
 </template>
 <script>
-import { reactive, toRaw } from 'vue';
-import {useRouter} from 'vue-router'
-import { useForm } from '@ant-design-vue/use';
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 
 export default {
-  components: {
-    UserOutlined,
-    LockOutlined,
-  },
-  setup() {
-    const modelRef = reactive({
-      username: '',
-      password: '',
-    });
-    const rulesRef = reactive({
-      username: [
-        {
-          required: true,
-          message: '请输入用户名',
-        },
-      ],
-      password: [
-        {
-          required: true,
-          message: '请输入密码',
-        },
-      ],
-    });
-    const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef);
-    const router = useRouter()
-    const onSubmit = e => {
-      e.preventDefault();
-      validate()
-          .then(() => {
-            //console.log(toRaw(modelRef));
-            sessionStorage.setItem('userInfo', JSON.stringify(toRaw(modelRef)))
-            router.push({path: '/dashboard/workplace'})
-          })
-          .catch(err => {
-          });
-    };
-    return {
-      validateInfos,
-      resetFields,
-      modelRef,
-      onSubmit,
-    };
-  },
   data() {
     return {
+      form: this.$form.createForm(this),
+      state: {
+        time: 60,
+        loginBtn: false,
+        loginType: 0,
+        smsSendBtn: false
+      },
       isLoginError: false,
       checked: false,
     }
   },
   methods: {
+    onSubmit (e) {
+      e.preventDefault()
+      const {
+        form: { validateFields },
+        state,
+      } = this
 
+      state.loginBtn = true
+      const validateFieldsKey = ['username', 'password']
+      validateFields(validateFieldsKey, { force: true }, (err, values) => {
+        if (!err) {
+          console.log('login form', values)
+          sessionStorage.setItem('userInfo', JSON.stringify(values))
+          state.loginBtn = false
+          this.$router.push({path: '/dashboard/workplace'})
+        } else {
+          setTimeout(() => {
+            state.loginBtn = false
+          }, 600)
+        }
+      })
+    }
   }
 }
 </script>

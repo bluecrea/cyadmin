@@ -1,27 +1,53 @@
-import { createApp } from 'vue'
-import App from '@/App.vue'
+import Vue from 'vue'
 
 import {
   Alert,
+  Avatar,
   Button,
   Breadcrumb,
-  ConfigProvider,
+  Card,
+  Cascader,
   Checkbox,
+  ConfigProvider,
+  Collapse,
+  Dropdown,
+  Radio,
+  Select,
+  Slider,
   Form,
+  Icon,
   Input,
   Menu,
+  Modal,
+  message,
   Layout,
+  Tooltip
 } from "ant-design-vue"
 
+Vue.use(Alert)
+Vue.use(Avatar)
+Vue.use(Button)
+Vue.use(Breadcrumb)
+Vue.use(Card)
+Vue.use(Cascader)
+Vue.use(ConfigProvider)
+Vue.use(Collapse)
+Vue.use(Checkbox)
+Vue.use(Dropdown)
+Vue.use(Radio)
+Vue.use(Select)
+Vue.use(Slider)
+Vue.use(Form)
+Vue.use(Icon)
+Vue.use(Input)
+Vue.use(Menu)
+Vue.use(Modal)
+Vue.use(Layout)
+Vue.use(Tooltip)
 
-const app = createApp(App)
-
-app.use(Alert)
-app.use(Button)
-app.use(Breadcrumb)
-app.use(ConfigProvider)
-app.use(Checkbox)
-app.use(Form)
-app.use(Input)
-app.use(Menu)
-app.use(Layout)
+Vue.prototype.$message = message
+Vue.prototype.$confirm = Modal.confirm
+Vue.prototype.$info = Modal.info
+Vue.prototype.$success = Modal.success
+Vue.prototype.$error = Modal.error
+Vue.prototype.$warning = Modal.warning

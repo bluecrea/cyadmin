@@ -11,8 +11,9 @@
             <a-form-item label="类型">
               <a-radio-group v-model:value="form.tag" button-style="solid">
                 <a-radio-button :value="1">早餐</a-radio-button>
-                <a-radio-button :value="2">午餐/晚餐</a-radio-button>
-                <a-radio-button :value="3">水果零食</a-radio-button>
+                <a-radio-button :value="2">午餐</a-radio-button>
+                <a-radio-button :value="3">晚餐</a-radio-button>
+                <a-radio-button :value="4">其他</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="分类">
@@ -59,21 +60,22 @@
                   placeholder="分量"
                   style="width: 15%; margin-right: 5px"
               />
-              <a-select v-model:value="domain.img" style="width: 20%;margin-right: 8px" placeholder="图片">
-                <a-select-option v-for="ing in ingImg" :key="ing.id" :value="ing.ing_img">
+              <a-select v-model:value="domain.img" style="width: 20%;margin-right: 8px" placeholder="图片" option-label-prop="label">
+                <a-select-option v-for="ing in ingImg" :key="ing.id" :value="ing.ing_img" :label="ing.ingr_name">
                   {{ ing.ingr_name }}
                 </a-select-option>
               </a-select>
-              <MinusCircleOutlined
+              <a-icon
                   v-if="form.ing.length > 1"
                   class="dynamic-delete-button"
-                  :disabled="form.ing.length === 1"
-                  @click="removeDomain(domain)"
+                  type="minus-circle-o"
+                  disabled="form.ing.length === 1"
+                  @click="() => removeDomain(domain)"
               />
             </a-form-item>
             <a-form-item>
               <a-button type="dashed" style="width: 60%" @click="addDomain">
-                <PlusOutlined /> 添加食材
+                <a-icon type="plus" /> 添加食材
               </a-button>
             </a-form-item>
           </div>
@@ -85,16 +87,13 @@
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { getCookSort,getCookIngImg } from '@/api'
 import { sign } from '@/utils'
 
 export default {
   name: 'addRecipes',
   components: {
-    HeaderBar,
-    MinusCircleOutlined,
-    PlusOutlined,
+    HeaderBar
   },
   data() {
     return {
