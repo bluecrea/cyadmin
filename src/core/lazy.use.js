@@ -21,7 +21,8 @@ import {
   Modal,
   message,
   Layout,
-  Tooltip
+  Tooltip,
+  Upload,
 } from "ant-design-vue"
 
 Vue.use(Alert)
@@ -44,6 +45,7 @@ Vue.use(Menu)
 Vue.use(Modal)
 Vue.use(Layout)
 Vue.use(Tooltip)
+Vue.use(Upload)
 
 Vue.prototype.$message = message
 Vue.prototype.$confirm = Modal.confirm
