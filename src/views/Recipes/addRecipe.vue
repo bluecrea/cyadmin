@@ -54,14 +54,14 @@
                 <a-input
                     v-model:value="domain.tit"
                     placeholder="名称"
-                    style="width: 20% margin-right: 2px"
+                    style="width: 20%;margin-right: 2px"
                 /> :
                 <a-input
                     v-model:value="domain.value"
                     placeholder="分量"
-                    style="width: 15% margin-right: 5px"
+                    style="width: 15%;margin-right: 5px"
                 />
-                <a-select v-model:value="domain.img" style="width: 20%margin-right: 8px" placeholder="图片" option-label-prop="label">
+                <a-select v-model:value="domain.img" style="width: 20%;margin-right: 8px" placeholder="图片" option-label-prop="label">
                   <a-select-option v-for="ing in ingImg" :key="ing.id" :value="ing.ing_img" :label="ing.ingr_name">
                     {{ ing.ingr_name }}
                   </a-select-option>
@@ -103,7 +103,7 @@
                       accept="image/*"
                       action="https://api.goxianguo.com/admin/uploadCookImg"
                       :before-upload="beforeUpload"
-                      @change="handleChange"
+                      @change="handleChange($event,index)"
                   >
                     <img v-if="domain.img" :src="domain.img" alt="img" />
                     <div v-else>
@@ -249,16 +249,17 @@ export default {
       }
       return isJpgOrPng
     },
-    handleChange(info) {
+    handleChange(info,index) {
+      console.log(info)
       if (info.file.status !== 'uploading') {
         this.loading = true
-        console.log(info.file)
-        return
       }
       if (info.file.status === 'done') {
-        this.$message.success(`${info.file.name} file uploaded successfully`)
+        this.loading = false
+        this.form.step[index].img = info.file.response.result
+        this.$message.success(`图片上传成功`)
       } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} file upload failed.`)
+        this.$message.error(`图片上传失败`)
       }
     },
   }
