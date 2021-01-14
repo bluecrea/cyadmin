@@ -11,10 +11,12 @@ import {
   ConfigProvider,
   Collapse,
   Dropdown,
+  Divider,
   Radio,
   Select,
   Slider,
   Form,
+  FormModel,
   Icon,
   Input,
   Menu,
@@ -35,10 +37,12 @@ Vue.use(ConfigProvider)
 Vue.use(Collapse)
 Vue.use(Checkbox)
 Vue.use(Dropdown)
+Vue.use(Divider)
 Vue.use(Radio)
 Vue.use(Select)
 Vue.use(Slider)
 Vue.use(Form)
+Vue.use(FormModel)
 Vue.use(Icon)
 Vue.use(Input)
 Vue.use(Menu)

@@ -315,19 +315,46 @@ h1 {
       }
     }
     .ant-form {
-      .flex {
+      .form-flex {
         display: flex;
-        .flex-left, .flex-right {
+        .flex-left {
           width: 50%;
-        }
-        .avatar-uploader {
-          img {
-            max-width: 102px;
-            max-height: 102px;
-            width: 100%;
-            height: auto;
+          .avatar-uploader {
+            img {
+              max-width: 102px;
+              max-height: 102px;
+              width: 100%;
+              height: auto;
+            }
+          }
+          .ant-form-item-children .step {
+            display: flex;
+            flex-direction: row;
+            height: 112px;
+            .step-input {
+              width: calc(100% - 120px);
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              margin-right: 8px;
+              margin-bottom: 8px;
+            }
           }
         }
+        .flex-right {
+          margin: 20px;
+          width: 600px;
+          .code-txt {
+            border: 1px dashed #eee;
+            min-height: 500px;
+            padding: 10px;
+          }
+        }
+      }
+      .form-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 
