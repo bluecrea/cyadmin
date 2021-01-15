@@ -41,10 +41,18 @@ const routes = [
         ]
       },
       {
-        path: '/dashboard/keep',
-        name: 'Keep',
-        component: () => import('@/views/Dashboard/Keep'),
-        meta:{ title: '待办事项'}
+        path: '/recipes',
+        name: 'recipes',
+        component: RouteView,
+        meta:{ title: '菜谱管理', keepAlive: true },
+        children: [
+          {
+            path: '/recipes/manageRecipe',
+            name: 'manageRecipe',
+            component: () => import('@/views/Recipes/manageRecipe'),
+            meta: { title: '菜谱管理', keepAlive: true }
+          }
+        ]
       },
     ]
   }

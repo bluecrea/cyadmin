@@ -9,12 +9,15 @@ import {
   Cascader,
   Checkbox,
   ConfigProvider,
+  Col,
   Collapse,
   Dropdown,
   Divider,
   Radio,
+  Row,
   Select,
   Slider,
+  Table,
   Form,
   FormModel,
   Icon,
@@ -34,13 +37,16 @@ Vue.use(Breadcrumb)
 Vue.use(Card)
 Vue.use(Cascader)
 Vue.use(ConfigProvider)
+Vue.use(Col)
 Vue.use(Collapse)
 Vue.use(Checkbox)
 Vue.use(Dropdown)
 Vue.use(Divider)
 Vue.use(Radio)
+Vue.use(Row)
 Vue.use(Select)
 Vue.use(Slider)
+Vue.use(Table)
 Vue.use(Form)
 Vue.use(FormModel)
 Vue.use(Icon)

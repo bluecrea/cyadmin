@@ -27,12 +27,16 @@
         <a-menu-item key="3">option3</a-menu-item>
         <a-menu-item key="4">option4</a-menu-item>
       </a-sub-menu>
-      <a-sub-menu key="sub2">
+      <a-sub-menu key="/recipes">
         <span slot="title">
           <a-icon type="book" />
           <span>菜谱管理</span>
         </span>
-        <a-menu-item key="5">option5</a-menu-item>
+        <a-menu-item key="/recipes/manageRecipe">
+          <router-link to="/recipes/manageRecipe">
+            <span>菜谱管理</span>
+          </router-link>
+        </a-menu-item>
         <a-menu-item key="6">option6</a-menu-item>
         <a-menu-item key="7">option7</a-menu-item>
         <a-menu-item key="8">option8</a-menu-item>
@@ -51,10 +55,14 @@ export default {
   },
   data() {
     return {
-      rootSubmenuKeys: ['/dashboard', 'sub2'],
-      openKeys: ['/dashboard'],
+      rootSubmenuKeys: ['/dashboard', '/recipes'],
+      openKeys: [],
       selectedKeys: []
     }
+  },
+  mounted () {
+    const openKey = this.rootSubmenuKeys.find(key => this.$route.path.indexOf(key) !== -1)
+    this.openKeys.push(openKey)
   },
   methods: {
     onOpenChange(openKeys) {

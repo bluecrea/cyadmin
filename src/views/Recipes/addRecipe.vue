@@ -90,16 +90,13 @@
               <a-form-model-item label="主图图片">
                 <a-upload
                     name="stepImg"
-                    class="dropbox"
-                    :show-upload-list="false"
-                    accept="image/*"
                     action="https://api.goxianguo.com/admin/uploadCookImg"
-                    :before-upload="beforeUpload"
+                    list-type="picture"
+                    accept="image/*"
                     @change="uploadCovImg"
+                    :default-file-list="fileList"
                 >
-                  <a-button>
-                    <a-icon type="upload" /> 上传图片
-                  </a-button>
+                  <a-button> <a-icon type="upload" /> 上传图片 </a-button>
                 </a-upload>
               </a-form-model-item>
               <a-form-model-item
@@ -184,8 +181,8 @@ export default {
       nonce_str: Date.parse(new Date()) / 1000,
       sortList: [],
       ingImg: [],
+      fileList: [],
       loading: false,
-      covImgLoading: false,
       form: {
         title: '',
         pid: [],
@@ -299,11 +296,9 @@ export default {
       }
     },
     uploadCovImg(info) {
-      if (info.file.status !== 'uploading') {
-        this.covImgLoading = true
-      }
+      console.log(info.fileList)
+      this.fileList = info.fileList
       if (info.file.status === 'done') {
-        this.covImgLoading = false
         this.form.covImg = info.file.response.result
         this.$message.success(`图片上传成功`)
       } else if (info.file.status === 'error') {
