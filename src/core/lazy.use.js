@@ -20,6 +20,7 @@ import {
   Table,
   Form,
   FormModel,
+  List,
   Icon,
   Input,
   Menu,
@@ -49,6 +50,7 @@ Vue.use(Slider)
 Vue.use(Table)
 Vue.use(Form)
 Vue.use(FormModel)
+Vue.use(List)
 Vue.use(Icon)
 Vue.use(Input)
 Vue.use(Menu)

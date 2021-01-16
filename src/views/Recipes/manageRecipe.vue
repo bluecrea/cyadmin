@@ -40,28 +40,65 @@
             :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
             :columns="columns"
             :data-source="dataList"
+            :pagination="pagination"
+            rowKey="cok_id"
             bordered>
-
+          <template slot="imgSrc" slot-scope="text, row, index">
+            <span>
+              <img :src="row.cov_img" alt="" style="width: 30px;height: 30px;" @click="showPic(row.cov_img)" />
+              {{text}}
+            </span>
+          </template>
+          <template slot="action" slot-scope="text, record">
+            <a @click="handleEdit(record)">编辑</a>
+            <a-divider type="vertical" />
+            <a @click="handleDelete(record)">删除</a>
+          </template>
         </a-table>
 
       </a-card>
     </div>
+    <a-modal
+        :visible="previewVisible"
+        width="600px"
+        :footer="null"
+        @cancel="() => previewVisible = false">
+      <img :src="previewImage" alt="" width="100%" height="100%" />
+    </a-modal>
   </div>
-
 </template>
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
+import {queryCookbookList } from '@/api'
 import { sign } from '@/utils'
 
 const columns = [
   {
     title: 'id',
-    key: 'id',
+    key: 'cok_id',
+    dataIndex: 'cok_id'
   },
   {
     title: '标题',
-    key: 'title'
+    key: 'title',
+    dataIndex: 'title',
+    scopedSlots: { customRender: 'imgSrc' }
+  },
+  {
+    title: '作者',
+    key: 'nickname',
+    dataIndex: 'nickname'
+  },
+  {
+    title: '评分',
+    key: 'score',
+    dataIndex: 'score'
+  },
+  {
+    title: '操作',
+    key: 'action',
+    scopedSlots: { customRender: 'action' }
   }
 ]
 
@@ -72,12 +109,28 @@ export default {
   },
   data() {
     return {
-      nonceStr: Date.now(),
+      dataParams: {
+        nonce_str: Date.now(),
+        pageNo: 1,
+        pageSize: 20
+      },
       sortList: [],
       queryParam: {},
       columns,
+      previewImage: '',
       selectedRowKeys: [],
-      dataList: []
+      dataList: [],
+      pagination: {
+        total: 0, // 总条数
+        pageSize: 20, // 默认每页显示数量
+        showTotal: total => `共 ${total} 条`, // 显示总数
+        onChange: ((page, pageSize) => {
+          this.dataParams.firstIndex = page
+          this.dataParams.maxResults = pageSize
+          this.getDataList()
+        })
+      },
+      previewVisible: false,
     }
   },
   computed: {
@@ -86,7 +139,7 @@ export default {
     },
   },
   mounted() {
-
+    this.getDataList()
   },
   methods: {
     onChange() {
@@ -95,10 +148,30 @@ export default {
     handleAdd() {
 
     },
+    handleEdit(row) {
+
+    },
+    handleDelete(row) {
+
+    },
     onSelectChange(selectedRowKeys) {
       console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
     },
+    async getDataList() {
+      this.dataParams.sign = sign(this.dataParams)
+      await queryCookbookList(this.dataParams).then(res => {
+        if (res.code !== 1) {
+          this.$message.error(res.message)
+        } else {
+          this.dataList = res.result.indexList
+        }
+      })
+    },
+    showPic(imgUrl) {
+      this.previewImage = imgUrl
+      this.previewVisible = true
+    }
   }
 }
 </script>
