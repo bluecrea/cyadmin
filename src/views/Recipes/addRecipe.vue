@@ -177,7 +177,7 @@ export default {
   data() {
     return {
       labelCol: { span: 5 },
-      wrapperCol: { span: 10 },
+      wrapperCol: { span: 11 },
       nonce_str: Date.parse(new Date()) / 1000,
       sortList: [],
       ingImg: [],
