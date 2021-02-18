@@ -70,7 +70,7 @@
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
-import {queryCookbookList } from '@/api'
+import { queryCookbookList } from '@/api'
 import { sign } from '@/utils'
 
 const columns = [
@@ -109,11 +109,9 @@ export default {
   },
   data() {
     return {
-      dataParams: {
-        nonce_str: Date.now(),
-        pageNo: 1,
-        pageSize: 20
-      },
+      nonce_str: Date.now(),
+      pageNo: 1,
+      pageSize: 20,
       sortList: [],
       queryParam: {},
       columns,
@@ -124,9 +122,9 @@ export default {
         total: 0, // 总条数
         pageSize: 20, // 默认每页显示数量
         showTotal: total => `共 ${total} 条`, // 显示总数
-        onChange: ((page, pageSize) => {
-          this.dataParams.firstIndex = page
-          this.dataParams.maxResults = pageSize
+        onChange: ((pageNo, pageSize) => {
+          this.pageNo = pageNo
+          this.pageSize = pageSize
           this.getDataList()
         })
       },
@@ -159,12 +157,18 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
     async getDataList() {
-      this.dataParams.sign = sign(this.dataParams)
-      await queryCookbookList(this.dataParams).then(res => {
+      let data = {
+        nonce_str: this.nonce_str,
+        pageNo: this.pageNo,
+        pageSize: this.pageSize
+      }
+      data.sign = sign(data)
+      await queryCookbookList(data).then(res => {
         if (res.code !== 1) {
           this.$message.error(res.message)
         } else {
           this.dataList = res.result.indexList
+          this.pagination.total = 25
         }
       })
     },

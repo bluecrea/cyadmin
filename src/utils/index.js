@@ -12,7 +12,7 @@ export const sign = (params) => {
   }
   content = arr.join('&')
 
-  let urlStr = content.split('&').sort().join('&');
+  let urlStr = content.split('&').sort().join('&')
   let md5String = md5(urlStr + '&key=Wky9F3JmbK')
   return md5String.toUpperCase()
 }
