@@ -168,7 +168,7 @@ export default {
           this.$message.error(res.message)
         } else {
           this.dataList = res.result.indexList
-          this.pagination.total = 25
+          this.pagination.total = res.result.total
         }
       })
     },

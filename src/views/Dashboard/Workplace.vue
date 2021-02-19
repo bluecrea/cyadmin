@@ -9,7 +9,7 @@
               <div class="scorecard-cell">
                 <dl>
                   <dt><a-icon type="team" /> 用户总数</dt>
-                  <dd>1024</dd>
+                  <dd>{{ userTotal }}</dd>
                 </dl>
               </div>
               <div class="scorecard-cell">
@@ -41,6 +41,8 @@
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
+import { sign } from '@/utils'
+import { getUserCount } from '@/api'
 
 export default {
   name: 'workplace',
@@ -49,7 +51,27 @@ export default {
   },
   data() {
     return {
-      activeKey: [1]
+      activeKey: [1],
+      nonceStr: Date.now(),
+      userTotal: 0,
+    }
+  },
+  mounted () {
+    this.getUserTotal()
+  },
+  methods: {
+    async getUserTotal() {
+      let data = {
+        nonceStr: this.nonceStr
+      }
+      data.sign = sign(data)
+      await getUserCount(data).then(res => {
+        if (res.code === 1) {
+          this.userTotal = res.result.total
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   }
 };
