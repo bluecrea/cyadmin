@@ -2,7 +2,11 @@
   <div class="main">
     <div class="login-main">
       <div class="container">
-        <a-form class="user-layout-login" :form="form" @submit="onSubmit">
+        <a-form
+            class="user-layout-login"
+            :model="formState"
+            :rules="rules"
+            @finish="handleFinish">
           <div class="login-box">
             <div class="login-logo">
               <img src="https://preview.pro.antdv.com/assets/logo.b36f7a7f.svg" alt="logo" class="logo">
@@ -21,30 +25,23 @@
                       size="large"
                       type="text"
                       placeholder="请输入用户名/手机号码"
-                      v-decorator="[
-                        'username',
-                        {rules: [{ required: true, message: '用户名不能为空' }], validateTrigger: 'blur'}
-                      ]"
-                  >
-                    <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+                      v-model:value="formState.userName">
+                    <template #prefix>
+                      <user-outlined type="user" />
+                    </template>
+                  </a-input>
+                </a-form-item>
+                <a-form-item name="password">
+                  <a-input size="large" v-model:value="formState.password" type="password" placeholder="请输入密码">
+                    <template #prefix>
+                      <LockOutlined />
+                    </template>
                   </a-input>
                 </a-form-item>
                 <a-form-item>
-                  <a-input-password
-                      size="large"
-                      placeholder="请输入密码"
-                      v-decorator="[
-                        'password',
-                        {rules: [{ required: true, message: '密码不能为空' }], validateTrigger: 'blur'}
-                      ]"
-                  >
-                    <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-                  </a-input-password>
-                </a-form-item>
-                <a-form-item>
                   <!--<a-checkbox v-model:checked="checked" @change="onChange">自动登录</a-checkbox>-->
-                  <router-link :to="{ name: 'Login', params: { user: 'aaa'} }" style="font-size: 14px;float: right;">忘记密码</router-link>
-                  <router-link to="/">短信快捷登录</router-link>
+                  <a style="font-size: 14px;float: right;">忘记密码</a>
+                  <a>短信快捷登录</a>
                 </a-form-item>
               </div>
               <div class="login-footer">
@@ -53,8 +50,7 @@
                       size="large"
                       type="primary"
                       htmlType="submit"
-                      :loading="state.loginBtn"
-                      :disabled="state.loginBtn"
+                      :disabled="formState.userName === '' || formState.password === ''"
                       style="font-size: 15px; width: 95px">登录</a-button>
                 </div>
                 <div class="left">
@@ -68,52 +64,46 @@
     </div>
   </div>
 </template>
-<script>
 
-export default {
-  data() {
-    return {
-      form: this.$form.createForm(this),
-      state: {
-        time: 60,
-        loginBtn: false,
-        loginType: 0,
-        smsSendBtn: false
-      },
-      isLoginError: false,
-      checked: false,
-    }
+<script lang="ts">
+import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
+import { defineComponent, reactive, ref, UnwrapRef } from "vue"
+
+interface FormState {
+  userName: string;
+  password: string;
+}
+
+export default defineComponent({
+  components: {
+    UserOutlined,
+    LockOutlined
   },
-  methods: {
-    onSubmit (e) {
-      e.preventDefault()
-      const {
-        form: { validateFields },
-        state,
-      } = this
 
-      state.loginBtn = true
-      const validateFieldsKey = ['username', 'password']
-      validateFields(validateFieldsKey, { force: true }, (err, values) => {
-        if (!err) {
-          console.log('login form', values)
-          sessionStorage.setItem('userInfo', JSON.stringify(values))
-          state.loginBtn = false
-          this.$router.push({path: '/dashboard/workplace'})
-        } else {
-          setTimeout(() => {
-            state.loginBtn = false
-          }, 600)
-        }
-      })
+  setup() {
+    const isLoginError = ref<boolean>(false)
+    const formState: UnwrapRef<FormState> = reactive({
+      userName: '',
+      password: ''
+    })
+    const rules = {
+      userName: [
+        { required: true, message: '用户名不能为空！', trigger: 'blur' },
+      ],
+      password: [
+        { min: 6, max: 18, message: '密码必须大于6位！', trigger: 'blur' },
+      ]
+    }
+    const handleFinish = (values: FormState) => {
+      if (values) {
+        console.log(formState)
+      }
+    }
+    return {
+      isLoginError,formState, handleFinish, rules
     }
   }
-}
+})
+
+
 </script>
-<style lang="less" scoped>
-.user-layout-login {
-  label {
-    font-size: 14px;
-  }
-}
-</style>
