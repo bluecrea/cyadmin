@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Antd from './core/Ant'
+import '@/router/config'
 import { message } from 'ant-design-vue'
 
 const app = createApp(App)
