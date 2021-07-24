@@ -4,23 +4,18 @@
       <div class="container">
         <a-form
             class="user-layout-login"
+            layout="vertical"
             :model="formState"
             :rules="rules"
             @finish="handleFinish">
           <div class="login-box">
-            <div class="login-logo">
-              <img src="https://preview.pro.antdv.com/assets/logo.b36f7a7f.svg" alt="logo" class="logo">
-              <span class="title">Vue3 + Ant.D</span>
-            </div>
             <div class="login-con">
-              <div class="desc">
-                <h1><span>登录</span></h1>
-              </div>
+              <h3>登录</h3>
               <div class="tips">
                 <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
               </div>
               <div class="form-login">
-                <a-form-item>
+                <a-form-item name="userName" label="用户名或电话号码">
                   <a-input
                       size="large"
                       type="text"
@@ -31,30 +26,36 @@
                     </template>
                   </a-input>
                 </a-form-item>
-                <a-form-item name="password">
-                  <a-input size="large" v-model:value="formState.password" type="password" placeholder="请输入密码">
+                <a-form-item name="password" label="密码">
+                  <a-input
+                      size="large"
+                      v-model:value="formState.password"
+                      type="password"
+                      placeholder="请输入密码">
                     <template #prefix>
                       <LockOutlined />
                     </template>
                   </a-input>
                 </a-form-item>
-                <a-form-item>
-                  <!--<a-checkbox v-model:checked="checked" @change="onChange">自动登录</a-checkbox>-->
-                  <a style="font-size: 14px;float: right;">忘记密码</a>
-                  <a>短信快捷登录</a>
-                </a-form-item>
+                <div class="forget-password">忘记密码</div>
+                <a-button
+                    size="large"
+                    type="primary"
+                    htmlType="submit"
+                    :disabled="formState.userName === '' || formState.password === ''">
+                  登录
+                </a-button>
               </div>
               <div class="login-footer">
-                <div class="right">
-                  <a-button
-                      size="large"
-                      type="primary"
-                      htmlType="submit"
-                      :disabled="formState.userName === '' || formState.password === ''"
-                      style="font-size: 15px; width: 95px">登录</a-button>
-                </div>
-                <div class="left">
-                  <a href="#">创建账号</a>
+                <span>没有账号？</span>
+                <a href="#">创建账号</a>
+              </div>
+            </div>
+            <div class="vertical-separator"/>
+            <div class="login-logo">
+              <div class="qr-code">
+                <div class="qr-code-overlay">
+
                 </div>
               </div>
             </div>
@@ -68,6 +69,8 @@
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
 import { defineComponent, reactive, ref, UnwrapRef } from "vue"
+import { useRouter } from "vue-router"
+import { mapGetters, useStore } from "vuex"
 
 interface FormState {
   userName: string;
@@ -82,28 +85,35 @@ export default defineComponent({
 
   setup() {
     const isLoginError = ref<boolean>(false)
+    const router = useRouter()
     const formState: UnwrapRef<FormState> = reactive({
       userName: '',
       password: ''
     })
     const rules = {
       userName: [
-        { required: true, message: '用户名不能为空！', trigger: 'blur' },
+        { message: '用户名不能为空！', trigger: 'blur' },
       ],
       password: [
         { min: 6, max: 18, message: '密码必须大于6位！', trigger: 'blur' },
       ]
     }
+    const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
-        console.log(formState)
+        store.dispatch('userInfo/setUserInfo', formState)
+        router.push('/')
       }
     }
     return {
       isLoginError,formState, handleFinish, rules
     }
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: 'userInfo/userInfo'
+    })
   }
 })
-
 
 </script>

@@ -1,3 +1,5 @@
+@color-primary: #ff9029;
+
 body {
   background: #fff;
   direction: ltr;
@@ -10,8 +12,11 @@ body, input, textarea, select, button {
   color: #202124;
   font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
 }
-h1 {
+h1, h2, h3 {
   margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: inherit;
 }
 .login-main {
   display: flex;
@@ -19,7 +24,7 @@ h1 {
   min-height: 100vh;
   position: relative;
   box-sizing: border-box;
-  background: #f0f2f5 url('~@/assets/images/background.svg') no-repeat 50%;
+  background: linear-gradient(10deg,#f58229,#e65925 20%,#ef4129 40%,#e31f26 60%,#ed1164 80%,#ec008c);
   background-size: 100%;
   &:before, &:after {
     content: '';
@@ -34,66 +39,44 @@ h1 {
     min-height: 30px;
   }
   .container {
-    width: 450px;
-    border-radius: 8px;
-    border: 1px solid #dadce0;
-    display: block;
-    flex-shrink: 0;
-    margin: 0 auto;
-    transition: .2s;
-    flex-direction: column;
-    max-width: 100%;
-    position: relative;
-    z-index: 2;
-    background: #fff;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    .user-layout-login {
+      background: #36393f;
+      width: 780px;
+      padding: 32px;
+      box-shadow: 0 2px 10px 0 rgba(0,0,0, .2);
+      border-radius: 5px;
+      box-sizing: border-box;
+      transform: scale(1) translateY(0px) translateZ(0px);
+    }
     .login-box {
-      height: auto;
-      min-height: 400px;
-      transition: .2s;
-      flex-grow: 1;
-      overflow: hidden;
-      padding: 48px 40px 36px;
-      .login-logo {
-        height: 24px;
-        line-height: 24px;
-        margin: 0 auto;
-        overflow: visible;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        img.logo {
-          height: 24px;
-          vertical-align: top;
-          margin-right: 10px;
-          border-style: none;
-        }
-        span.title {
-          font-size: 20px;
-          color: #21b3ff;
-          font-family: 'Noto Sans Myanmar UI',arial,sans-serif;
-          font-weight: 600;
-          position: relative;
-        }
-      }
+      flex: 1 1 auto;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      display: flex;
       .login-con {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: flex-start;
         overflow: hidden;
-        padding-left: 40px;
-        padding-right: 40px;
-        margin: auto -40px;
         font-size: 15px;
-        .desc {
-          text-align: center;
-          h1 {
-            color: #202124;
-            padding-bottom: 0;
-            padding-top: 16px;
-            font-family: 'Noto Sans Myanmar UI',arial,sans-serif;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-            margin-bottom: 0;
-            margin-top: 0;
-          }
+        h3 {
+          font-weight: 600;
+          color: #fff;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 8px;
         }
         .tips {
           color: #202124;
@@ -107,39 +90,86 @@ h1 {
         .form-login {
           display: inline-block;
           font-size: 15px;
-          padding: 24px 0 0;
           vertical-align: top;
           white-space: normal;
           width: 100%;
           .ant-col {
             width: 100%;
           }
-        }
-        .login-footer {
-          display: flex;
-          flex-direction: row-reverse;
-          flex-wrap: wrap;
-          width: 100%;
-          min-height: 48px;
-          .left, .right {
-            flex-grow: 1;
+          .ant-form-item-label > label {
+            color: #8e9297;
           }
-          .left {
-            margin-left: -8px;
-            a {
-              letter-spacing: .25px;
-              text-transform: none;
-              transition: background .3s;
-              display: inline-block;
-              font-weight: 500;
-              min-width: 88px;
-              line-height: 1.4286;
-              margin: 8px;
-              max-width: 300px;
+          .ant-input-affix-wrapper {
+            border:1px solid rgba(0,0,0,0.3);
+            background-color: rgba(0,0,0,.3);
+            .ant-input-prefix, .ant-input-suffix {
+              color: #dcddde;
             }
           }
-          .right {
-            text-align: right;
+          .ant-input {
+            border: none;
+            padding-left: 10px;
+            background-color: transparent;
+            color: #dcddde;
+            font-size: 15px;
+          }
+          input::placeholder {
+            opacity: .3;
+          }
+          .forget-password {
+            color: @color-primary;
+            margin-bottom: 10px;
+          }
+          button {
+            width: 100%;
+            min-width: 130px;
+            min-height: 44px;
+          }
+        }
+        .login-footer {
+          color: #72767d;
+          margin-top: 4px;
+          span {
+            font-size: 14px;
+            line-height: 16px;
+          }
+        }
+      }
+      .vertical-separator {
+        margin: 0 32px;
+      }
+      .login-logo {
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        width: 240px;
+        height: 344px;
+        .qr-login {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+          .qr-code {
+            display: flex;
+            width: 170px;
+            height: 170px;
+            position: relative;
+            margin-bottom: 32px;
+            .qr-code-overlay {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              img {
+                width: 50px;
+                height: 50px;
+                display: flex;
+                image-rendering: crisp-edges;
+              }
+            }
           }
         }
       }

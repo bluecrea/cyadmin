@@ -3,13 +3,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/About.vue'),
     meta: { title: '中台管理系统' }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/User/login.vue'),
+    component: () => import('@/views/User/Login.vue'),
     meta: { title: '登录' }
   }
 ]
