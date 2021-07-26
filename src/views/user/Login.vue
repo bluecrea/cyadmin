@@ -12,7 +12,14 @@
             <div class="login-con">
               <h3>登录</h3>
               <div class="tips">
-                <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
+                <a-alert
+                    v-if="isLoginError"
+                    type="error"
+                    showIcon
+                    closable
+                    :after-close="alertClose"
+                    style="margin-bottom: 24px;"
+                    message="账户或密码错误" />
               </div>
               <div class="form-login">
                 <a-form-item name="userName" label="用户名或电话号码">
@@ -52,12 +59,15 @@
               </div>
             </div>
             <div class="vertical-separator"/>
-            <div class="login-logo">
+            <div class="qr-login">
               <div class="qr-code">
+                <img :src="codeUrl" alt="扫我！">
                 <div class="qr-code-overlay">
-
+                  <img src="../../assets/images/logo.png" alt="">
                 </div>
               </div>
+              <h3>通过二维码登录</h3>
+              <p>通过 <span>手机APP</span> 扫描二维码，便可即时登录。</p>
             </div>
           </div>
         </a-form>
@@ -68,9 +78,10 @@
 
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
-import { defineComponent, reactive, ref, UnwrapRef } from "vue"
+import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
 import { useRouter } from "vue-router"
 import { mapGetters, useStore } from "vuex"
+import QRCode from "qrcode"
 
 interface FormState {
   userName: string;
@@ -85,11 +96,15 @@ export default defineComponent({
 
   setup() {
     const isLoginError = ref<boolean>(false)
+    const codeUrl = ref<string>('')
     const router = useRouter()
     const formState: UnwrapRef<FormState> = reactive({
       userName: '',
       password: ''
     })
+    const alertClose = () => {
+      isLoginError.value = false
+    }
     const rules = {
       userName: [
         { message: '用户名不能为空！', trigger: 'blur' },
@@ -105,8 +120,16 @@ export default defineComponent({
         router.push('/')
       }
     }
+    onMounted(async () => {
+      await QRCode.toDataURL('https://www.xiachuyi.com', {errorCorrectionLevel: 'Q', width: 170, margin: 1 },(err,url) => {
+        if (!err) {
+          codeUrl.value = url
+        }
+      })
+    })
+
     return {
-      isLoginError,formState, handleFinish, rules
+      isLoginError,formState, handleFinish, rules, alertClose, codeUrl
     }
   },
   computed: {
