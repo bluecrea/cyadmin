@@ -1,10 +1,12 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { BasicLayout } from '@/core/layouts'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/views/About.vue'),
-    meta: { title: '中台管理系统' }
+    name: 'index',
+    component: BasicLayout,
+    meta: { title: '菜谱管理' }
   },
   {
     path: '/login',

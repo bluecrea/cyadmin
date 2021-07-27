@@ -93,7 +93,6 @@ export default defineComponent({
     UserOutlined,
     LockOutlined
   },
-
   setup() {
     const isLoginError = ref<boolean>(false)
     const codeUrl = ref<string>('')
@@ -110,7 +109,7 @@ export default defineComponent({
         { message: '用户名不能为空！', trigger: 'blur' },
       ],
       password: [
-        { min: 6, max: 18, message: '密码必须大于6位！', trigger: 'blur' },
+        { min: 6, max: 24, message: '密码必须大于6位！', trigger: 'blur' },
       ]
     }
     const store = useStore()
@@ -121,11 +120,15 @@ export default defineComponent({
       }
     }
     onMounted(async () => {
-      await QRCode.toDataURL('https://www.xiachuyi.com', {errorCorrectionLevel: 'Q', width: 170, margin: 1 },(err,url) => {
-        if (!err) {
-          codeUrl.value = url
-        }
-      })
+      await QRCode.toDataURL(
+          'https://www.xiachuyi.com',
+          {errorCorrectionLevel: 'Q', width: 170, margin: 1 },
+          (err,url) => {
+            if (!err) {
+              codeUrl.value = url
+            }
+          }
+      )
     })
 
     return {
