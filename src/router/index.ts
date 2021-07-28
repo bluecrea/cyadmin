@@ -1,12 +1,29 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { BasicLayout } from '@/core/layouts'
+import { BasicLayout, RouteView } from '@/core/layouts'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: '菜谱管理' }
+    redirect: '/dashboard/workplace',
+    meta: { title: '菜谱管理' },
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: RouteView,
+        meta: { title: '监控中心', keepAlive: true },
+        children: [
+          {
+            path: '/dashboard/workplace',
+            name: 'workplace',
+            component: () => import('@/views/Dashboard/Workplace.vue'),
+            meta: { title: '概览', keepAlive: true }
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/login',
