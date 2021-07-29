@@ -1,4 +1,4 @@
-import { Avatar, Button, Form, Alert, Dropdown, Tooltip, Layout, Input, Menu
+import { Avatar, Button, Form, Alert, Dropdown, Tooltip, Input, Menu
 } from 'ant-design-vue'
 
 const ant = {
@@ -8,7 +8,6 @@ const ant = {
         Vue.component(Button.name, Button)
         Vue.component(Input.name, Input)
         Vue.use(Form)
-        Vue.use(Layout)
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)
