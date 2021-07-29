@@ -1,28 +1,33 @@
-const state:any = {
-  userInfo: sessionStorage.getItem('userInfo') || {}
+// 为 store state 声明类型
+export interface State {
+  token?: string
+}
+
+const state:State = {
+  token: localStorage.getItem('access_token') || ''
 }
 
 const getters: any = {
-  userInfo: (state: any) => state.userInfo
+  token: (state: State) => state.token
 }
 
 const mutations = {
-  SET_USERINFO(state: any, userInfo: any) {
-    state.userInfo = userInfo
-    sessionStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+  SET_USERINFO(state: State, userInfo: string) {
+    state.token = userInfo
+    localStorage.setItem('access_token', state.token)
   },
 
-  REMOVE_USER(state:any) {
-    sessionStorage.removeItem('userInfo')
-    state.userInfo = {}
+  REMOVE_USER(state:State) {
+    localStorage.removeItem('access_token')
+    state.token = ''
   }
 }
 
 const actions = {
-  setUserInfo({ commit }: any, userInfo: any) {
+  setUserInfo({ commit }: any, userInfo: string) {
     commit('SET_USERINFO', userInfo)
   },
-  async delUserInfo({commit}:any) {
+  async delUserInfo({commit}: any) {
     commit('REMOVE_USERINFO')
   }
 }

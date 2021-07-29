@@ -6,7 +6,7 @@
           <template #title>
             通知
           </template>
-          <a-icon type="bell" style="font-size: 18px;" />
+<!--          <a-icon type="bell" style="font-size: 18px;" />-->
         </a-tooltip>
       </span>
       <span class="bar-icon">
@@ -14,7 +14,7 @@
           <template #title>
             帮助
           </template>
-          <a-icon type="question-circle" style="font-size: 18px;" />
+<!--          <a-icon type="question-circle" style="font-size: 18px;" />-->
         </a-tooltip>
       </span>
     </div>

@@ -115,7 +115,7 @@ export default defineComponent({
     const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
-        store.dispatch('userInfo/setUserInfo', formState)
+        store.dispatch('userInfo/setUserInfo', JSON.stringify(formState))
         router.push('/')
       }
     }
@@ -137,7 +137,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters({
-      userInfo: 'userInfo/userInfo'
+      accessToken: 'userInfo/token'
     })
   }
 })
