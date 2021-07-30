@@ -89,6 +89,7 @@ interface FormState {
 }
 
 export default defineComponent({
+  name: 'login',
   components: {
     UserOutlined,
     LockOutlined

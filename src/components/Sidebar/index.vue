@@ -15,26 +15,64 @@
       <div class="container">
         <div class="avatar-wrapper">
           <div class="avatar wrapper" style="width: 32px; height: 32px;">
-            <svg width="40" height="32" viewBox="0 0 40 32" class="mask-1l8v16 svg-2V3M55" aria-hidden="true">
-              <mask id="1d2ae3f5-ca4c-4a92-98a9-18e6824c80e2" width="32" height="32">
+            <svg width="40" height="32" viewBox="0 0 40 32" class="mask">
+              <mask id="avatar" width="32" height="32">
                 <circle cx="16" cy="16" r="16" fill="white"></circle>
-                <rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect></mask>
-              <foreignObject x="0" y="0" width="32" height="32" mask="url(#1d2ae3f5-ca4c-4a92-98a9-18e6824c80e2)">
-                <div class="avatarStack-2Dr8S9">
-                  <img src="/assets/6f26ddd1bf59740c536d2274bb834a05.png" alt=" " class="avatar-VxgULZ" aria-hidden="true"></div>
+                <rect color="black" x="20" y="15" width="17" height="17" rx="8" ry="8"></rect>
+              </mask>
+              <foreignObject x="0" y="0" width="32" height="32" mask="url(#avatar)">
+                <div class="avatar-stack">
+                  <img src="../../assets/images/6f26ddd1bf59740c536d2274bb834a05.png" alt=" ">
+                </div>
               </foreignObject>
-              <svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
-                <mask id="d1f5a911-7b2e-43dc-96a1-8fd0a41e784f">
-                  <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
-                  <rect x="12.5" y="10" width="0" height="0" rx="0" ry="0" fill="black"></rect>
-                  <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black" transform="scale(0) translate(13.125 10)" style="transform-origin: 13.125px 10px;"></polygon>
-                  <circle fill="black" cx="12.5" cy="10" r="0"></circle>
-                </mask>
-                <rect fill="hsl(139, calc(var(--saturation-factor, 1) * 47.3%), 43.9%)" width="25" height="15" mask="url(#d1f5a911-7b2e-43dc-96a1-8fd0a41e784f)"></rect>
+              <svg x="21" y="16" width="20" height="20" viewBox="0 0 20 20">
+                <path fill="#8b949e" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM5 8a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zM5.32 9.636a.75.75 0 011.038.175l.007.009c.103.118.22.222.35.31.264.178.683.37 1.285.37.602 0 1.02-.192 1.285-.371.13-.088.247-.192.35-.31l.007-.008a.75.75 0 111.222.87l-.614-.431c.614.43.614.431.613.431v.001l-.001.002-.002.003-.005.007-.014.019a1.984 1.984 0 01-.184.213c-.16.166-.338.316-.53.445-.63.418-1.37.638-2.127.629-.946 0-1.652-.308-2.126-.63a3.32 3.32 0 01-.715-.657l-.014-.02-.005-.006-.002-.003v-.002h-.001l.613-.432-.614.43a.75.75 0 01.183-1.044h.001z"></path>
+<!--                <foreignObject x="0" y="0" width="14" height="15">
+                  <img src="https://discord.com/assets/ece6283544a703f158b497507aae3b62.svg" alt="">
+                </foreignObject>-->
               </svg>
-              <rect x="22" y="22" width="10" height="10" fill="transparent" aria-hidden="true" class="pointerEvents-2zdfdO"></rect>
             </svg>
           </div>
+        </div>
+        <div class="name-tag">
+          <div class="username-container">
+            <span class="title">zzhjsan</span>
+            <svg aria-label="VIP 会员" width="24" height="24" viewBox="0 0 16 16" class="owner-icon icon-svg">
+              <path d="M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <div class="subtext">
+            <div class="hover-roll">
+              <div class="hovered">#3168</div>
+              <div class="default">
+                <span>签名签名签名签名签名签名签名签名签名签名签名</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="setting">
+          <a-tooltip placement="top">
+            <template #title>
+              <span>添加关注</span>
+            </template>
+            <button class="button look-blank">
+              <svg width="20" height="20" viewBox="0 0 16 13">
+                <path fill="currentColor" d="M14 2H16V3H14V5H13V3H11V2H13V0H14V2Z"></path>
+                <path fill="currentColor" d="M6.5 8.00667C7.88 8.00667 9 6.88667 9 5.50667C9 4.12667 7.88 3.00667 6.5 3.00667C5.12 3.00667 4 4.12667 4 5.50667C4 6.88667 5.12 8.00667 6.5 8.00667Z"></path>
+                <path fill="currentColor" d="M6.5 8.34C3.26 8.34 1 9.98666 1 12.34V13.0067H12V12.34C12 9.98 9.74 8.34 6.5 8.34Z"></path>
+              </svg>
+            </button>
+          </a-tooltip>
+          <a-tooltip placement="top">
+            <template #title>
+              <span>用户设置</span>
+            </template>
+            <button class="button look-blank">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19.738 10H22V14H19.739C19.498 14.931 19.1 15.798 18.565 16.564L20 18L18 20L16.565 18.564C15.797 19.099 14.932 19.498 14 19.738V22H10V19.738C9.069 19.498 8.203 19.099 7.436 18.564L6 20L4 18L5.436 16.564C4.901 15.799 4.502 14.932 4.262 14H2V10H4.262C4.502 9.068 4.9 8.202 5.436 7.436L4 6L6 4L7.436 5.436C8.202 4.9 9.068 4.502 10 4.262V2H14V4.261C14.932 4.502 15.797 4.9 16.565 5.435L18 3.999L20 5.999L18.564 7.436C19.099 8.202 19.498 9.069 19.738 10ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"></path>
+              </svg>
+            </button>
+          </a-tooltip>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ export default {
   render() {
     const { $route: { meta }, $store: { getters } } = this
     const inKeep = (
-        <router-view keep-alive />
+        <router-view />
     )
     const notKeep = (
         <router-view />
