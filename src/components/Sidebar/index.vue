@@ -5,9 +5,7 @@
         <div class="search-bar">
           <button>查询</button>
         </div>
-        <div class="scroller-base">
-
-        </div>
+        <Menubar/>
       </div>
     </nav>
     <section class="panels">
@@ -26,10 +24,9 @@
                 </div>
               </foreignObject>
               <svg x="21" y="16" width="20" height="20" viewBox="0 0 20 20">
+<!--                <path fill="#8b949e" fill-rule="evenodd" clip-rule="evenodd" d="M12.2512 2.00309C12.1677 2.00104 12.084 2 12 2C6.477 2 2 6.477 2 12C2 17.522 6.477 22 12 22C17.523 22 22 17.522 22 12C22 11.916 21.999 11.8323 21.9969 11.7488C21.3586 11.9128 20.6895 12 20 12C15.5817 12 12 8.41828 12 4C12 3.31052 12.0872 2.6414 12.2512 2.00309ZM10 8C10 6.896 9.104 6 8 6C6.896 6 6 6.896 6 8C6 9.105 6.896 10 8 10C9.104 10 10 9.105 10 8ZM12 19C15.14 19 18 16.617 18 14V13H6V14C6 16.617 8.86 19 12 19Z"></path>-->
+<!--                <path d="M21 3V0H19V3H16V5H19V8H21V5H24V3H21Z" fill="#8b949e"></path>-->
                 <path fill="#8b949e" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM5 8a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zM5.32 9.636a.75.75 0 011.038.175l.007.009c.103.118.22.222.35.31.264.178.683.37 1.285.37.602 0 1.02-.192 1.285-.371.13-.088.247-.192.35-.31l.007-.008a.75.75 0 111.222.87l-.614-.431c.614.43.614.431.613.431v.001l-.001.002-.002.003-.005.007-.014.019a1.984 1.984 0 01-.184.213c-.16.166-.338.316-.53.445-.63.418-1.37.638-2.127.629-.946 0-1.652-.308-2.126-.63a3.32 3.32 0 01-.715-.657l-.014-.02-.005-.006-.002-.003v-.002h-.001l.613-.432-.614.43a.75.75 0 01.183-1.044h.001z"></path>
-<!--                <foreignObject x="0" y="0" width="14" height="15">
-                  <img src="https://discord.com/assets/ece6283544a703f158b497507aae3b62.svg" alt="">
-                </foreignObject>-->
               </svg>
             </svg>
           </div>
@@ -80,10 +77,12 @@
 </template>
 
 <script lang="ts">
+import Menubar from '../Menu/index.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Sidebar',
+  components: { Menubar },
   props: {
     collapsed: Boolean
   }
