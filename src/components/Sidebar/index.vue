@@ -83,8 +83,5 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Sidebar',
   components: { Menubar },
-  props: {
-    collapsed: Boolean
-  }
 })
 </script>

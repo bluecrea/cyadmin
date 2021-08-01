@@ -520,13 +520,13 @@ svg:not(:root) {
             border-radius: 50%;
             color: #faa61a;
             transition: color .2s ease-out,background-color .2s ease-out,border-radius .15s ease-out;
-            &:hover {
-              background-color: #faa61a;
-              color: #fff;
-              border-radius: 37%;
-              transition: border-radius .15s ease-out;
-            }
           }
+        }
+        &.active .list-item-wrapper .circle-icon, .list-item-wrapper .circle-icon:hover {
+          background-color: #faa61a;
+          color: #fff;
+          border-radius: 37%;
+          transition: border-radius .15s ease-out;
         }
         .guild-separator {
           height: 2px;
