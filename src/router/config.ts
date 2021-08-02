@@ -9,6 +9,15 @@ router.beforeEach((to,form,next) => {
   if (to.path !== '/login' && store.getters['userInfo/token'] === '') {
     next({ name: 'login'})
   } else {
+    const toDepth: number = to.path.split('/').length
+    const formDepth: number = form.path.split('/').length
+    const isPush = toDepth > formDepth || to.path === store.getters['routeKeep/pushPath']
+    if (to.meta.keepAlive) {
+      store.dispatch('routeKeep/addInclude', to.name)
+    }
+    if (form.meta.keepAlive && !isPush) {
+      store.dispatch('routeKeep/delIncludes', form.name)
+    }
     next()
   }
 })

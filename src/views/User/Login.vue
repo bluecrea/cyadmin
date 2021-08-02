@@ -135,11 +135,6 @@ export default defineComponent({
     return {
       isLoginError,formState, handleFinish, rules, alertClose, codeUrl
     }
-  },
-  computed: {
-    ...mapGetters({
-      accessToken: 'userInfo/token'
-    })
   }
 })
 

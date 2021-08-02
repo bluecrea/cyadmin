@@ -9,7 +9,11 @@
           <div class="page-wrapper">
             <main class="scroller-base page-scroller">
               <div class="main-wrapper">
-                <router-view/>
+                <router-view v-slot="{ Component }">
+                  <keep-alive :include="include">
+                    <component :is="Component" />
+                  </keep-alive>
+                </router-view>
               </div>
             </main>
             <footer>123123</footer>
@@ -24,14 +28,17 @@
 import NavBar from '@/components/NavBar/index.vue'
 import Sidebar from '@/components/Sidebar/index.vue'
 import HeaderBar from '@/components/Header/index.vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'BasicLayout',
   components: { NavBar, Sidebar, HeaderBar },
   setup() {
+    const store = useStore()
+    const include = store.getters['routeKeep/include']
     return {
-      collapsed: ref<boolean>(false)
+      include
     }
   }
 })
