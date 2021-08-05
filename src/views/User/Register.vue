@@ -1,12 +1,27 @@
 <template>
   <a-form
-      class="user-layout-login"
+      class="user-layout-register"
       layout="vertical"
       :model="formState"
       :rules="rules"
       @finish="handleFinish">
-    <div class="login-box">
-      <router-link to="/login">注册</router-link>
+    <div class="reg-box">
+      <div class="reg-con">
+        <h3>创建账号</h3>
+        <div class="form-login">
+          <a-form-item name="phoneNumber" label="手机号码">
+            <a-input
+                size="large"
+                type="text"
+                placeholder="请输入用户名/手机号码"
+                v-model:value="formState.phoneNumber">
+              <template #prefix>
+                <user-outlined type="user" />
+              </template>
+            </a-input>
+          </a-form-item>
+        </div>
+      </div>
     </div>
   </a-form>
 </template>
@@ -17,7 +32,7 @@ import { useRouter } from "vue-router"
 import { useStore } from "vuex"
 
 interface FormState {
-  userName: string;
+  phoneNumber: string;
   password: string;
 }
 
@@ -28,14 +43,14 @@ export default defineComponent({
     const codeUrl = ref<string>('')
     const router = useRouter()
     const formState: UnwrapRef<FormState> = reactive({
-      userName: '',
+      phoneNumber: '',
       password: ''
     })
     const alertClose = () => {
       isLoginError.value = false
     }
     const rules = {
-      userName: [
+      phoneNumber: [
         { message: '用户名不能为空！', trigger: 'blur' },
       ],
       password: [

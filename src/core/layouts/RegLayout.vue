@@ -19,7 +19,7 @@
 }
 @keyframes bounce-in {
   0% {
-    transform: scale(1.05) translateY(-70px);
+    transform: scale(1.1) translateY(-75px);
     opacity: 0;
   }
   100% {

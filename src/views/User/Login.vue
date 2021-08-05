@@ -5,8 +5,8 @@
       :model="formState"
       :rules="rules"
       @finish="handleFinish">
-    <div class="login-box">
-      <div class="login-con">
+    <div class="reg-box">
+      <div class="reg-con">
         <h3>登录</h3>
         <div class="tips">
           <a-alert
