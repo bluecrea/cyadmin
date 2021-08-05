@@ -1,3 +1,4 @@
 import BasicLayout from "./BasicLayout.vue";
+import RegLayout from "./RegLayout.vue";
 
-export { BasicLayout }
+export { BasicLayout, RegLayout }

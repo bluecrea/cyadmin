@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { BasicLayout } from '@/core/layouts'
+import { BasicLayout, RegLayout } from '@/core/layouts'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,9 +19,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/User/Login.vue'),
-    meta: { title: '登录', keepAlive: false }
-  }
+    component: RegLayout,
+    children: [
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/User/Login.vue'),
+        meta: { title: '登录' },
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: () => import('@/views/User/Register.vue'),
+        meta: { title: '注册' }
+      }
+    ]
+  },
 ]
 
 const router = createRouter({

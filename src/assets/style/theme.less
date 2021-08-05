@@ -251,11 +251,11 @@ svg:not(:root) {
 .clickable {
   cursor: pointer;
 }
-.login-main {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.reg-wrap {
   position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: auto;
   box-sizing: border-box;
   background: linear-gradient(10deg, #f58229, #e65925 20%, #ef4129 40%, #e31f26 60%, #ed1164 80%,#ec008c);
   background-size: 100%;
@@ -271,7 +271,7 @@ svg:not(:root) {
   &:before {
     min-height: 30px;
   }
-  .container {
+  .reg-container {
     position: absolute;
     top:0;
     left: 0;
