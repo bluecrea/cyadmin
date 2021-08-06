@@ -1,5 +1,10 @@
 <template>
   <div class="reg-wrap">
+    <div>
+      <div class="signup-bg-stars"/>
+      <div class="signup-bg-stars-2"/>
+      <div class="signup-bg-stars-3"/>
+    </div>
     <div class="reg-container">
       <router-view v-slot="{ Component }">
         <transition name="bounce" mode="out-in">
