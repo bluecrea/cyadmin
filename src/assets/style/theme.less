@@ -324,7 +324,7 @@ svg:not(:root) {
     }
     .user-layout-register {
       width: 480px;
-      .reg-box .reg-con {
+      .reg-box .reg-con h3 {
         text-align: center;
       }
     }
@@ -344,8 +344,13 @@ svg:not(:root) {
           font-weight: 400;
           letter-spacing: .1px;
           line-height: 1.5;
-          padding-bottom: 0;
-          padding-top: 8px;
+          padding-bottom: 8px;
+          .ant-alert {
+            align-items: center;
+            .ant-alert-content {
+              text-align: left;
+            }
+          }
         }
         .form-login {
           display: inline-block;
@@ -380,6 +385,10 @@ svg:not(:root) {
             color: var(--text-normal);
             font-size: 15px;
           }
+          .code-input .ant-input-affix-wrapper {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
           //input::placeholder {
           //  opacity: .3;
           //}
@@ -387,10 +396,11 @@ svg:not(:root) {
             color: @color-primary;
             margin-bottom: 10px;
           }
-          button {
+          button.reg-btn {
             width: 100%;
             min-width: 130px;
             min-height: 44px;
+            font-size: 16px;
           }
         }
         .login-footer {
@@ -441,12 +451,13 @@ svg:not(:root) {
         h3 {
           font-weight: 600;
           font-size: 24px;
-          color: #fff;
+          font-family: var(--font-display);
+          color: var(--header-primary);
           line-height: 30px;
           margin-bottom: 8px;
         }
         p {
-          color: #b9bbbe;
+          color: var(--header-secondary);
           font-size: 16px;
           line-height: 20px;
           span {

@@ -43,7 +43,7 @@
           </a-form-item>
           <div class="forget-password">忘记密码</div>
           <a-button
-              size="large"
+              class="reg-btn"
               type="primary"
               htmlType="submit"
               :disabled="formState.userName === '' || formState.password === ''">
@@ -74,7 +74,7 @@
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
 import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
 import { useRouter } from "vue-router"
-import { mapGetters, useStore } from "vuex"
+import { useStore } from "vuex"
 import QRCode from "qrcode"
 
 interface FormState {
@@ -104,7 +104,7 @@ export default defineComponent({
         { message: '用户名不能为空！', trigger: 'blur' },
       ],
       password: [
-        { min: 6, max: 24, message: '密码必须大于6位！', trigger: 'blur' },
+        { min: 8, max: 24, message: '密码必须大于8位！', trigger: 'blur' },
       ]
     }
     const store = useStore()

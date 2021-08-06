@@ -6,7 +6,7 @@ const ant = {
     install(Vue: any) {
         Vue.component(Avatar.name, Avatar)
         Vue.component(Button.name, Button)
-        Vue.component(Input.name, Input)
+        Vue.use(Input)
         Vue.use(Form)
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
