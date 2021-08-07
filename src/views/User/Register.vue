@@ -73,7 +73,10 @@
                 <SafetyOutlined />
               </template>
               <template #addonAfter>
-                <a-button class="get-code" type="text" style="min-width: 160px;">获取验证码</a-button>
+                <a-button class="get-code" :disabled="formState.phoneNumber.length !== 11 && codeDisable" type="text" style="min-width: 160px;" @click="sendCode">
+                  <span v-if="codeDisable">获取验证码</span>
+                  <span v-if="!codeDisable">{{countdown}} 秒后重新获取</span>
+                </a-button>
               </template>
             </a-input>
           </a-form-item>
@@ -90,13 +93,14 @@
 <script lang="ts">
 import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
 import { MobileOutlined, IdcardOutlined, LockOutlined, SafetyOutlined,FrownOutlined } from '@ant-design/icons-vue'
-import { RuleObject, ValidateErrorEntity } from "ant-design-vue/es/form/interface";
+import { RuleObject, ValidateErrorEntity } from "ant-design-vue/es/form/interface"
+import { getSMSCode } from "@/utils/api"
 
 interface FormState {
   phoneNumber: string,
   userName: string,
   password: string,
-  smsCode:'',
+  smsCode:''
 }
 
 export default defineComponent({
@@ -104,6 +108,8 @@ export default defineComponent({
   setup() {
     const resultErr = ref<boolean>(false)
     const resErrMsg = ref<string>('')
+    const codeDisable = ref<boolean>(true)
+    const countdown = ref<number|null>(null)
     const closeAlertErr = () => {
       resultErr.value = false;
     };
@@ -113,6 +119,19 @@ export default defineComponent({
       password: '',
       smsCode: ''
     })
+
+    const sendCode = () => {
+      const nonceStr: number = Date.parse(Date()) / 1000
+      const data = {
+        phone_numbers: formState.phoneNumber,
+        nonce_str: nonceStr.toString(),
+        sign: ''
+      }
+      getSMSCode(data).then(res => {
+        console.log(res)
+      })
+    }
+
     let phoneNotNull = async (rule: RuleObject, value: string) => {
       if (value === '') {
         return Promise.reject('请输入手机号码')
@@ -160,7 +179,16 @@ export default defineComponent({
       console.warn(errors);
     }
     return {
-      formState, registerFinish, handleFinishFailed, rules, resultErr, resErrMsg, closeAlertErr
+      formState,
+      registerFinish,
+      handleFinishFailed,
+      rules,
+      resultErr,
+      resErrMsg,
+      closeAlertErr,
+      sendCode,
+      codeDisable,
+      countdown
     }
   },
   components: {
