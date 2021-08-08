@@ -9,6 +9,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
   const systemScheme = e.matches ? "dark" : "light"
   htmlClass.className = `theme-${systemScheme}`
 })
+/*if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  // dark mode
+}*/
 </script>
 
 <style lang="less">
