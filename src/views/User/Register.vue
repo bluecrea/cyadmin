@@ -127,7 +127,7 @@ export default defineComponent({
         nonceStr: nonceStr.toString(),
         sign: ''
       }
-      getSMSCode(data).then(res => {
+      getSMSCode(data).then((res: any) => {
         console.log(res)
       })
     }

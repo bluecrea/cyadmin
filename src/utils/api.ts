@@ -1,4 +1,5 @@
 import request from "./request"
+import {AxiosPromise} from "axios";
 
 type SendSMS = {
 	phoneNumbers?: string,
@@ -19,17 +20,19 @@ const userApi = {
 	UserInfo: '/user/info'
 }
 
-export const getSMSCode = (data: SendSMS) => request({
+
+export const getSMSCode = (data: SendSMS): AxiosPromise => request({
 	url: userApi.SendSms,
 	data: data
 })
 
-export const login = (data: UserInfo ) => request({
-	url: userApi.SendSms,
-	data: data
+export const login = (data: UserInfo ): AxiosPromise => request({
+	url: userApi.Login,
+	data: data,
+	method: 'post'
 })
 
-export const getInfo = () => request({
+export const getInfo = (): AxiosPromise => request({
 	url: userApi.UserInfo,
 	method: 'get',
 	headers: {

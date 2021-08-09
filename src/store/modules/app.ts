@@ -1,15 +1,10 @@
 import storage from 'store'
-import { login, getInfo } from "@/utils/api"
+import { getInfo } from "@/utils/api"
 
 export interface AppState {
 	theme: string,
 	token: string,
 	info: Record<string, unknown>
-}
-type UserInfo = {
-	username?: string,
-	password: string,
-	phoneNumber: string
 }
 
 
@@ -40,20 +35,10 @@ const mutations = {
 
 const actions = {
 	// 登录
-	Login({ commit }: any, userInfo: UserInfo) {
-		console.log(11111)
-		return new Promise<object | void>((resolve, reject) => {
-			login(userInfo).then(response => {
-				console.log(2222)
-				/*const result = response.data.result
-				storage.set('Access-Token', result.token)
-				storage.set('theme', result.theme)
-				commit('SET_TOKEN', result.token)
-				resolve()*/
-			}).catch(error => {
-				reject(error)
-			})
-		})
+	setLogin({ commit }: any, info: Record<string, unknown>) {
+		storage.set('Access-Token', info.token)
+		storage.set('theme', info.theme)
+		commit('SET_TOKEN', info.token)
 	},
 	// 获取用户信息
 	async getInfo ({ commit }: any) {

@@ -73,9 +73,9 @@
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
 import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
-//import { useRouter } from "vue-router"
-import { mapActions } from "vuex"
 import QRCode from "qrcode"
+import { login } from '@/utils/api'
+import store from "@/store";
 
 interface FormState {
   username: string;
@@ -91,7 +91,6 @@ export default defineComponent({
   setup() {
     const isLoginError = ref<boolean>(false)
     const codeUrl = ref<string>('')
-    const Login = mapActions({ Login: 'app/Login'})
     const formState: UnwrapRef<FormState> = reactive({
       username: '',
       password: ''
@@ -110,8 +109,9 @@ export default defineComponent({
     //const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
-        Login(formState).then((res: any) => {
+        login(values).then(res => {
           console.log(res)
+          store.dispatch('app/setLogin', res)
         })
       }
     }
