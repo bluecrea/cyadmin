@@ -98,9 +98,9 @@ import { getSMSCode } from "@/utils/api"
 
 interface FormState {
   phoneNumber: string,
-  userName: string,
+  username: string,
   password: string,
-  smsCode:''
+  smsCode: string
 }
 
 export default defineComponent({
@@ -115,7 +115,7 @@ export default defineComponent({
     };
     const formState: UnwrapRef<FormState> = reactive({
       phoneNumber: '',
-      userName: '',
+      username: '',
       password: '',
       smsCode: ''
     })
@@ -123,8 +123,8 @@ export default defineComponent({
     const sendCode = () => {
       const nonceStr: number = Date.parse(Date()) / 1000
       const data = {
-        phone_numbers: formState.phoneNumber,
-        nonce_str: nonceStr.toString(),
+        phoneNumbers: formState.phoneNumber,
+        nonceStr: nonceStr.toString(),
         sign: ''
       }
       getSMSCode(data).then(res => {

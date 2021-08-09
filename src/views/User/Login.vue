@@ -19,12 +19,12 @@
               message="账户或密码错误" />
         </div>
         <div class="form-login">
-          <a-form-item name="userName" label="用户名或电话号码">
+          <a-form-item name="username" label="用户名或电话号码">
             <a-input
                 size="large"
                 type="text"
                 placeholder="请输入用户名/手机号码"
-                v-model:value="formState.userName">
+                v-model:value="formState.username">
               <template #prefix>
                 <user-outlined type="user" />
               </template>
@@ -46,7 +46,7 @@
               class="reg-btn"
               type="primary"
               htmlType="submit"
-              :disabled="formState.userName === '' || formState.password === ''">
+              :disabled="formState.username === '' || formState.password === ''">
             登录
           </a-button>
         </div>
@@ -73,12 +73,12 @@
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
 import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
-import { useRouter } from "vue-router"
-import { useStore } from "vuex"
+//import { useRouter } from "vue-router"
+import { mapActions } from "vuex"
 import QRCode from "qrcode"
 
 interface FormState {
-  userName: string;
+  username: string;
   password: string;
 }
 
@@ -91,27 +91,28 @@ export default defineComponent({
   setup() {
     const isLoginError = ref<boolean>(false)
     const codeUrl = ref<string>('')
-    const router = useRouter()
+    const Login = mapActions({ Login: 'app/Login'})
     const formState: UnwrapRef<FormState> = reactive({
-      userName: '',
+      username: '',
       password: ''
     })
     const alertClose = () => {
       isLoginError.value = false
     }
     const rules = {
-      userName: [
+      username: [
         { message: '用户名不能为空！', trigger: 'blur' },
       ],
       password: [
         { min: 8, max: 24, message: '密码必须大于8位！', trigger: 'blur' },
       ]
     }
-    const store = useStore()
+    //const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
-        store.dispatch('userInfo/setUserInfo', JSON.stringify(formState))
-        router.push('/')
+        Login(formState).then((res: any) => {
+          console.log(res)
+        })
       }
     }
     onMounted(async () => {
