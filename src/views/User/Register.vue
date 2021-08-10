@@ -95,12 +95,14 @@ import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
 import { MobileOutlined, IdcardOutlined, LockOutlined, SafetyOutlined,FrownOutlined } from '@ant-design/icons-vue'
 import { RuleObject, ValidateErrorEntity } from "ant-design-vue/es/form/interface"
 import { getSMSCode } from "@/utils/api"
+import { signStr } from '@/utils/sign'
 
 interface FormState {
   phoneNumber: string,
   username: string,
   password: string,
-  smsCode: string
+  smsCode: string,
+  gender: number
 }
 
 export default defineComponent({
@@ -117,16 +119,18 @@ export default defineComponent({
       phoneNumber: '',
       username: '',
       password: '',
-      smsCode: ''
+      smsCode: '',
+      gender: 0, //0.未知 1.男 2.女
     })
 
     const sendCode = () => {
       const nonceStr: number = Date.parse(Date()) / 1000
       const data = {
-        phoneNumbers: formState.phoneNumber,
+        phoneNumber: formState.phoneNumber,
         nonceStr: nonceStr.toString(),
         sign: ''
       }
+      data.sign = signStr(data)
       getSMSCode(data).then((res: any) => {
         console.log(res)
       })
