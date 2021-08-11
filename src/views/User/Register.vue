@@ -36,13 +36,13 @@
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item name="userName" label="用户名">
+          <a-form-item name="username" label="用户名">
             <a-input
               size="large"
               type="text"
               :maxlength="16"
               placeholder="用户名可用于登录"
-              v-model:value="formState.userName">
+              v-model:value="formState.username">
               <template #prefix>
                 <IdcardOutlined />
               </template>
@@ -132,7 +132,9 @@ export default defineComponent({
       }
       data.sign = signStr(data)
       getSMSCode(data).then((res: any) => {
-        console.log(res)
+        if (res.code === 200) {
+          console.log(res.result)
+        }
       })
     }
 
@@ -148,7 +150,7 @@ export default defineComponent({
         return Promise.reject('手机验证码为6位数')
       }
     }
-    let userName = async (rule: RuleObject, value: string) => {
+    let username = async (rule: RuleObject, value: string) => {
       if (value === '') {
         return Promise.reject('请输入用户名(账号)')
       }
@@ -166,8 +168,8 @@ export default defineComponent({
         { validator: phoneNotNull, trigger: 'blur' },
         { message: '请输入正确的手机号码！',pattern: /^1[3456789]\d{9}$/, trigger: 'blur', min: 11, max: 11 }
       ],
-      userName: [
-        { validator: userName, trigger: 'blur' },
+      username: [
+        { validator: username, trigger: 'blur' },
         { message: '用户名为5~16位字母、数字或下划线组成', pattern:/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/, trigger: 'blur' },
       ],
       password: [{ validator: password, trigger: 'change' }],
@@ -175,8 +177,9 @@ export default defineComponent({
     }
     const registerFinish = (values: FormState) => {
       if (values) {
-        resultErr.value = true
-        resErrMsg.value = '用户已经存在'
+        /*resultErr.value = true
+        resErrMsg.value = '用户已经存在'*/
+        console.log(values)
       }
     }
     const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {

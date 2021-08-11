@@ -12,6 +12,14 @@ interface UserInfo {
 	username?: string
 }
 
+type Register = {
+	phoneNumber: string,
+	username: string,
+	password: string,
+	smsCode: string,
+	gender: number
+}
+
 const userApi = {
 	Login: '/auth/login',
 	Logout: '/auth/logout',
@@ -30,6 +38,11 @@ export const login = (data: UserInfo ): AxiosPromise => request({
 	url: userApi.Login,
 	data: data,
 	method: 'post'
+})
+
+export const register = (data: Register): AxiosPromise => request({
+	url: userApi.Register,
+	data: data,
 })
 
 export const getInfo = (): AxiosPromise => request({
