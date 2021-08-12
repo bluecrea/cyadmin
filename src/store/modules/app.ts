@@ -23,6 +23,7 @@ const getters: any = {
 const mutations = {
 	SET_TOKEN: (state: AppState, token: string) => {
 		state.token = token
+		storage.set('Access-Token', token)
 	},
 	SET_THEME: (state: AppState, theme: string) => {
 		state.theme = theme
@@ -36,8 +37,6 @@ const mutations = {
 const actions = {
 	// 登录
 	setLogin({ commit }: any, info: Record<string, unknown>) {
-		storage.set('Access-Token', info.token)
-		storage.set('theme', info.theme)
 		commit('SET_TOKEN', info.token)
 		commit('SET_THEME', info.theme)
 	},

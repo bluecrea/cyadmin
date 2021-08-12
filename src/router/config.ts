@@ -4,18 +4,17 @@ import store from '@/store'
 import storage from 'store'
 import '@/components/NProgress/nprogress.less'
 
-const token = storage.get('Access-Token')
-
 router.beforeEach((to,form,next) => {
   document.title = to.meta.title + ''
   const whiteList = ['/login', '/register']
+  const token = storage.get('Access-Token')
   NProgress.start()
   if (whiteList.indexOf(to.path) !== -1) {
     if (token) {
       next({ path: '/' })
-    } else {
-      next()
+      return
     }
+    next()
   } else {
     if (token) {
       next()

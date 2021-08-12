@@ -72,10 +72,11 @@
 
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
-import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
+import {defineComponent, nextTick, onMounted, reactive, ref, UnwrapRef} from "vue"
 import QRCode from "qrcode"
 import { login } from '@/utils/api'
 import store from "@/store"
+import { useRouter } from "vue-router"
 
 interface FormState {
   username: string;
@@ -91,6 +92,7 @@ export default defineComponent({
   setup() {
     const isLoginError = ref<boolean>(false)
     const codeUrl = ref<string>('')
+    const router = useRouter()
     const formState: UnwrapRef<FormState> = reactive({
       username: '',
       password: ''
@@ -114,7 +116,7 @@ export default defineComponent({
             isLoginError.value = res.message
           } else {
             store.dispatch('app/setLogin', res.result)
-
+            router.push( '/')
           }
         })
       }

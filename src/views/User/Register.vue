@@ -95,6 +95,7 @@ import { MobileOutlined, IdcardOutlined, LockOutlined, SafetyOutlined,FrownOutli
 import { RuleObject } from "ant-design-vue/es/form/interface"
 import { getSMSCode, register } from "@/utils/api"
 import { signStr } from '@/utils/sign'
+import { useRouter } from 'vue-router'
 
 interface FormState {
   phoneNumber: string,
@@ -110,6 +111,7 @@ export default defineComponent({
     const resErrMsg = ref<string>('')
     const codeDisable = ref<boolean>(true)
     let countdown = ref<number>(60)
+    const router = useRouter()
     const closeAlertErr = () => {
       resultErr.value = false
     }
@@ -193,7 +195,7 @@ export default defineComponent({
             resErrMsg.value = res.message
           } else {
             resultErr.value = false
-            console.log('注册成功！')
+            router.push({path: '/'})
           }
         })
       }
