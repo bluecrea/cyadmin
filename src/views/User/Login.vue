@@ -75,7 +75,7 @@ import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
 import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
 import QRCode from "qrcode"
 import { login } from '@/utils/api'
-import store from "@/store";
+import store from "@/store"
 
 interface FormState {
   username: string;
@@ -106,7 +106,6 @@ export default defineComponent({
         { min: 8, max: 24, message: '密码必须大于8位！', trigger: 'blur' },
       ]
     }
-    //const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
         login(values).then((res: any) => {
@@ -115,6 +114,7 @@ export default defineComponent({
             isLoginError.value = res.message
           } else {
             store.dispatch('app/setLogin', res.result)
+
           }
         })
       }
