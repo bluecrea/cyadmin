@@ -39,6 +39,7 @@ const actions = {
 		storage.set('Access-Token', info.token)
 		storage.set('theme', info.theme)
 		commit('SET_TOKEN', info.token)
+		commit('SET_THEME', info.theme)
 	},
 	// 获取用户信息
 	async getInfo ({ commit }: any) {
@@ -51,8 +52,9 @@ const actions = {
 	},
 	Logout ( { commit}: any) {
 		commit('SET_TOKEN', '')
-		commit('SET_ROLES', [])
+		commit('SET_THEME', '')
 		storage.remove('Access-Token')
+		storage.remove('theme')
 	}
 }
 

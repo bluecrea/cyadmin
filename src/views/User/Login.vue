@@ -109,9 +109,13 @@ export default defineComponent({
     //const store = useStore()
     const handleFinish = (values: FormState) => {
       if (values) {
-        login(values).then(res => {
-          console.log(res)
-          store.dispatch('app/setLogin', res)
+        login(values).then((res: any) => {
+          if (res.code !== 0) {
+            isLoginError.value = true
+            isLoginError.value = res.message
+          } else {
+            store.dispatch('app/setLogin', res.result)
+          }
         })
       }
     }

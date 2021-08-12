@@ -16,8 +16,7 @@ type Register = {
 	phoneNumber: string,
 	username: string,
 	password: string,
-	smsCode: string,
-	gender: number
+	smsCode: string
 }
 
 const userApi = {

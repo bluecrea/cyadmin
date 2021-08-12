@@ -302,6 +302,81 @@ svg:not(:root) {
   .signup-bg-stars,.signup-bg-stars-2,.signup-bg-stars-3{animation:none}
 }
 
+.ant-col {
+  width: 100%;
+}
+.form-login {
+  .ant-form-item-label > label {
+    color: var(--channels-default);
+  }
+  .ant-input-affix-wrapper {
+    background-color: var(--deprecated-text-input-bg);
+    border: 1px solid var(--deprecated-text-input-border);
+    transition: border-color .2s ease-in-out;
+    //&:hover {
+    //  border-color: var(--deprecated-text-input-border-hover);
+    //}
+    .ant-input-prefix, .ant-input-suffix {
+      color: var(--deprecated-text-input-prefix);
+    }
+  }
+  .ant-input-affix-wrapper-focused {
+    box-shadow: none;
+    border-color: @color-primary;
+  }
+  .ant-input {
+    padding-left: 10px;
+    background-color: transparent;
+    color: var(--text-normal);
+    font-size: 15px;
+  }
+  .code-input .ant-input-affix-wrapper {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .ant-select {
+    &:not(.ant-select-customize-input) .ant-select-selector {
+      -webkit-box-align: center;
+      align-items: center;
+      background-color: var(--deprecated-text-input-bg);
+      border: 1px solid var(--deprecated-text-input-border);
+      border-radius: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      min-height: 40px;
+      position: relative;
+      transition: border 0.15s ease 0s;
+      box-sizing: border-box;
+      outline: 0px !important;
+    }
+    .ant-select-arrow {
+      align-items: flex-start;
+      align-self: stretch;
+      display: flex;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+    .ant-select-arrow .anticon {
+      color: rgb(185, 187, 190);
+      display: flex;
+      transition: color 150ms ease 0s;
+      box-sizing: border-box;
+      cursor: pointer;
+      opacity: 1;
+      & > svg {
+        display: inline-block;
+        fill: currentcolor;
+        line-height: 1;
+        stroke: currentcolor;
+        stroke-width: 0;
+        transform: scale(1.6);
+      }
+    }
+  }
+}
+
 .reg-wrap {
   position: relative;
   box-sizing: border-box;
@@ -394,40 +469,6 @@ svg:not(:root) {
             vertical-align: top;
             white-space: normal;
             width: 100%;
-            .ant-col {
-              width: 100%;
-            }
-            .ant-form-item-label > label {
-              color: var(--channels-default);
-            }
-            .ant-input-affix-wrapper {
-              background-color: var(--deprecated-text-input-bg);
-              border: 1px solid var(--deprecated-text-input-border);
-              transition: border-color .2s ease-in-out;
-              //&:hover {
-              //  border-color: var(--deprecated-text-input-border-hover);
-              //}
-              .ant-input-prefix, .ant-input-suffix {
-                color: var(--deprecated-text-input-prefix);
-              }
-            }
-            .ant-input-affix-wrapper-focused {
-              box-shadow: none;
-              border-color: @color-primary;
-            }
-            .ant-input {
-              padding-left: 10px;
-              background-color: transparent;
-              color: var(--text-normal);
-              font-size: 15px;
-            }
-            .code-input .ant-input-affix-wrapper {
-              border-top-right-radius: 0;
-              border-bottom-right-radius: 0;
-            }
-            //input::placeholder {
-            //  opacity: .3;
-            //}
             .forget-password {
               color: @color-primary;
               margin-bottom: 10px;

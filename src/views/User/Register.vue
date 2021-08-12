@@ -4,8 +4,7 @@
       layout="vertical"
       :rules="rules"
       :model="formState"
-      @finish="registerFinish"
-      @finishFailed="handleFinishFailed">
+      @finish="registerFinish">
     <div class="reg-box">
       <div class="reg-con">
         <h3>创建账号</h3>
@@ -73,7 +72,7 @@
                 <SafetyOutlined />
               </template>
               <template #addonAfter>
-                <a-button class="get-code" :disabled="formState.phoneNumber.length !== 11 && codeDisable" type="text" style="min-width: 160px;" @click="sendCode">
+                <a-button class="get-code" :disabled="formState.phoneNumber.length !== 11 || !codeDisable" type="text" style="min-width: 160px;" @click="sendCode">
                   <span v-if="codeDisable">获取验证码</span>
                   <span v-if="!codeDisable">{{countdown}} 秒后重新获取</span>
                 </a-button>
@@ -93,16 +92,15 @@
 <script lang="ts">
 import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
 import { MobileOutlined, IdcardOutlined, LockOutlined, SafetyOutlined,FrownOutlined } from '@ant-design/icons-vue'
-import { RuleObject, ValidateErrorEntity } from "ant-design-vue/es/form/interface"
-import { getSMSCode } from "@/utils/api"
+import { RuleObject } from "ant-design-vue/es/form/interface"
+import { getSMSCode, register } from "@/utils/api"
 import { signStr } from '@/utils/sign'
 
 interface FormState {
   phoneNumber: string,
   username: string,
   password: string,
-  smsCode: string,
-  gender: number
+  smsCode: string
 }
 
 export default defineComponent({
@@ -111,33 +109,17 @@ export default defineComponent({
     const resultErr = ref<boolean>(false)
     const resErrMsg = ref<string>('')
     const codeDisable = ref<boolean>(true)
-    const countdown = ref<number|null>(null)
+    let countdown = ref<number>(60)
     const closeAlertErr = () => {
-      resultErr.value = false;
-    };
+      resultErr.value = false
+    }
+
     const formState: UnwrapRef<FormState> = reactive({
       phoneNumber: '',
       username: '',
       password: '',
-      smsCode: '',
-      gender: 0, //0.未知 1.男 2.女
+      smsCode: ''
     })
-
-    const sendCode = () => {
-      const nonceStr: number = Date.parse(Date()) / 1000
-      const data = {
-        phoneNumber: formState.phoneNumber,
-        nonceStr: nonceStr.toString(),
-        sign: ''
-      }
-      data.sign = signStr(data)
-      getSMSCode(data).then((res: any) => {
-        if (res.code === 200) {
-          console.log(res.result)
-        }
-      })
-    }
-
     let phoneNotNull = async (rule: RuleObject, value: string) => {
       if (value === '') {
         return Promise.reject('请输入手机号码')
@@ -175,20 +157,50 @@ export default defineComponent({
       password: [{ validator: password, trigger: 'change' }],
       smsCode: [{ validator: smsCode, trigger: 'change' }]
     }
+
+    const sendCode = () => {
+      const nonceStr: number = Date.parse(Date()) / 1000
+      const data = {
+        phoneNumber: formState.phoneNumber,
+        nonceStr: nonceStr.toString(),
+        sign: ''
+      }
+      data.sign = signStr(data)
+      getSMSCode(data).then((res: any) => {
+        if (res.code === 0) {
+          let timeStep = setInterval(() => {
+            countdown.value --
+            if (countdown.value > 0) {
+              codeDisable.value = false
+            } else {
+              countdown.value = 60
+              clearInterval(timeStep)
+              codeDisable.value = true
+            }
+          }, 1000)
+        } else {
+          resultErr.value = true
+          resErrMsg.value = res.message
+        }
+      })
+    }
+
     const registerFinish = (values: FormState) => {
       if (values) {
-        /*resultErr.value = true
-        resErrMsg.value = '用户已经存在'*/
-        console.log(values)
+        register(values).then((res: any) => {
+          if (res.code !== 0) {
+            resultErr.value = true
+            resErrMsg.value = res.message
+          } else {
+            resultErr.value = false
+            console.log('注册成功！')
+          }
+        })
       }
-    }
-    const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
-      console.warn(errors);
     }
     return {
       formState,
       registerFinish,
-      handleFinishFailed,
       rules,
       resultErr,
       resErrMsg,
