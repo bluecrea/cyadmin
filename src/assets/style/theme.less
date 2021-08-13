@@ -147,18 +147,16 @@ img[alt]{
   --text-danger: hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%);
   --text-brand: hsl(235, calc(var(--saturation-factor, 1) * 86.1%), 77.5%);
   --interactive-normal: #4f5660;
-  --interactive-hover: #2e3338;
-  --interactive-active: #060607;
-  --interactive-muted: #c7ccd1;
+  --interactive-hover: #dcddde;
+  --interactive-active: #fff;
+  --interactive-muted: #4f545c;
 
   --background-primary: #36393f;
-  --background-tertiary: #202225;
   --background-secondary: #2f3136;
-  --background-mobile-primary: #36393f;
-  --background-mobile-secondary: #2f3136;
-  --background-modifier-accent: rgba(255, 255, 255, 0.06);
-  --background-modifier-selected:rgba(79,84,92,0.32);
   --background-secondary-alt: #292b2f;
+  --background-tertiary: #202225;
+  --background-accent: #4f545c;
+  --background-floating: #18191c;
 
   --elevation-low: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
   --elevation-medium: 0 4px 4px rgba(0, 0, 0, 0.16);
@@ -188,17 +186,15 @@ img[alt]{
   --text-brand: hsl(235, calc(var(--saturation-factor, 1) * 85.6%), 64.7%);
   --interactive-normal:#4f5660;
   --interactive-hover:#2e3338;
-  --interactive-active:#060607;
-  --interactive-muted:#c7ccd1;
+  --interactive-active: #060607;
+  --interactive-muted: #c7ccd1;
 
   --background-primary: #fff;
-  --background-tertiary: #e3e5e8;
   --background-secondary: #f2f3f5;
-  --background-mobile-primary: #f8f9f9;
-  --background-mobile-secondary: #fff;
-  --background-modifier-accent: rgba(6, 6, 7, 0.08);
-  --background-modifier-selected: rgba(116,127,141,0.24);
   --background-secondary-alt: #ebedef;
+  --background-tertiary: #e3e5e8;
+  --background-accent: #747f8d;
+  --background-floating: #fff;
 
   --elevation-low: 0 1px 0 rgba(6, 6, 7, 0.1), 0 1.5px 0 rgba(6, 6, 7, 0.025), 0 2px 0 rgba(6, 6, 7, 0.025);
   --elevation-medium:0 4px 4px rgba(0,0,0,0.08);
@@ -1083,6 +1079,7 @@ svg:not(:root) {
         flex-direction: row;
         align-items: center;
         .link {
+          color: var(--header-secondary);
           flex: 1 1 auto;
           box-sizing: border-box;
           display: flex;
@@ -1120,21 +1117,20 @@ svg:not(:root) {
             text-overflow: ellipsis;
             overflow: hidden;
             position: relative;
-            color: var(--channels-default);
           }
         }
       }
       &:hover .menu {
         background-color: var(--background-modifier-hover);
         .menu-name {
-          color: var(--interactive-active);
+          color: var(--interactive-hover);
         }
       }
       &.select {
         .menu {
           background-color: var(--background-modifier-selected);
           .menu-name {
-            color: var(--interactive-active);
+            color: var(--interactive-hover);
           }
         }
       }
