@@ -3,24 +3,30 @@
 </template>
 
 <script>
-const htmlClass = document.querySelector("html")
-// htmlTags = document.getElementsByTagName("html")[0]
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  const systemScheme = e.matches ? "dark" : "light"
-  htmlClass.className = `theme-${systemScheme}`
+import {defineComponent, onMounted} from "vue"
+import storage from 'store'
+
+export default defineComponent({
+  setup() {
+    const htmlClass = document.querySelector("html")
+    const theme = storage.get('theme')
+    if (!theme || theme === 'auto') {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        htmlClass.className = 'theme-dark'
+      } else {
+        htmlClass.className = 'theme-light'
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const systemScheme = e.matches ? "dark" : "light"
+        htmlClass.className = `theme-${systemScheme}`
+      })
+    } else {
+      htmlClass.className = `theme-${theme}`
+    }
+  }
 })
-/*if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  // dark mode
-}*/
 </script>
 
 <style lang="less">
 @import "assets/style/theme";
-.ant-tooltip-inner {
-  color: var(--header-primary) !important;
-  background-color: var(--background-primary) !important;
-}
-.ant-tooltip-arrow-content {
-  background-color: var(--background-primary) !important;
-}
 </style>

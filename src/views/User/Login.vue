@@ -46,7 +46,7 @@
               class="reg-btn"
               type="primary"
               htmlType="submit"
-              :disabled="formState.username === '' || formState.password === ''">
+              :disabled="formState.username === '' && formState.password.length !== 8">
             登录
           </a-button>
         </div>
@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
-import {defineComponent, nextTick, onMounted, reactive, ref, UnwrapRef} from "vue"
+import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
 import QRCode from "qrcode"
 import { login } from '@/utils/api'
 import store from "@/store"
