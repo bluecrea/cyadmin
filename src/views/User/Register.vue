@@ -43,7 +43,7 @@
               placeholder="用户名可用于登录"
               v-model:value="formState.username">
               <template #prefix>
-                <IdcardOutlined />
+                <RobotOutlined />
               </template>
             </a-input>
           </a-form-item>
@@ -72,7 +72,7 @@
                 <SafetyOutlined />
               </template>
               <template #addonAfter>
-                <a-button class="get-code" :disabled="formState.phoneNumber.length !== 11 || !codeDisable" type="text" style="min-width: 160px;" @click="sendCode">
+                <a-button type="primary" :disabled="formState.phoneNumber.length !== 11 || !codeDisable" style="min-width: 160px;" @click="sendCode">
                   <span v-if="codeDisable">获取验证码</span>
                   <span v-if="!codeDisable">{{countdown}} 秒后重新获取</span>
                 </a-button>
@@ -83,6 +83,7 @@
         </div>
         <div class="login-footer">
           <router-link to="/login">已经拥有账号？</router-link>
+          <p class="sub-text">进行注册即表示您同意厨易的服务条款和隐私权政策。</p>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
-import { MobileOutlined, IdcardOutlined, LockOutlined, SafetyOutlined,FrownOutlined } from '@ant-design/icons-vue'
+import { MobileOutlined, RobotOutlined, LockOutlined, SafetyOutlined,FrownOutlined } from '@ant-design/icons-vue'
 import { RuleObject } from "ant-design-vue/es/form/interface"
 import { getSMSCode, register } from "@/utils/api"
 import { signStr } from '@/utils/sign'
@@ -213,7 +214,7 @@ export default defineComponent({
     }
   },
   components: {
-    MobileOutlined,IdcardOutlined,LockOutlined,SafetyOutlined,FrownOutlined
+    MobileOutlined,RobotOutlined,LockOutlined,SafetyOutlined,FrownOutlined
   },
 })
 

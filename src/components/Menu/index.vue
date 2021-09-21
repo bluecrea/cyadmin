@@ -118,3 +118,117 @@ export default defineComponent({
 
 })
 </script>
+
+<style lang="less" scoped>
+.scroller-base {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden scroll;
+  z-index: 1;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.sub-menu {
+  position: relative;
+  padding-top: 16px;
+}
+.menu-group {
+  position: relative;
+  box-sizing: border-box;
+  height: 24px;
+  padding-right: 8px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  color: var(--channels-default);
+  h2 {
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: .25px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--channels-default);
+  }
+}
+.menu-item {
+  padding: 1px 0;
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+  .menu {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 8px;
+    margin-left: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .link {
+      color: var(--header-secondary);
+      flex: 1 1 auto;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      min-width: 0;
+      padding: 6px 0;
+      cursor: pointer;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -1px;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+      }
+      .menu-icon {
+        position: relative;
+        margin-right: 6px;
+        .icon-svg-menu {
+          color: var(--text-muted);
+          display: block;
+          width: 20px;
+          height: 20px;
+          flex: 0 0 auto;
+        }
+      }
+      .menu-name {
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 500;
+        flex: 1 1 auto;
+        white-space: normal;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+  }
+  &:hover .menu {
+    background-color: var(--background-modifier-hover);
+    .menu-name {
+      color: var(--interactive-hover);
+    }
+  }
+  &.select {
+    .menu {
+      background-color: var(--background-modifier-selected);
+      .menu-name {
+        color: var(--interactive-hover);
+      }
+    }
+  }
+}
+</style>

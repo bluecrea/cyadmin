@@ -99,3 +99,82 @@
     </ul>
   </nav>
 </template>
+
+<style lang="less" scoped>
+.nav-scroller {
+  user-select: none;
+  padding: 12px 0 0;
+  contain: layout size;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 0;
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+  .tutorial-container {
+    position: relative;
+  }
+  .list-item {
+    position: relative;
+    margin: 0 0 8px;
+    display: flex;
+    justify-content: center;
+    width: 72px;
+    &:before {
+      content: '';
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 48px;
+      contain: layout size;
+    }
+    &:hover:before,&.active:before,&.active:hover:before {
+      opacity: 1;
+      height: 40px;
+      transition: background-color .2s ease-out,color .2s ease-out;
+      top: 4px;
+      display: block;
+      width: 8px;
+      border-radius: 0 4px 4px 0;
+      margin-left: -4px;
+      background-color: var(--header-primary);
+    }
+    &:hover:before {
+      height: 20px;
+      top: 14px;
+    }
+    .list-item-wrapper {
+      box-sizing: border-box;
+      position: relative;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      .circle-icon {
+        background-color: var(--background-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        color: #faa61a;
+        transition: color .2s ease-out,background-color .2s ease-out,border-radius .15s ease-out;
+      }
+    }
+    &.active .list-item-wrapper .circle-icon, .list-item-wrapper .circle-icon:hover {
+      background-color: #faa61a;
+      color: #fff;
+      border-radius: 37%;
+      transition: border-radius .15s ease-out;
+    }
+    .guild-separator {
+      height: 2px;
+      width: 32px;
+      border-radius: 1px;
+      background-color: var(--background-modifier-accent);
+    }
+  }
+}
+</style>

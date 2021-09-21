@@ -12,7 +12,7 @@
       <div class="visible"/>
       <div class="container">
         <div class="avatar-wrapper">
-          <div class="avatar wrapper" style="width: 32px; height: 32px;">
+          <div class="avatar wrapper" @click="setUserStatus" style="width: 32px; height: 32px;">
             <svg width="40" height="32" viewBox="0 0 40 32" class="mask">
               <mask id="avatar" width="32" height="32">
                 <circle cx="16" cy="16" r="16" fill="white"></circle>
@@ -73,15 +73,310 @@
         </div>
       </div>
     </section>
+    <a-modal
+        width="440px"
+        class="status-modal"
+        v-model:visible="visible">
+      <div class="header-container">
+        <div class="art"></div>
+        <div class="header">
+          <h4 class="header-text">设置自定义状态</h4>
+        </div>
+      </div>
+      <status-form/>
+    </a-modal>
   </div>
 </template>
 
 <script lang="ts">
 import Menubar from '../Menu/index.vue'
-import { defineComponent } from 'vue'
+import StatusForm from '../StatusForm/index.vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'Sidebar',
-  components: { Menubar },
+  components: { Menubar, StatusForm },
+  setup() {
+    const visible = ref<boolean>(false)
+
+    const setUserStatus = () => {
+      visible.value = true
+    }
+
+    return {
+      visible,
+      setUserStatus
+    }
+  }
 })
 </script>
+
+<style lang="less" scoped>
+.sidebar {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  min-height: 0;
+  width: 240px;
+  flex: 0 0 auto;
+  background: var(--background-secondary);
+  .private {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+    min-height: 0;
+    position: relative;
+    background-color: var(--background-secondary);
+    .header {
+      position: relative;
+      font-family: var(--font-display);
+      font-weight: 500;
+      padding: 0 16px;
+      height: 48px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      z-index: 3;
+      transition: background-color .1s linear;
+      color: var(--header-primary);
+      box-shadow: var(--elevation-low);
+      h3 {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        flex: 1;
+      }
+    }
+    .search-bar {
+      z-index: 2;
+      flex: 0 0 auto;
+      -webkit-box-flex: 0;
+      padding: 0 10px;
+      height: 48px;
+      align-items: center;
+      box-shadow: var(--elevation-low);
+      position: relative;
+      display: flex;
+      button {
+        cursor: pointer;
+        width: 100%;
+        height: 28px;
+        overflow: hidden;
+        border-radius: 4px;
+        background-color: var(--background-tertiary);
+        box-shadow: none;
+        color: var(--text-muted);
+        text-align: left;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 24px;
+        white-space: nowrap;
+      }
+    }
+  }
+  .panels {
+    flex: 0 0 auto;
+    background-color: var(--background-secondary-alt);
+    z-index: 1;
+    .container {
+      flex-shrink: 0;
+      height: 52px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      margin-bottom: 1px;
+    }
+    .avatar-wrapper {
+      margin-right: 8px;
+      .avatar {
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        .avatar-stack {
+          display: grid;
+          width: 100%;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            grid-area: 1/1;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+            &:before {
+              content: "";
+              display: block;
+              width: 100%;
+              height: 100%;
+              background-color: var(--background-modifier-accent);
+            }
+          }
+        }
+      }
+      .wrapper {
+        position: relative;
+        border-radius: 50%;
+        .mask {
+          pointer-events: none;
+          position: absolute;
+          display: block;
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+    .name-tag {
+      cursor: pointer;
+      user-select: text;
+      margin-right: 4px;
+      min-width: 0;
+      flex: 1 1 auto;
+      .username-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .title {
+          display: block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          color: var(--header-primary);
+          line-height: 18px;
+          font-weight: 600;
+        }
+        .icon-svg {
+          flex: 0 0 auto;
+          position: relative;
+          top: 1px;
+          width: 14px;
+          height: 14px;
+          flex-shrink: 0;
+        }
+      }
+      .subtext {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: var(--header-secondary);
+        line-height: 13px;
+        font-size: 12px;
+        .hover-roll {
+          display: inline-block;
+          vertical-align: top;
+          cursor: default;
+          text-align: left;
+          box-sizing: border-box;
+          position: relative;
+          width: 100%;
+          contain: paint;
+          .default, .hovered {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+            transition: all .22s ease;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            width: 100%;
+          }
+          .hovered {
+            opacity: 0;
+            transform: translate3d(0,107%,0);
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+          }
+          .default {
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      &.force-hover:not(.disabled) .hovered, &:hover:not(.disabled) .hovered {
+        transform: translateZ(0);
+        opacity: 1;
+      }
+      &.force-hover:not(.disabled) .default, &:hover:not(.disabled) .default {
+        transform: translate3d(0,-107%,0);
+        opacity: 0;
+        user-select: none;
+      }
+    }
+    .setting {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      flex: 0 1 auto;
+      .button {
+        line-height: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        position: relative;
+        color: var(--interactive-normal);
+        box-sizing: border-box;
+        font-size: 14px;
+        font-weight: 500;
+        user-select: none;
+        cursor: pointer;
+        &:hover {
+          color: var(--interactive-hover);
+          background-color: var(--background-modifier-selected);
+        }
+      }
+    }
+  }
+}
+.status-modal {
+  .header-container {
+    flex: 0 0 auto;
+    padding: 16px;
+    z-index: 1;
+    border-radius: 5px 5px 0 0;
+    overflow: visible;
+    position: relative;
+    .header {
+      padding-top: 52px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .header-text {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+        color: var(--interactive-active);
+      }
+    }
+  }
+  .art {
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 160px;
+    height: 160px;
+    background-image: url('../../assets/images/statusHeader.svg');
+  }
+}
+</style>

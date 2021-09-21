@@ -5,7 +5,7 @@ import storage from 'store'
 import '@/components/NProgress/nprogress.less'
 
 router.beforeEach((to,form,next) => {
-  document.title = to.meta.title + ''
+  document.title = to.meta.title + ' - 厨易'
   const whiteList = ['/login', '/register']
   const token = storage.get('Access-Token')
   NProgress.start()

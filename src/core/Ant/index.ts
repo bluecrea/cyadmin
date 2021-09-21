@@ -1,4 +1,4 @@
-import { Avatar, Button, Form, Alert, Dropdown, Tooltip, Input, Select
+import { Avatar, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal
 } from 'ant-design-vue'
 
 const ant = {
@@ -11,6 +11,7 @@ const ant = {
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)
+        Vue.use(Modal)
         Vue.use(Select)
     }
 }
