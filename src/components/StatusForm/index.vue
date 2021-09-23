@@ -26,16 +26,33 @@
         </div>
       </div>
     </div>
+    <div class="form-group">
+      <div class="section-title">
+        <h5 class="color-standard">有效期</h5>
+      </div>
+      <div class="children">
+        <a-select
+            ref="select"
+            v-model:value="statusTime"
+            style="width: 120px"
+            :options="statusTimeOps"
+            @focus="focus"
+            @change="handleChange"
+        />
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent } from "vue"
+import {defineComponent, ref } from "vue"
+import { SelectTypes } from 'ant-design-vue/es/select'
 
 export default defineComponent({
   name: "StatusForm",
   setup() {
-    const changeEmoji = (el) => {
+    const changeEmoji = (el: HTMLElement) => {
       // 随机 background-position
       let xPos = Math.floor(Math.random() * 10) * -22
       let yPos = Math.floor(Math.random() * 5) * -22
@@ -47,12 +64,12 @@ export default defineComponent({
     }
 
     const liveEmoji = (e:string) => {
-      let maxScale
-      let maxFilter
-      let minScale
-      let minFilter
+      let maxScale: number
+      let maxFilter: number
+      let minScale: number
+      let minFilter: number
       const interval = 25
-      const el = document.getElementsByClassName('sprite')[0]
+      const el = document.getElementsByClassName('sprite')[0] as HTMLElement
       maxScale = 1
       minScale = 1.16
       maxFilter = 100
@@ -99,8 +116,38 @@ export default defineComponent({
       }
     }
 
+    const statusTimeOps = ref<SelectTypes['options']>([
+      {
+        value: 1440,
+        label: '今天',
+      },
+      {
+        value: 240,
+        label: '4小时'
+      },
+      {
+        value: 60,
+        label: '1小时'
+      },
+      {
+        value: 30,
+        label: '30分钟'
+      },
+      {
+        value: 0,
+        label: '永久'
+      }
+    ])
+
+    const handleChange = (value: number) => {
+      console.log(`selected ${value}`);
+    };
+
     return {
-      liveEmoji
+      liveEmoji,
+      statusTimeOps,
+      handleChange,
+      statusTime: ref(1440)
     }
   }
 })
