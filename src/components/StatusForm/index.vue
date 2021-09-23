@@ -34,9 +34,7 @@
         <a-select
             ref="select"
             v-model:value="statusTime"
-            style="width: 120px"
             :options="statusTimeOps"
-            @focus="focus"
             @change="handleChange"
         />
 
@@ -123,15 +121,15 @@ export default defineComponent({
       },
       {
         value: 240,
-        label: '4小时'
+        label: '4 小时'
       },
       {
         value: 60,
-        label: '1小时'
+        label: '1 小时'
       },
       {
         value: 30,
-        label: '30分钟'
+        label: '30 分钟'
       },
       {
         value: 0,
