@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
 
-const files = require.context('./modules', false, /\.ts$/)
+// @ts-ignore
+const files = import.meta.globEager('./modules/*.ts')
 const modules:{ [index: string]: any } = {}
 
-
-files.keys().forEach((key) => {
-  modules[key.replace(/(\.\/|\.ts)/g, '')] = files(key).default
-})
+for (const key in files) {
+  modules[key.replace(/(\.\/|\.ts)/g, '')] = files[key].default
+}
 Object.keys(modules).forEach((key) => {
   modules[key]['namespaced'] = true
 })

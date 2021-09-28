@@ -1,4 +1,4 @@
-import {Md5} from 'ts-md5/dist/md5'
+import { Md5 } from 'ts-md5/dist/md5'
 
 export const signStr = (params: Record<string, unknown>): string => {
 	// 删除空值

@@ -1,5 +1,5 @@
 import request from "./request"
-import {AxiosPromise} from "axios";
+import {AxiosPromise} from "axios"
 
 type SendSMS = {
 	phoneNumbers?: string,

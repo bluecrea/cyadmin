@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { BasicLayout, RegLayout } from '@/core/layouts'
+import { BasicLayout, RegLayout } from '../core/layouts'
 
 const routes: Array<RouteRecordRaw> = [
   {

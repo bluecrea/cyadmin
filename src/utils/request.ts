@@ -4,7 +4,7 @@ import storage from 'store'
 
 // 创建 axios 实例
 const request: AxiosInstance = axios.create({
-	baseURL: process.env.VUE_APP_API_BASE_URL,
+	baseURL: import.meta.env.VITE_APP_API_BASE_URL,
 	method: 'POST',
 	timeout: 6000
 })
