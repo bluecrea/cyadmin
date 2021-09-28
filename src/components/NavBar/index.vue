@@ -164,7 +164,7 @@
       }
     }
     &.active .list-item-wrapper .circle-icon, .list-item-wrapper .circle-icon:hover {
-      background-color: #faa61a;
+      background-color: #F77F00;
       color: #fff;
       border-radius: 37%;
       transition: border-radius .15s ease-out;

@@ -1,23 +1,16 @@
 <template>
   <section class="guild-list-section">
-    <h3 class="base">精选</h3>
+    <h3 class="base">精选社区</h3>
     <div class="guild-list">
       <div class="loaded">
-        <card/>
+        <card partner="verified"/>
       </div>
     </div>
   </section>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import card from '../../components/Card/index.vue'
-import {defineComponent} from "vue";
-
-export default defineComponent({
-  components: {
-    card
-  }
-})
 </script>
 
 <style lang="less">

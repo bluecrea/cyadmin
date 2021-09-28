@@ -1,11 +1,12 @@
 import {
-    Avatar, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal
+    Avatar, ConfigProvider, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal
 } from 'ant-design-vue'
 
 const ant = {
     install(Vue: any) {
         Vue.component(Avatar.name, Avatar)
         Vue.component(Button.name, Button)
+        Vue.use(ConfigProvider)
         Vue.use(Input)
         Vue.use(Form)
         Vue.component(Alert.name, Alert)

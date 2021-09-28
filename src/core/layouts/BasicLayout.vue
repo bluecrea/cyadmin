@@ -120,7 +120,6 @@ export default defineComponent({
         right: 0;
         width: 8px;
         height: 100%;
-        background: linear-gradient(90deg,hsla(0,0%,100%,0) 0,var(--background-primary));
       }
     }
     .toolbar{

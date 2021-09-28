@@ -1,8 +1,10 @@
 <script setup>
 import storage from 'store'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
 const htmlClass = document.querySelector('html')
 const theme = storage.get('theme')
+const locale = zhCN
 if (!theme || theme === 'auto') {
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     htmlClass.className = 'theme-dark'
@@ -20,5 +22,7 @@ if (!theme || theme === 'auto') {
 </script>
 
 <template>
-  <router-view/>
+  <a-config-provider :locale="locale">
+    <router-view/>
+  </a-config-provider>
 </template>

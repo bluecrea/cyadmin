@@ -12,12 +12,17 @@ export default defineConfig({
       '@': resolve(__dirname, 'src')
     }
   },
+  optimizeDeps: {
+    include: [
+      'ant-design-vue/es/locale/zh_CN'
+    ]
+  },
   css: {
     preprocessorOptions: {
       less: {
         modifyVars: {
-          'primary-color': '#fb7000',
-          'link-color': '#fb7000',
+          'primary-color': '#F77F00',
+          'link-color': '#F77F00',
           'border-radius-base': '3px'
         },
         javascriptEnabled: true,

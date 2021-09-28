@@ -7,7 +7,6 @@ export interface AppState {
 	info: Record<string, unknown>
 }
 
-
 const state:AppState = {
 	token: '',
 	theme: 'auto',

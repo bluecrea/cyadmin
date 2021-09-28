@@ -78,37 +78,28 @@
         class="status-modal"
         v-model:visible="visible">
       <div class="header-container">
-        <div class="art"></div>
+        <div class="art"/>
         <div class="header">
           <h4 class="header-text">设置自定义状态</h4>
         </div>
       </div>
       <status-form/>
     </a-modal>
+    <template slot="footer">
+
+    </template>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import Menubar from '../Menu/index.vue'
 import StatusForm from '../StatusForm/index.vue'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  name: 'Sidebar',
-  components: { Menubar, StatusForm },
-  setup() {
-    const visible = ref<boolean>(false)
-
-    const setUserStatus = () => {
-      visible.value = true
-    }
-
-    return {
-      visible,
-      setUserStatus
-    }
-  }
-})
+const visible = ref<boolean>(false)
+const setUserStatus = () => {
+  visible.value = true
+}
 </script>
 
 <style lang="less" scoped>

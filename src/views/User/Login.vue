@@ -46,6 +46,7 @@
               class="reg-btn"
               type="primary"
               htmlType="submit"
+              :loading="loading"
               :disabled="formState.username === '' && formState.password.length !== 8">
             登录
           </a-button>
@@ -72,11 +73,11 @@
 
 <script lang="ts">
 import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
-import {defineComponent, onMounted, reactive, ref, UnwrapRef} from "vue"
-import QRCode from "qrcode"
+import {defineComponent, onMounted, reactive, ref, UnwrapRef} from 'vue'
+import QRCode from 'qrcode'
 import { login } from '@/utils/api'
-import store from "@/store"
-import { useRouter } from "vue-router"
+import store from '@/store'
+import { useRouter } from 'vue-router'
 
 interface FormState {
   username: string;
@@ -91,6 +92,7 @@ export default defineComponent({
   },
   setup() {
     const isLoginError = ref<boolean>(false)
+    const loading = ref<boolean>(false)
     const codeUrl = ref<string>('')
     const router = useRouter()
     const formState: UnwrapRef<FormState> = reactive({
@@ -110,14 +112,19 @@ export default defineComponent({
     }
     const handleFinish = (values: FormState) => {
       if (values) {
+        loading.value = true
         login(values).then((res: any) => {
           if (res.code !== 0) {
             isLoginError.value = true
             isLoginError.value = res.message
+            loading.value = false
           } else {
             store.dispatch('app/setLogin', res.result)
+            loading.value = false
             router.push( '/')
           }
+        }).finally(() => {
+          loading.value = false
         })
       }
     }
@@ -125,7 +132,7 @@ export default defineComponent({
       await QRCode.toDataURL(
           'https://www.xiachuyi.com',
           {errorCorrectionLevel: 'Q', width: 170, margin: 1 },
-          (err,url) => {
+          (err: any, url: string) => {
             if (!err) {
               codeUrl.value = url
             }

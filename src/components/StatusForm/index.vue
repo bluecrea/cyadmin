@@ -16,7 +16,7 @@
                 type="button"
                 class="emoji-button-normal emoji-button button">
               <div class="contents">
-                <div class="sprite" style="background-size: 242px 110px; transform: scale(1); filter: grayscale(100%);"></div>
+                <div class="sprite" style="background-size: 242px 110px; transform: scale(1); filter: grayscale(100%);"/>
               </div>
             </button>
           </div>
@@ -37,118 +37,108 @@
             :options="statusTimeOps"
             @change="handleChange"
         />
-
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent, ref } from "vue"
+<script lang="ts" setup>
+import { ref } from "vue"
 import { SelectTypes } from 'ant-design-vue/es/select'
 
-export default defineComponent({
-  name: "StatusForm",
-  setup() {
-    const changeEmoji = (el: HTMLElement) => {
-      // 随机 background-position
-      let xPos = Math.floor(Math.random() * 10) * -22
-      let yPos = Math.floor(Math.random() * 5) * -22
-      if (xPos < -132 || yPos < -88) {
-        xPos = Math.floor(Math.random() * 10) * -22
-        yPos = Math.floor(Math.random() * 5) * -22
-      }
-      el.style.backgroundPosition = `${xPos}px ${yPos}px`
-    }
-
-    const liveEmoji = (e:string) => {
-      let maxScale: number
-      let maxFilter: number
-      let minScale: number
-      let minFilter: number
-      const interval = 25
-      const el = document.getElementsByClassName('sprite')[0] as HTMLElement
-      maxScale = 1
-      minScale = 1.16
-      maxFilter = 100
-      minFilter = 0
-
-      const scaleTimer = setInterval(() => {
-        maxScale += 0.05
-        minScale -= 0.05
-
-        if (maxScale >= 1.16) {
-          maxScale = 1.16
-          clearInterval(scaleTimer)
-        }
-        if (minScale <= 1) {
-          minScale = 1
-          clearInterval(scaleTimer)
-        }
-        if (e === 'on') {
-          el.style.transform = `scale(${maxScale})`
-        } else {
-          el.style.transform = `scale(${minScale})`
-        }
-      }, interval)
-
-      const filterTimer = setInterval(() => {
-        maxFilter -= 6.15
-        minFilter += 6.15
-        if (maxFilter <= 0) {
-          maxFilter = 0
-          clearInterval(filterTimer)
-        }
-        if (minFilter >= 100) {
-          clearInterval(filterTimer)
-          minFilter = 100
-        }
-        if (e === 'on') {
-          el.style.filter = `grayscale(${maxFilter}%)`
-        } else {
-          el.style.filter = `grayscale(${minFilter})`
-        }
-      }, interval)
-      if (e === 'on') {
-        changeEmoji(el)
-      }
-    }
-
-    const statusTimeOps = ref<SelectTypes['options']>([
-      {
-        value: 1440,
-        label: '今天',
-      },
-      {
-        value: 240,
-        label: '4 小时'
-      },
-      {
-        value: 60,
-        label: '1 小时'
-      },
-      {
-        value: 30,
-        label: '30 分钟'
-      },
-      {
-        value: 0,
-        label: '永久'
-      }
-    ])
-
-    const handleChange = (value: number) => {
-      console.log(`selected ${value}`);
-    };
-
-    return {
-      liveEmoji,
-      statusTimeOps,
-      handleChange,
-      statusTime: ref(1440)
-    }
+const changeEmoji = (el: HTMLElement) => {
+  // 随机 background-position
+  let xPos = Math.floor(Math.random() * 10) * -22
+  let yPos = Math.floor(Math.random() * 5) * -22
+  if (xPos < -132 || yPos < -88) {
+    xPos = Math.floor(Math.random() * 10) * -22
+    yPos = Math.floor(Math.random() * 5) * -22
   }
-})
+  el.style.backgroundPosition = `${xPos}px ${yPos}px`
+}
+
+const liveEmoji = (e:string) => {
+  let maxScale: number
+  let maxFilter: number
+  let minScale: number
+  let minFilter: number
+  const interval = 25
+  const el = document.getElementsByClassName('sprite')[0] as HTMLElement
+  maxScale = 1
+  minScale = 1.16
+  maxFilter = 100
+  minFilter = 0
+
+  const scaleTimer = setInterval(() => {
+    maxScale += 0.05
+    minScale -= 0.05
+
+    if (maxScale >= 1.16) {
+      maxScale = 1.16
+      clearInterval(scaleTimer)
+    }
+    if (minScale <= 1) {
+      minScale = 1
+      clearInterval(scaleTimer)
+    }
+    if (e === 'on') {
+      el.style.transform = `scale(${maxScale})`
+    } else {
+      el.style.transform = `scale(${minScale})`
+    }
+  }, interval)
+
+  const filterTimer = setInterval(() => {
+    maxFilter -= 6.15
+    minFilter += 6.15
+    if (maxFilter <= 0) {
+      maxFilter = 0
+      clearInterval(filterTimer)
+    }
+    if (minFilter >= 100) {
+      clearInterval(filterTimer)
+      minFilter = 100
+    }
+    if (e === 'on') {
+      el.style.filter = `grayscale(${maxFilter}%)`
+    } else {
+      el.style.filter = `grayscale(${minFilter})`
+    }
+  }, interval)
+  if (e === 'on') {
+    changeEmoji(el)
+  }
+}
+
+const statusTime = ref<number>(1440)
+
+const statusTimeOps = ref<SelectTypes['options']>([
+  {
+    value: 1440,
+    label: '今天',
+  },
+  {
+    value: 240,
+    label: '4 小时'
+  },
+  {
+    value: 60,
+    label: '1 小时'
+  },
+  {
+    value: 30,
+    label: '30 分钟'
+  },
+  {
+    value: 0,
+    label: '永久'
+  }
+])
+
+const handleChange = (value: number) => {
+
+  console.log(`selected ${value}`)
+}
 </script>
 
 <style lang="less" scoped>
