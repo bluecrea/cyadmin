@@ -3,6 +3,12 @@ module.exports = {
   env: {
     node: true
   },
+  parserOptions: {
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
   extends: [
     "plugin:vue/vue3-recommended",
   ],

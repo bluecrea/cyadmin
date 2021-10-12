@@ -12,9 +12,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/discovery',
         name: 'discovery',
         component: () => import('@/views/Discovery/index.vue'),
-        meta: { title: '发现美食', keepAlive: true },
+        meta: { title: '发现', keepAlive: true },
       }
     ]
+  },
+  {
+    path: '/ch'
   },
   {
     path: '/login',
