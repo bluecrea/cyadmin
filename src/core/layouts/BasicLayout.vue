@@ -17,7 +17,6 @@
                 </router-view>
               </div>
             </main>
-            <footer>123123</footer>
           </div>
         </div>
       </div>

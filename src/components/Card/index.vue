@@ -2,7 +2,7 @@
   <div class="card" role="button" tabindex="0">
     <div class="card-header">
       <div class="splash">
-        <img src="https://cdn.discordapp.com/discovery-splashes/522681957373575168/c73d6929db8fc3362b51f0f08cfd5cff.jpg?size=640" alt="" class="splash-image">
+        <image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" class="splash-image"/>
       </div>
       <div class="guild-icon">
         <svg width="48" height="48" viewBox="0 0 48 48">
@@ -10,7 +10,7 @@
             <div class="icon-mask">
               <svg width="40" height="40" viewBox="0 0 40 40">
                 <foreignObject x="0" y="0" width="40" height="40" overflow="visible" mask="url(#svg-mask-squircle)">
-                  <img src="https://cdn.discordapp.com/icons/522681957373575168/ff41f19c2234fa86c2a6acee8b718051.png?size=128" alt="" class="avatar"></foreignObject>
+                  <img src="https://cdn.discordapp.com/icons/522681957373575168/ff41f19c2234fa86c2a6acee8b718051.png" alt="" class="avatar"></foreignObject>
               </svg>
             </div>
           </foreignObject>
@@ -19,7 +19,7 @@
     </div>
     <div class="guild-info">
       <div class="title">
-        <a-tooltip v-if="props.partner">
+<!--        <a-tooltip v-if="props.partner">
           <template #title>{{ props.partner === 'verified' ? '已验证 &amp; 已合作' : '合作伙伴'}}</template>
           <div class="flower-star-container guild-badge" :class="props.partner">
             <svg aria-label="已验证 &amp; 已合作" class="flowerStar-1GeTsn" aria-hidden="false" width="16" height="16" viewBox="0 0 16 15.2">
@@ -34,18 +34,20 @@
               </svg>
             </div>
           </div>
-        </a-tooltip>
+        </a-tooltip>-->
         <div class="guild-name">佛跳墙</div>
       </div>
-      <div class="description color-secondary">The VALORANT Discord server, in collaboration with Riot Games. We offer the latest news and various chats.</div>
+      <div class="description color-secondary">
+        The VALORANT Discord server, in collaboration with Riot Games. We offer the latest news and various chats.
+      </div>
       <div class="member-info">
         <div class="member-count">
           <div class="dot-online"/>
-          <div class="size12 color-secondary">5000 条状态</div>
+          <div class="size12 color-secondary">编辑</div>
         </div>
         <div class="member-count">
           <div class="dot-online dot-offline"/>
-          <div class="size12 color-secondary">5000 位粉丝</div>
+          <div class="size12 color-secondary">删除</div>
         </div>
       </div>
     </div>
@@ -53,9 +55,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 const props = defineProps({
   partner: String
 })
+const title = ref<string>('')
+const editTitle = ref<boolean>(false)
 </script>
 
 <style lang="less" scoped>
@@ -98,6 +103,7 @@ img[alt] {
 }
 .splash-image {
   object-fit: cover;
+  height: 143px;
 }
 .guild-icon {
   position: absolute;

@@ -1,5 +1,5 @@
 import {
-    Avatar, ConfigProvider, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal
+    Avatar, ConfigProvider, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal, Image, Upload
 } from 'ant-design-vue'
 
 const ant = {
@@ -12,8 +12,10 @@ const ant = {
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)
+        Vue.component(Image.name, Image)
         Vue.use(Modal)
         Vue.use(Select)
+        Vue.use(Upload)
     }
 }
 

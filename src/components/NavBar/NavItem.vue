@@ -66,7 +66,7 @@ const circle = ref<string>('M0 24C0 16.5449 0 12.8174 1.21793 9.87706C2.84183 5.
 const hover = ref<number>(-1)
 const route = useRoute()
 const action = (index) => {
-  if (route.path === props.routeItem[index].path) {
+  if (route.path.includes(props.routeItem[index].path)) {
     return {
       d: circle.value,
       height: 40
