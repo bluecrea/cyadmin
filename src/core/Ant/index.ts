@@ -1,5 +1,17 @@
 import {
-    Avatar, ConfigProvider, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal, Image, Upload
+    Avatar,
+    ConfigProvider,
+    Button,
+    Form,
+    Alert,
+    Dropdown,
+    Tooltip,
+    Input,
+    Select,
+    Modal,
+    Image,
+    Upload,
+  Checkbox
 } from 'ant-design-vue'
 
 const ant = {
@@ -9,13 +21,14 @@ const ant = {
         Vue.use(ConfigProvider)
         Vue.use(Input)
         Vue.use(Form)
+        Vue.use(Modal)
+        Vue.use(Select)
+        Vue.use(Upload)
+        Vue.use(Checkbox)
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)
         Vue.component(Image.name, Image)
-        Vue.use(Modal)
-        Vue.use(Select)
-        Vue.use(Upload)
     }
 }
 
