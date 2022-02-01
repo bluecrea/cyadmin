@@ -12,15 +12,17 @@
         <div class="detail">
           <a-upload
               v-model:file-list="fileList"
-              name="avatar"
+              name="file"
               list-type="picture-card"
               class="avatar-uploader"
               :show-upload-list="false"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              :multiple="false"
+              accept="image/*"
               :before-upload="beforeUpload"
               @change="handleChange"
+              action="https://api.xiachuyi.com/admin/upload"
           >
-            <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
+            <img v-if="addRecipes.thumb" :src="`${addRecipes.thumb}?x-oss-process=image/resize,h_115,m_lfit`" alt="avatar" />
             <div v-else>
               <loading-outlined v-if="loading"></loading-outlined>
               <plus-outlined v-else></plus-outlined>
@@ -62,12 +64,12 @@
         <dd v-for="(setup, index) in addRecipes.setup" :key="index">
           <div class="setup-img">
             <a-upload
-                v-model:file-list="setup.imgList"
+                v-model:file-list="fileList"
                 name="avatar"
                 list-type="picture-card"
                 class="avatar-uploader"
                 :show-upload-list="false"
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action="https://api.xiachuyi.com/admin/upload"
                 :before-upload="beforeUpload"
                 @change="updateSetupImg(index, $event)"
             >
@@ -107,6 +109,7 @@ import type { UploadChangeParam, UploadProps, SelectProps } from 'ant-design-vue
 const addRecipes = reactive({
   title: '',
   subText: '',
+  thumb: '',
   tagArr: [],
   setup: [],
   ingredient: []
@@ -139,15 +142,15 @@ const ingredientOptions = ref<SelectProps['options']>([
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {
-    loading.value = true;
-    return;
+    loading.value = true
+    return
   }
   if (info.file.status === 'done') {
-    // Get this url from response in real world.
-    console.log(info,fileList)
+    addRecipes.thumb = info.file.response.result
+    loading.value = false
   }
   if (info.file.status === 'error') {
-    loading.value = false;
+    loading.value = false
   }
 }
 
@@ -157,10 +160,14 @@ const updateSetupImg = (index: number, file: UploadChangeParam) => {
 
 const beforeUpload = (file: UploadProps['fileList']) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+  const isLt300Kb = file.size / 1024 / 1024 < 0.3;
   if (!isJpgOrPng) {
     message.error('格式错误，请上传图片!')
   }
-  return isJpgOrPng
+  if (!isLt300Kb) {
+    message.error('图片大小300Kb以内！')
+  }
+  return isJpgOrPng && isLt300Kb
 }
 
 const selectIngredient = (value: string) => {
@@ -201,141 +208,3 @@ const addList = (type: number) => {
 }
 
 </script>
-
-<style lang="less">
-.page {
-  color: var(--channels-default);
-  background-color: var(--channeltextarea-background);
-  border-radius: 8px;
-  padding: 16px 35px;
-  margin-right: 16px;
-  .ant-input {
-    border-color: var(--channels-default);
-  }
-  .ant-input-lg {
-    font-size: 20px;
-    border: none;
-  }
-  .ant-select {
-    &:not(.ant-select-customize-input) {
-      .ant-select-selector {
-        color: var(--channels-default);
-        background-color: var(--channeltextarea-background);
-        border-color: var(--channels-default);
-      }
-    }
-    .ant-select-selector {
-      height: 40px;
-    }
-  }
-
-  .ant-select-multiple .ant-select-selection-item {
-    background-color: var(--background-secondary);
-    border: 1px solid transparent;
-    color: var(--interactive-normal);
-    svg {
-      fill: var(--interactive-normal);
-    }
-  }
-  .ant-select-arrow {
-    top: 50%;
-    color: var(--interactive-normal);
-  }
-
-  .ant-upload-picture-card-wrapper {
-    width: 30%;
-  }
-  .avatar-uploader > .ant-upload {
-    width: 220px;
-    height: 115px;
-    background-color: transparent;
-    svg {
-      fill: var(--interactive-normal);
-    }
-  }
-  .ant-upload-select-picture-card i {
-    color: var(--channels-default);
-    font-size: 32px;
-  }
-
-  .ant-upload-select-picture-card .ant-upload-text {
-    color: var(--channels-default);
-    margin-top: 8px;
-  }
-
-  .ant-input-textarea {
-    border: 1px solid var(--channels-default);
-    width: 90%;
-    height: 115px;
-    textarea {
-      resize: none;
-      color: var(--header-primary);
-      font-size: 14px;
-      &.ant-input {
-        height: 90px;
-        border: none;
-      }
-      &:hover,&:focus {
-        border: none;
-        box-shadow: none;
-      }
-    }
-  }
-  .ant-input-textarea-show-count::after {
-    color: var(--channels-default);
-    padding-right: 10px;
-  }
-
-  .fm-zy,.tag-cate, .setup, .ingredient {
-    color: var(--channels-default);
-    h3, dt {
-      color: var(--interactive-hover);
-      padding: 30px 0 10px 0;
-      font-size: 16px;
-    }
-    .detail {
-      display: flex;
-      justify-content: space-evenly;
-    }
-    .in-box {
-      display: flex;
-      align-items: center;
-      padding-bottom: 10px;
-      .ant-select {
-        margin-right: 10px;
-      }
-      .ant-input.ant-input-sm {
-        height: 40px;
-        width: 65%;
-        margin-right: 15px;
-      }
-      .ant-checkbox-wrapper {
-        color: var(--channels-default);
-      }
-    }
-  }
-  button {
-    color: var(--channels-default);
-    border: 1px dashed var(--channels-default);
-  }
-  .setup {
-    .ant-upload.ant-upload-select-picture-card {
-      background-color: transparent;
-
-    }
-    dd {
-      display: flex;
-      .ant-input-textarea {
-        width: 75%;
-      }
-      .remove {
-        height: 130px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 5%;
-      }
-    }
-  }
-}
-</style>

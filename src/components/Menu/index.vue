@@ -15,15 +15,15 @@
         </div>
       </div>
     </div>-->
-    <div class="sub-menu">
+    <div class="sub-menu" v-for="(sub, index) in menuList" :key="index">
       <div class="menu-group">
-        <h2>菜谱管理</h2>
+        <h2>{{ sub.subTit }}</h2>
       </div>
       <div
-        v-for="(menu,index) in menuList"
-        :key="index"
+        v-for="(menu,e) in sub.child"
+        :key="e"
         class="menu-item"
-        :class="{'select': isActive(index)}"
+        :class="{'select': isActive(menu.path)}"
       >
         <div class="menu">
           <router-link :to="menu.path" class="link">
@@ -32,27 +32,6 @@
               {{ menu.name }}
             </div>
           </router-link>
-        </div>
-      </div>
-    </div>
-    <div class="sub-menu">
-      <div class="menu-group">
-        <h2>分类管理</h2>
-      </div>
-      <div class="menu-item">
-        <div class="menu">
-          <div class="link">
-            <div class="menu-icon"/>
-            <div class="menu-name">菜谱分类</div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-item">
-        <div class="menu">
-          <div class="link">
-            <div class="menu-icon"/>
-            <div class="menu-name">食材分类</div>
-          </div>
         </div>
       </div>
     </div>
@@ -65,20 +44,34 @@ import { useRoute } from "vue-router";
 const route = useRoute()
 const menuList = [
   {
-    path: '/Recipes/index',
-    name: '菜谱列表'
+    subTit: '菜谱管理',
+    child:[
+      {
+        path: '/Recipes/index',
+        name: '菜谱列表'
+      },
+      {
+        path: '/Recipes/addRecipe',
+        name: '添加菜谱'
+      },
+      {
+        path: '/Recipes/editRecipes',
+        name: '管理菜谱'
+      }
+    ]
   },
   {
-    path: '/Recipes/add',
-    name: '添加菜谱'
-  },
-  {
-    path: '/Recipes/edit',
-    name: '管理菜谱'
+    subTit: '分类管理',
+    child: [
+      {
+        path: '/Recipes/addIngredient',
+        name: '添加分类'
+      }
+    ]
   }
 ]
-const isActive = (index) => {
-  return route.path === menuList[index].path
+const isActive = (path) => {
+  return route.path === path
 }
 </script>
 

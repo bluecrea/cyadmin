@@ -141,7 +141,7 @@ export default defineComponent({
     })
 
     return {
-      isLoginError,formState, handleFinish, rules, alertClose, codeUrl
+      isLoginError,formState, handleFinish, rules, alertClose, codeUrl, loading
     }
   }
 })

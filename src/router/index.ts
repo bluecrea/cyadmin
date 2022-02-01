@@ -21,13 +21,19 @@ const routes: Array<RouteRecordRaw> = [
             meta: {title: '菜谱列表', keepAlive: true}
           },
           {
-            path: '/Recipes/add',
+            path: '/Recipes/addRecipe',
             name: 'addRecipes',
-            component: () => import('@/views/Recipes/add.vue'),
+            component: () => import('@/views/Recipes/addRecipe.vue'),
             meta: { title: '添加菜谱', keepAlive: true }
+          },
+          {
+            path: '/Recipes/addIngredient',
+            name: 'addIngredient',
+            component: () => import('@/views/Recipes/addIngredient.vue'),
+            meta: { title: '分类管理', keepAlive: true }
           }
         ]
-      }
+      },
     ]
   },
   {

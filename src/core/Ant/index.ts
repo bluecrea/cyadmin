@@ -11,6 +11,7 @@ import {
     Modal,
     Image,
     Upload,
+  Spin,
   Checkbox
 } from 'ant-design-vue'
 
@@ -25,6 +26,7 @@ const ant = {
         Vue.use(Select)
         Vue.use(Upload)
         Vue.use(Checkbox)
+        Vue.use(Spin)
         Vue.component(Alert.name, Alert)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)

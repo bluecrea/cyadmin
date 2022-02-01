@@ -1,7 +1,7 @@
 import request from "./request"
-import {AxiosPromise} from "axios"
+import {Axios, AxiosPromise} from "axios"
 
-type SendSMS = {
+interface SendSMS {
 	phoneNumbers?: string,
 	nonceStr: string,
 	sign: string,
@@ -19,17 +19,25 @@ type Register = {
 	smsCode: string
 }
 
+type Recipes = {
+	ingImg: string,
+	ingLabel: string,
+}
+
 const userApi = {
 	Login: '/auth/login',
 	Logout: '/auth/logout',
 	Register: '/auth/register',
-	SendSms: '/account/sms',
+	sendSms: '/account/sms',
 	UserInfo: '/user/info'
 }
 
+const recipesApi = {
+	addIng: '/admin/addIngredient'
+}
 
 export const getSMSCode = (data: SendSMS): AxiosPromise => request({
-	url: userApi.SendSms,
+	url: userApi.sendSms,
 	data: data
 })
 
@@ -42,6 +50,12 @@ export const login = (data: UserInfo ): AxiosPromise => request({
 export const register = (data: Register): AxiosPromise => request({
 	url: userApi.Register,
 	data: data,
+})
+
+export const addIng = (data: Recipes): AxiosPromise => request({
+	url: recipesApi.addIng,
+	data: data,
+	method: 'post'
 })
 
 export const getInfo = (): AxiosPromise => request({

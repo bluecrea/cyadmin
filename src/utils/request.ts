@@ -29,7 +29,7 @@ const errorHandler = (error: { response: any }) => {
 request.interceptors.request.use((config: AxiosRequestConfig) => {
 	const token = storage.get('Access-Token')
 	if (token) {
-		config.headers['authorization'] = token
+		config.headers['Authorization'] = token
 	}
 	return config
 }, errorHandler)
