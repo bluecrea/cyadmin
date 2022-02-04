@@ -19,7 +19,8 @@ type Register = {
 	smsCode: string
 }
 
-type Recipes = {
+type Ingredients = {
+	ingId?: any,
 	ingImg: string,
 	ingLabel: string,
 }
@@ -32,8 +33,10 @@ const userApi = {
 	UserInfo: '/user/info'
 }
 
-const recipesApi = {
-	addIng: '/admin/addIngredient'
+const IngApi = {
+	addIng: '/admin/addIngredient',
+	getIng: '/admin/getIngredient',
+	editIng: '/admin/editIngredient'
 }
 
 export const getSMSCode = (data: SendSMS): AxiosPromise => request({
@@ -52,10 +55,24 @@ export const register = (data: Register): AxiosPromise => request({
 	data: data,
 })
 
-export const addIng = (data: Recipes): AxiosPromise => request({
-	url: recipesApi.addIng,
+export const getIng = (): AxiosPromise => request({
+	url: IngApi.getIng
+})
+
+export const addIng = (data: Ingredients): AxiosPromise => request({
+	url: IngApi.addIng,
 	data: data,
 	method: 'post'
+})
+
+export const editIng = (data: Ingredients): AxiosPromise => request({
+	url: IngApi.editIng,
+	data: data
+})
+
+export const upload = (data:any) => request({
+	url: 'https://api.xiachuyi.com/admin/upload',
+	data
 })
 
 export const getInfo = (): AxiosPromise => request({

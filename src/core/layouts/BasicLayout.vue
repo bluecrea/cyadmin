@@ -174,6 +174,7 @@ export default defineComponent({
     }
     .ant-btn {
       color: var(--channels-default);
+      background-color: var(--channeltextarea-background);
       &.ant-btn-primary {
         color: white;
       }

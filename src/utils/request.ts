@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import store from '@/store'
 import storage from 'store'
+import router from "@/router";
 
 // 创建 axios 实例
 const request: AxiosInstance = axios.create({
@@ -35,7 +36,12 @@ request.interceptors.request.use((config: AxiosRequestConfig) => {
 }, errorHandler)
 
 request.interceptors.response.use((response) => {
-	return response.data
+	if (response.data.status === 401) {
+		storage.remove('Access-Token')
+		router.push('/')
+	} else {
+		return response.data
+	}
 }, errorHandler)
 
 export default request
