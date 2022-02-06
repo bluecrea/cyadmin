@@ -53,6 +53,11 @@
   </a-modal>
 
 </template>
+<script lang="ts">
+export default {
+  name: 'ingredientManage'
+}
+</script>
 <script lang="ts" setup>
 import { getIng, addIng, editIng, upload } from '@/utils/api'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
@@ -66,7 +71,7 @@ interface DataItem {
   ingImg: string
   ingLabel: string
 }
-type Pagination = TableState['pagination'];
+type Pagination = TableState['pagination']
 
 const columns = [
   {

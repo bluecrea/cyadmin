@@ -6,7 +6,7 @@
       <div class="content">
         <sidebar/>
         <div class="content-view">
-          <header-bar/>
+          <header-bar />
           <div class="page-wrapper">
             <main class="scroller-base page-scroller">
               <div class="main-wrapper">

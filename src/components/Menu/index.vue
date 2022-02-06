@@ -47,25 +47,20 @@ const menuList = [
     subTit: '菜谱管理',
     child:[
       {
-        path: '/Recipes/index',
-        name: '菜谱列表'
+        path: '/Recipes/recipesManage',
+        name: '菜谱管理'
+      },
+      {
+        path: '/Recipes/ingredientManage',
+        name: '食材管理'
+      },
+      {
+        path: '/Recipes/tagManage',
+        name: '标签分类管理'
       },
       {
         path: '/Recipes/addRecipe',
         name: '添加菜谱'
-      },
-      {
-        path: '/Recipes/editRecipes',
-        name: '管理菜谱'
-      }
-    ]
-  },
-  {
-    subTit: '分类管理',
-    child: [
-      {
-        path: '/Recipes/addIngredient',
-        name: '分类管理'
       }
     ]
   }

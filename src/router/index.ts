@@ -6,31 +6,37 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    redirect: '/Recipes/index',
+    redirect: '/Recipes/recipesManage',
     children: [
       {
         path: '/Recipes',
         name: 'recipes',
         component: RouteView,
-        meta: { title: '菜谱管理', keepAlive: true },
+        meta: { title: '菜谱管理', keepAlive: false },
         children: [
           {
-            path:'/Recipes/index',
+            path:'/Recipes/recipesManage',
             name: 'RecipesList',
             component: () => import('@/views/Recipes/index.vue'),
-            meta: {title: '菜谱列表', keepAlive: true}
+            meta: {title: '菜谱管理', keepAlive: true}
+          },
+          {
+            path: '/Recipes/ingredientManage',
+            name: 'recipesIngredient',
+            component: () => import('@/views/Recipes/ingredientManage.vue'),
+            meta: { title: '食材管理', keepAlive: true }
+          },
+          {
+            path: '/Recipes/tagManage',
+            name: 'tagManage',
+            component: () => import('@/views/Recipes/tagManage.vue'),
+            meta: { title: '标签分类管理'}
           },
           {
             path: '/Recipes/addRecipe',
             name: 'addRecipes',
             component: () => import('@/views/Recipes/addRecipe.vue'),
             meta: { title: '添加菜谱', keepAlive: true }
-          },
-          {
-            path: '/Recipes/addIngredient',
-            name: 'addIngredient',
-            component: () => import('@/views/Recipes/addIngredient.vue'),
-            meta: { title: '分类管理', keepAlive: true }
           }
         ]
       },
