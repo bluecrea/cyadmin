@@ -25,6 +25,11 @@ type Ingredients = {
 	ingLabel: string,
 }
 
+type PageData = {
+	pageSize: number,
+	pageNo: number
+}
+
 const userApi = {
 	Login: '/auth/login',
 	Logout: '/auth/logout',
@@ -47,7 +52,6 @@ export const getSMSCode = (data: SendSMS): AxiosPromise => request({
 export const login = (data: UserInfo ): AxiosPromise => request({
 	url: userApi.Login,
 	data: data,
-	method: 'post'
 })
 
 export const register = (data: Register): AxiosPromise => request({
@@ -55,14 +59,14 @@ export const register = (data: Register): AxiosPromise => request({
 	data: data,
 })
 
-export const getIng = (): AxiosPromise => request({
-	url: IngApi.getIng
+export const getIng = (data: PageData): AxiosPromise => request({
+	url: IngApi.getIng,
+	data: data
 })
 
 export const addIng = (data: Ingredients): AxiosPromise => request({
 	url: IngApi.addIng,
 	data: data,
-	method: 'post'
 })
 
 export const editIng = (data: Ingredients): AxiosPromise => request({

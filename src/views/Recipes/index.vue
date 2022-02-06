@@ -1,16 +1,58 @@
 <template>
-  <section class="guild-list-section">
-    <h3 class="base">精选社区</h3>
-    <div class="guild-list">
-      <div class="loaded">
-        <card />
-      </div>
-    </div>
-  </section>
+  <div class="page-table">
+    <a-button class="editable-add-btn" @click="showModal" style="margin-bottom: 8px">
+      添加菜谱
+    </a-button>
+    <a-table
+        :columns="column"
+    >
+
+    </a-table>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import card from '../../components/Card/index.vue'
+const column = [
+  {
+    title: '序号',
+    dataIndex: 'recipesId',
+    width: '8%',
+    slots: { customRender: 'recipesId' },
+  },
+  {
+    title: '标题',
+    width: '15%',
+    slots: { customRender: 'title'}
+  },
+  {
+    title: '主图',
+    dataIndex: 'thumbImg',
+    width: '15%',
+    slots: { customRender: 'thumbImg'}
+  },
+  {
+    title: '难度',
+    dataIndex: 'difficult',
+    width: '8%',
+  },
+  {
+    title: '耗时',
+    dataIndex: 'completionTime',
+    width: '8%'
+  },
+  {
+
+  },
+  {
+    title: '分类(标签)',
+    dataIndex: 'tag'
+  }
+]
+
+
+const showModal = () => {
+
+}
 </script>
 
 <style lang="less">

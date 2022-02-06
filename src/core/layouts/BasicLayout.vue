@@ -313,4 +313,129 @@ export default defineComponent({
     }
   }
 }
+@tabBarColor: var(--background-tertiary);
+.editable-row-operations a {
+  margin-right: 8px;
+}
+//border: 1px solid var(--background-tertiary);
+.page-table {
+  padding-right: 12px;
+  .ant-table-wrapper {
+    .ant-table,.ant-table-thead > tr > th {
+      background: var(--background-secondary);
+      color: var(--header-secondary);
+      .ant-table-thead > tr > th {
+        padding: 8px 10px;
+        background: @tabBarColor;
+        border-right-color: @tabBarColor;
+        border-bottom-color: @tabBarColor;
+      }
+      .ant-table-tbody > tr > td {
+        padding: 10px;
+        border-bottom-color: @tabBarColor;
+      }
+    }
+
+    .ant-table-bordered .ant-table-thead > tr > th,
+    .ant-table-bordered .ant-table-tbody > tr > td {
+      border-right-color: @tabBarColor;
+    }
+    .ant-table-bordered .ant-table-header > table,
+    .ant-table-bordered .ant-table-body > table,
+    .ant-table-bordered .ant-table-fixed-left table,
+    .ant-table-bordered .ant-table-fixed-right table {
+      border-color: @tabBarColor;
+    }
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+      background-color: var(--background-modifier-selected);
+    }
+
+    .ant-pagination-prev .ant-pagination-item-link,
+    .ant-pagination-next .ant-pagination-item-link {
+      color: var(--interactive-normal);
+      background-color: var(--channeltextarea-background);
+    }
+    .ant-pagination-disabled a,
+    .ant-pagination-disabled:hover a,
+    .ant-pagination-disabled:focus a,
+    .ant-pagination-disabled .ant-pagination-item-link,
+    .ant-pagination-disabled:hover .ant-pagination-item-link,
+    .ant-pagination-disabled:focus .ant-pagination-item-link {
+      border-color: @tabBarColor;
+    }
+    .ant-pagination-item-active {
+      background-color: @tabBarColor;
+      border-color: transparent;
+    }
+  }
+}
+.ant-btn {
+  cursor: pointer;
+  &.editable-add-btn {
+    cursor: pointer;
+    padding: 5px 16px;
+    color: var(--interactive-normal);
+    background-color: var(--channeltextarea-background);
+  }
+}
+.ant-modal-body {
+  .ant-form {
+    margin: 20px;
+    background-color: var(--background-secondary);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 12px 16px;
+    .ing-upload {
+      width: 78px;
+      height: 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .ant-upload {
+        width: 78px;
+        height: 68px;
+        background-color: #36393f;
+        border-radius: 6px;
+      }
+      span.ant-upload {
+        color: var(--interactive-normal);
+        > div {
+          width: 78px;
+          height: 68px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          svg {
+            fill: white;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+      .ant-upload-list {
+        display: none;
+        .ant-upload-list-item {
+          display: none;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .ant-input {
+      margin-left: 20px;
+      width: 320px;
+      border-radius: 3px;
+      color: var(--text-normal);
+      background-color: var(--deprecated-text-input-bg);
+      border: 1px solid var(--deprecated-text-input-border);
+    }
+  }
+}
 </style>

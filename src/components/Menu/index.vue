@@ -65,7 +65,7 @@ const menuList = [
     child: [
       {
         path: '/Recipes/addIngredient',
-        name: '添加分类'
+        name: '分类管理'
       }
     ]
   }
