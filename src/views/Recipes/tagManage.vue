@@ -43,6 +43,7 @@
 import { cloneDeep } from 'lodash-es'
 import {computed, onMounted, reactive, ref, UnwrapRef} from "vue"
 import {TableState} from "ant-design-vue/es/table/interface"
+import {addTag, getTag, editTag} from "@/utils/api"
 
 interface DataItem {
   key: number
@@ -88,15 +89,24 @@ onMounted(async () => {
   await getTableData()
 })
 const getTableData = () => {
-
+  const data = {
+    pageNo: pages.pageNo,
+    pageSize: pages.pageSize
+  }
+  getTag(data).then(res => {
+    pages.total = res.total
+    dataSource.value = res.result
+    dataSource.value.forEach((item, id) => {
+      item.key = id
+    })
+  })
 }
 const edit = (key: number) => {
   console.log(key)
-  console.log(tagData)
-  if (key) {
+  if (key || key === 0) {
     tagData[key] = cloneDeep(dataSource.value.filter(item => key === item.key)[0])
   } else {
-    key = dataSource.value.length + 1
+    key = dataSource.value.length
     dataSource.value.push({
       key: key,
       tagName: ''
@@ -106,7 +116,21 @@ const edit = (key: number) => {
 }
 const save = (key: number) => {
   Object.assign(dataSource.value.filter(item => key === item.key)[0], tagData[key])
-  delete tagData[key]
+  if (dataSource.value[key].tagId) {
+    editTag(tagData[key]).then(res => {
+      if (!res.code) {
+        getTableData()
+        delete tagData[key]
+      }
+    })
+  } else {
+    addTag(tagData[key]).then(res => {
+      if (!res.code) {
+        getTableData()
+        delete tagData[key]
+      }
+    })
+  }
 }
 const cancel = (key: number) => {
   delete tagData[key]

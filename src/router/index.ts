@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
           },
           {
             path: '/Recipes/tagManage',
-            name: 'tagManage',
+            name: 'TagManage',
             component: () => import('@/views/Recipes/tagManage.vue'),
             meta: { title: '标签分类管理'}
           },

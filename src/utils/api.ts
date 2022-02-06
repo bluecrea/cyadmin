@@ -1,5 +1,7 @@
 import request from "./request"
 import {Axios, AxiosPromise} from "axios"
+import exp from "constants";
+import {Tag} from "ant-design-vue";
 
 interface SendSMS {
 	phoneNumbers?: string,
@@ -25,6 +27,11 @@ type Ingredients = {
 	ingLabel: string,
 }
 
+type TagData = {
+	tagId?: number,
+	tagName: string
+}
+
 type PageData = {
 	pageSize: number,
 	pageNo: number
@@ -38,10 +45,13 @@ const userApi = {
 	UserInfo: '/user/info'
 }
 
-const IngApi = {
+const RecipeApi = {
 	addIng: '/admin/addIngredient',
+	addTag: '/admin/addTag',
 	getIng: '/admin/getIngredient',
-	editIng: '/admin/editIngredient'
+	getTag: '/admin/queryTag',
+	editIng: '/admin/editIngredient',
+	editTag: '/admin/editTag'
 }
 
 export const getSMSCode = (data: SendSMS): AxiosPromise => request({
@@ -60,17 +70,32 @@ export const register = (data: Register): AxiosPromise => request({
 })
 
 export const getIng = (data: PageData): AxiosPromise => request({
-	url: IngApi.getIng,
+	url: RecipeApi.getIng,
+	data: data
+})
+
+export const getTag = (data: PageData): AxiosPromise => request({
+	url: RecipeApi.getTag,
 	data: data
 })
 
 export const addIng = (data: Ingredients): AxiosPromise => request({
-	url: IngApi.addIng,
-	data: data,
+	url: RecipeApi.addIng,
+	data: data
+})
+
+export const addTag = (data: TagData): AxiosPromise => request({
+	url: RecipeApi.addTag,
+	data: data
 })
 
 export const editIng = (data: Ingredients): AxiosPromise => request({
-	url: IngApi.editIng,
+	url: RecipeApi.editIng,
+	data: data
+})
+
+export const editTag = (data: TagData): AxiosPromise => request({
+	url: RecipeApi.editTag,
 	data: data
 })
 
