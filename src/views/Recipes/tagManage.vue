@@ -67,7 +67,7 @@ const columns = [
     slots: { customRender: 'tags' }
   },
   {
-    title: '编辑',
+    title: '管理',
     dataIndex: 'operation',
     slots: { customRender: 'operation' },
   }
@@ -76,7 +76,7 @@ const dataSource = ref<DataItem[]>([])
 const tagData:UnwrapRef<Record<string, DataItem>> = reactive({})
 const pages = reactive({
   total: 0,
-  pageSize: 20,
+  pageSize: 15,
   pageNo: 1
 })
 const pagination = computed(() => ({

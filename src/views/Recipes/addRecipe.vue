@@ -1,20 +1,23 @@
 <template>
   <div class="page">
-    <a-form :model="addRecipes" layout="vertical">
-      <a-input
-          v-model:value="addRecipes.title"
-          :bordered="false"
-          size="large"
-          placeholder="请输入标题"
-      />
-      <div class="fm-zy">
-        <h3>封面和摘要</h3>
-        <div class="detail">
+    <a-form :model="addRecipes" class="page-form-group">
+      <div class="form-item">
+        <h5>名称</h5>
+        <a-input
+            v-model:value="addRecipes.title"
+            :bordered="false"
+            size="large"
+            placeholder="请输入标题"
+        />
+      </div>
+      <div class="form-item">
+        <h5>封面和摘要</h5>
+        <div class="flex-upload">
           <a-upload
               v-model:file-list="fileList"
-              name="file"
+              name="thumb"
               list-type="picture-card"
-              class="avatar-uploader"
+              class="recipe-upload"
               :show-upload-list="false"
               :multiple="false"
               accept="image/*"
@@ -22,16 +25,34 @@
               @change="handleChange"
               action="https://api.xiachuyi.com/admin/upload"
           >
-            <img v-if="addRecipes.thumb" :src="`${addRecipes.thumb}?x-oss-process=image/resize,h_115,m_lfit`" alt="avatar" />
+            <img v-if="addRecipes.thumbImg" :src="`${addRecipes.thumbImg}?x-oss-process=image/resize,h_115,m_lfit`" alt="avatar" />
             <div v-else>
               <loading-outlined v-if="loading"></loading-outlined>
-              <plus-outlined v-else></plus-outlined>
-              <div class="ant-upload-text">拖拽或选择封面</div>
+              <picture-outlined v-else/>
+              <div class="ant-upload-text">512×512</div>
             </div>
           </a-upload>
-          <a-textarea v-model:value="addRecipes.subText" show-count :maxlength="120" />
+          <a-textarea v-model:value="addRecipes.markdown" show-count :maxlength="120" />
         </div>
       </div>
+      <div class="form-item">
+        <h5>分类和标签</h5>
+        <a-select
+          v-model:value="addRecipes.ingArr"
+          mode="multiple"
+          placeholder="选择"
+          :filter-option="false"
+          :not-found-content="fetching ? undefined : null"
+          :options="ingredientData"
+          @search="fetchIng"
+        >
+          <template v-if="fetching" #notFoundContent>
+            <a-spin size="small" />
+          </template>
+        </a-select>
+      </div>
+
+
       <div class="tag-cate">
         <h3>分类和标签</h3>
         <div class="tag-input">
@@ -77,7 +98,7 @@
               <div v-else>
                 <loading-outlined v-if="loading"></loading-outlined>
                 <plus-outlined v-else></plus-outlined>
-                <div class="ant-upload-text">上传图片</div>
+                <div class="ant-upload-text">建议512*512大小的图片</div>
               </div>
             </a-upload>
           </div>
@@ -101,19 +122,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue"
-import { PlusOutlined, LoadingOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
+import {reactive, ref, toRefs} from "vue"
+import { debounce } from "lodash-es"
+import { PictureOutlined, PlusOutlined, LoadingOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import type { UploadChangeParam, UploadProps, SelectProps } from 'ant-design-vue'
-
-const addRecipes = reactive({
-  title: '',
-  subText: '',
-  thumb: '',
-  tagArr: [],
-  setup: [],
-  ingredient: []
-})
 
 interface Setup {
   img: string,
@@ -124,21 +137,25 @@ const fileList = ref([])
 const loading = ref<boolean>(false)
 const imageUrl = ref<string>('')
 
-// 获取食材
-const ingredientOptions = ref<SelectProps['options']>([
-  {
-    value: 'jack',
-    label: 'Jack'
-  },
-  {
-    value: 'lucy',
-    label: 'Lucy'
-  },
-  {
-    value: 'disabled',
-    label: 'Disabled'
-  }
-])
+const addRecipes = reactive({
+  title: '',
+  thumbImg: '',
+  markdown: '',
+  ingArr: [],
+  tagArr: [],
+  setup: []
+})
+const state = reactive({
+  fetching: false,
+  ingredientData: [],
+})
+const {fetching, ingredientData} = toRefs(state)
+
+const fetchIng = debounce(value => {
+  // 节流
+  console.log(value)
+  state.fetching = true;
+}, 500)
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {

@@ -17,9 +17,7 @@ export default defineComponent({
     showRegisterModel: Boolean,
   },
   setup(props) {
-    console.log(props)
     const showModal = ref<boolean>(false)
-    console.log(showModal)
     const closeLoginModel = (e: MouseEvent) => {
       console.log(e)
     }

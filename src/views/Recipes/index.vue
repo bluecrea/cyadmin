@@ -1,28 +1,30 @@
 <template>
   <div class="page-table">
-    <a-button class="editable-add-btn" @click="showModal" style="margin-bottom: 8px">
+    <a-button class="editable-add-btn" @click="addRecipe" style="margin-bottom: 8px">
       添加菜谱
     </a-button>
     <a-table
         :columns="column"
-    >
+        border>
 
     </a-table>
   </div>
 </template>
 
 <script lang="ts" setup>
+import {ref} from "vue"
+import { useRouter } from "vue-router"
+
 const column = [
   {
     title: '序号',
     dataIndex: 'recipesId',
-    width: '8%',
-    slots: { customRender: 'recipesId' },
+    width: '8%'
   },
   {
     title: '标题',
-    width: '15%',
-    slots: { customRender: 'title'}
+    dataIndex: 'title',
+    width: '20%',
   },
   {
     title: '主图',
@@ -41,18 +43,22 @@ const column = [
     width: '8%'
   },
   {
-
+    title: '分类(标签)',
+    dataIndex: 'tag',
+    width: '25%'
   },
   {
-    title: '分类(标签)',
-    dataIndex: 'tag'
-  }
+    title: '管理',
+    dataIndex: 'operation',
+    slots: { customRender: 'operation' }
+  },
 ]
+const router = useRouter()
 
-
-const showModal = () => {
-
+const addRecipe = () => {
+  router.push('addRecipe')
 }
+
 </script>
 
 <style lang="less">

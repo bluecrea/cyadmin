@@ -111,7 +111,7 @@ const modalTit = ref<string>('')
 const uploadName = ref<string>('')
 const pageData = reactive({
   total: 0,
-  pageSize: 20,
+  pageSize: 15,
   pageNo: 1
 })
 

@@ -71,7 +71,6 @@ export default defineComponent({
   name: 'HeaderBar',
   setup() {
     const route = useRoute()
-    console.log(route.meta.title)
     const routeTitle = route.meta.title
 
     return { routeTitle }
