@@ -61,22 +61,32 @@
           <h5 style="flex: 1 1 0">主料</h5>
         </div>
         <div class="invite-row">
+          <template v-for="(ing, index) in addRecipes.ingArr">
+            <div class="horizontal" style="flex: 3 1 0;margin-left: 0;" v-if="ing.ingId">
+              <div class="ing-flex">
+                <a-button type="primary" shape="circle" v-if="index > 1" @clickre="removeIng(ing)">
+                  <template #icon><MinusOutlined /></template>
+                </a-button>
+                <span class="ing-name">{{ ing.ingLabel }}</span>
+              </div>
+            </div>
+            <div class="horizontal" style="flex: 3 1 0">
+              <a-input style="width: 60%" v-model:value="ing.amount" type="text" placeholder="请输入数量"/>
+            </div>
+            <div class="horizontal" style="flex: 2 1 0">
+              <a-input style="width: 60%" v-model:value="ing.unit" type="text" placeholder="请输入单位"/>
+            </div>
+            <div class="horizontal" style="flex: 1 1 0">
+              <a-switch v-model:checked="ing.isForemost" />
+            </div>
+          </template>
           <div class="horizontal" style="flex: 3 1 0;margin-left: 0;">
             <div class="ing-flex">
-              <a-button type="primary" shape="circle">
+              <a-button type="primary" shape="circle" @click="addIng">
                 <template #icon><PlusOutlined /></template>
               </a-button>
               <span class="ing-name">添加食材</span>
             </div>
-          </div>
-          <div class="horizontal" style="flex: 3 1 0">
-            <a-input style="width: 60%" type="text" placeholder="请输入数量"/>
-          </div>
-          <div class="horizontal" style="flex: 2 1 0">
-            <a-input style="width: 60%" type="text" placeholder="请输入单位"/>
-          </div>
-          <div class="horizontal" style="flex: 1 1 0">
-            <a-switch v-model:checked="addRecipes.isForemost" />
           </div>
         </div>
       </div>
@@ -153,7 +163,7 @@
 <script lang="ts" setup>
 import {reactive, ref, toRefs} from "vue"
 import {debounce} from "lodash-es"
-import {LoadingOutlined, PictureOutlined, PlusOutlined} from '@ant-design/icons-vue'
+import {LoadingOutlined, PictureOutlined, PlusOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
 import {message} from 'ant-design-vue'
 import {searchTag} from '@/utils/api'
@@ -173,7 +183,6 @@ const addRecipes = reactive({
   ingArr: [],
   tagArr: [],
   setup: [],
-  isForemost: false
 })
 const state = reactive({
   fetching: false,
@@ -199,6 +208,20 @@ const fetchTag = debounce(value => {
     state.fetching = false
   })
 }, 800)
+
+const addIng = () => {
+  // show modal
+  /*addRecipes.ingArr.push({
+
+  })*/
+}
+const removeIng = (item) => {
+  let index = addRecipes.ingArr.indexOf(item)
+  if (index !== -1) {
+    addRecipes.ingArr.splice(index, 1)
+  }
+}
+
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {

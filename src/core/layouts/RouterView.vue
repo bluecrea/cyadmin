@@ -219,7 +219,8 @@
                 width: 24px;
                 height: 24px;
                 padding: 0;
-                background-color: var(--interactive-normal);
+                background-color: var(--background-secondary);
+                color: var(--interactive-normal);
                 border: none;
                 cursor: pointer;
               }
