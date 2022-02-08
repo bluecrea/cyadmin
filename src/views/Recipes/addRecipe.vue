@@ -51,6 +51,35 @@
           </template>
         </a-select>
       </div>
+      <div class="form-item">
+        <h5>食材清单</h5>
+        <div class="divider"></div>
+        <div class="direction-row">
+          <h5 style="flex: 3 1 0">食材名称</h5>
+          <h5 style="flex: 3 1 0px">数量</h5>
+          <h5 style="flex: 2 1 0">单位</h5>
+          <h5 style="flex: 1 1 0">主料</h5>
+        </div>
+        <div class="invite-row">
+          <div class="horizontal" style="flex: 3 1 0;margin-left: 0;">
+            <div class="ing-flex">
+              <a-button type="primary" shape="circle">
+                <template #icon><PlusOutlined /></template>
+              </a-button>
+              <span class="ing-name">添加食材</span>
+            </div>
+          </div>
+          <div class="horizontal" style="flex: 3 1 0">
+            <a-input style="width: 60%" type="text" placeholder="请输入数量"/>
+          </div>
+          <div class="horizontal" style="flex: 2 1 0">
+            <a-input style="width: 60%" type="text" placeholder="请输入单位"/>
+          </div>
+          <div class="horizontal" style="flex: 1 1 0">
+            <a-switch v-model:checked="addRecipes.isForemost" />
+          </div>
+        </div>
+      </div>
 
 
 <!--      <div class="tag-cate">
@@ -124,7 +153,7 @@
 <script lang="ts" setup>
 import {reactive, ref, toRefs} from "vue"
 import {debounce} from "lodash-es"
-import {LoadingOutlined, PictureOutlined} from '@ant-design/icons-vue'
+import {LoadingOutlined, PictureOutlined, PlusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
 import {message} from 'ant-design-vue'
 import {searchTag} from '@/utils/api'
@@ -136,7 +165,6 @@ interface Setup {
 
 const fileList = ref([])
 const loading = ref<boolean>(false)
-const imageUrl = ref<string>('')
 
 const addRecipes = reactive({
   title: '',
@@ -144,7 +172,8 @@ const addRecipes = reactive({
   markdown: '',
   ingArr: [],
   tagArr: [],
-  setup: []
+  setup: [],
+  isForemost: false
 })
 const state = reactive({
   fetching: false,

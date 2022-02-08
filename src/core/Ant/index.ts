@@ -1,5 +1,5 @@
 import { Avatar, ConfigProvider, Button, Form, Alert, Dropdown, Tooltip, Input, Select, Modal, Image,
-    Upload, Spin, Checkbox, Table, Popconfirm } from 'ant-design-vue'
+    Upload, Spin, Switch, Checkbox, Table, Popconfirm } from 'ant-design-vue'
 
 const ant = {
     install(Vue: any) {
@@ -16,6 +16,7 @@ const ant = {
         Vue.component(Avatar.name, Avatar)
         Vue.component(Button.name, Button)
         Vue.component(Alert.name, Alert)
+        Vue.component(Switch.name, Switch)
         Vue.component(Dropdown.name, Dropdown)
         Vue.component(Tooltip.name, Tooltip)
         Vue.component(Image.name, Image)
