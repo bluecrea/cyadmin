@@ -29,12 +29,17 @@ type Ingredients = {
 
 type TagData = {
 	tagId?: number,
-	tagName: string
+	tagName?: string,
+	keyword?: string
 }
 
 type PageData = {
 	pageSize: number,
 	pageNo: number
+}
+
+const UploadApi = {
+	uploadFile: '/admin/upload'
 }
 
 const userApi = {
@@ -51,7 +56,8 @@ const RecipeApi = {
 	getIng: '/admin/getIngredient',
 	getTag: '/admin/queryTag',
 	editIng: '/admin/editIngredient',
-	editTag: '/admin/editTag'
+	editTag: '/admin/editTag',
+	searchTag: '/admin/searchTag'
 }
 
 export const getSMSCode = (data: SendSMS): AxiosPromise => request({
@@ -94,13 +100,18 @@ export const editIng = (data: Ingredients): AxiosPromise => request({
 	data: data
 })
 
+export const searchTag = (data: TagData): AxiosPromise => request({
+	url: RecipeApi.searchTag,
+	data: data
+})
+
 export const editTag = (data: TagData): AxiosPromise => request({
 	url: RecipeApi.editTag,
 	data: data
 })
 
 export const upload = (data:any) => request({
-	url: 'https://api.xiachuyi.com/admin/upload',
+	url: UploadApi.uploadFile,
 	data
 })
 

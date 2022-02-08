@@ -167,11 +167,10 @@
       height: 40px;
     }
   }
-
   .ant-select-multiple .ant-select-selection-item {
-    background-color: var(--background-secondary);
+    color: var(--interactive-active);
+    background-color: var(--background-tertiary);
     border: 1px solid transparent;
-    color: var(--interactive-normal);
     svg {
       fill: var(--interactive-normal);
     }
@@ -314,6 +313,7 @@
   }
 }
 .page-table {
+  width: 100%;
   .ant-table-wrapper {
     .ant-table,.ant-table-thead > tr > th {
       background: var(--background-secondary);

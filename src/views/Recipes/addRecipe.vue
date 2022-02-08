@@ -38,13 +38,13 @@
       <div class="form-item">
         <h5>分类和标签</h5>
         <a-select
-          v-model:value="addRecipes.ingArr"
+          v-model:value="addRecipes.tagArr"
           mode="multiple"
           placeholder="选择"
           :filter-option="false"
           :not-found-content="fetching ? undefined : null"
-          :options="ingredientData"
-          @search="fetchIng"
+          :options="tagArrData"
+          @search="fetchTag"
         >
           <template v-if="fetching" #notFoundContent>
             <a-spin size="small" />
@@ -53,7 +53,7 @@
       </div>
 
 
-      <div class="tag-cate">
+<!--      <div class="tag-cate">
         <h3>分类和标签</h3>
         <div class="tag-input">
           <a-select mode="tags" v-model="addRecipes.tagArr" :maxTagCount="3" style="width: 100%" :token-separators="[',']" placeholder="添加或选择分类英文逗号分隔" @change="tagChange">
@@ -116,17 +116,18 @@
           <PlusOutlined />
           添加步骤
         </a-button>
-      </dl>
+      </dl>-->
     </a-form>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {reactive, ref, toRefs} from "vue"
-import { debounce } from "lodash-es"
-import { PictureOutlined, PlusOutlined, LoadingOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
-import { message } from 'ant-design-vue'
-import type { UploadChangeParam, UploadProps, SelectProps } from 'ant-design-vue'
+import {debounce} from "lodash-es"
+import {LoadingOutlined, PictureOutlined} from '@ant-design/icons-vue'
+import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
+import {message} from 'ant-design-vue'
+import {searchTag} from '@/utils/api'
 
 interface Setup {
   img: string,
@@ -147,15 +148,28 @@ const addRecipes = reactive({
 })
 const state = reactive({
   fetching: false,
-  ingredientData: [],
+  tagArrData: [],
 })
-const {fetching, ingredientData} = toRefs(state)
-
-const fetchIng = debounce(value => {
+const {fetching, tagArrData} = toRefs(state)
+let lastFetchId = 0
+const fetchTag = debounce(value => {
   // 节流
-  console.log(value)
-  state.fetching = true;
-}, 500)
+  lastFetchId += 1
+  const fetchId = lastFetchId
+  const data = {keyword: value}
+  state.fetching = true
+  searchTag(data).then(res => {
+    if (fetchId !== lastFetchId) {
+      // for fetch callback order
+      return
+    }
+    state.tagArrData = res.result.map(tag => ({
+      label: `${tag.tagName}`,
+      value: tag.tagId,
+    }))
+    state.fetching = false
+  })
+}, 800)
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {
