@@ -53,11 +53,11 @@ const userApi = {
 const RecipeApi = {
 	addIng: '/admin/addIngredient',
 	addTag: '/admin/addTag',
-	getIng: '/admin/getIngredient',
-	getTag: '/admin/queryTag',
+	getIng: '/app/v1/recipes/getIngredient',
+	getTag: '/app/v1/recipes/queryTag',
 	editIng: '/admin/editIngredient',
 	editTag: '/admin/editTag',
-	searchTag: '/admin/searchTag'
+	searchTag: '/app/v1/recipes/searchTag'
 }
 
 export const getSMSCode = (data: SendSMS): AxiosPromise => request({
@@ -75,14 +75,16 @@ export const register = (data: Register): AxiosPromise => request({
 	data: data,
 })
 
-export const getIng = (data: PageData): AxiosPromise => request({
+export const getIng = (parameter: PageData): AxiosPromise => request({
 	url: RecipeApi.getIng,
-	data: data
+	params: parameter,
+	method: 'get'
 })
 
-export const getTag = (data: PageData): AxiosPromise => request({
+export const getTag = (parameter: PageData): AxiosPromise => request({
 	url: RecipeApi.getTag,
-	data: data
+	params: parameter,
+	method: 'get'
 })
 
 export const addIng = (data: Ingredients): AxiosPromise => request({
@@ -100,9 +102,10 @@ export const editIng = (data: Ingredients): AxiosPromise => request({
 	data: data
 })
 
-export const searchTag = (data: TagData): AxiosPromise => request({
+export const searchTag = (parameter: TagData): AxiosPromise => request({
 	url: RecipeApi.searchTag,
-	data: data
+	params: parameter,
+	method: 'get'
 })
 
 export const editTag = (data: TagData): AxiosPromise => request({

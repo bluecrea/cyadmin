@@ -157,7 +157,15 @@
         </a-button>
       </dl>-->
     </a-form>
+    <a-modal v-model:visible="visible" title="选择食材" @ok="selectIng">
+      <a-table
+          :row-selection="{ selectedRowKeys: ingArrData, onChange: onSelectChange }"
+          :columns="columns"
+          :data-source="ingTableData"
+      />
+    </a-modal>
   </div>
+
 </template>
 
 <script lang="ts" setup>
@@ -165,16 +173,38 @@ import {reactive, ref, toRefs} from "vue"
 import {debounce} from "lodash-es"
 import {LoadingOutlined, PictureOutlined, PlusOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
+import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import {message} from 'ant-design-vue'
 import {searchTag} from '@/utils/api'
 
 interface Setup {
-  img: string,
+  img: string
   txt: string
 }
-
+type Key = ColumnProps['key']
+interface TableType {
+  key: Key
+  ingId?: number
+  ingLabel: string
+  ingImg: string
+}
+const columns = [
+  {
+    title: '编号',
+    dataIndex: 'ingId'
+  },
+  {
+    title: '名称',
+    dataIndex: 'ingLabel',
+  },
+  {
+    title: '图片',
+    dataIndex: 'ingImg',
+  }
+]
 const fileList = ref([])
 const loading = ref<boolean>(false)
+const visible = ref<boolean>(false)
 
 const addRecipes = reactive({
   title: '',
@@ -187,10 +217,12 @@ const addRecipes = reactive({
 const state = reactive({
   fetching: false,
   tagArrData: [],
+  ingArrData: []
 })
-const {fetching, tagArrData} = toRefs(state)
+const {fetching, tagArrData, ingArrData} = toRefs(state)
 let lastFetchId = 0
-const fetchTag = debounce(value => {
+const ingTableData:TableType[] = []
+const fetchTag = debounce((value:string) => {
   // 节流
   lastFetchId += 1
   const fetchId = lastFetchId
@@ -211,6 +243,7 @@ const fetchTag = debounce(value => {
 
 const addIng = () => {
   // show modal
+  visible.value = true
   /*addRecipes.ingArr.push({
 
   })*/
@@ -221,7 +254,12 @@ const removeIng = (item) => {
     addRecipes.ingArr.splice(index, 1)
   }
 }
+const selectIng = () => {
 
+}
+const onSelectChange = (selectedRowKeys: Key[]) => {
+  console.log('selectedRowKeys changed: ', selectedRowKeys);
+};
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {
@@ -229,7 +267,7 @@ const handleChange = (info: UploadChangeParam) => {
     return
   }
   if (info.file.status === 'done') {
-    addRecipes.thumb = info.file.response.result
+    addRecipes.thumbImg = info.file.response.result
     loading.value = false
   }
   if (info.file.status === 'error') {

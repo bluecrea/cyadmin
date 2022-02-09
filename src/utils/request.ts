@@ -6,7 +6,6 @@ import router from "@/router";
 // 创建 axios 实例
 const request: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_APP_API_BASE_URL,
-	method: 'POST',
 	timeout: 6000
 })
 

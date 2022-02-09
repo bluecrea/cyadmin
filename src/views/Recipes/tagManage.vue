@@ -41,6 +41,7 @@
 </script>
 <script lang="ts" setup>
 import { cloneDeep } from 'lodash-es'
+import { signStr } from '@/utils/sign'
 import {computed, onMounted, reactive, ref, UnwrapRef} from "vue"
 import {TableState} from "ant-design-vue/es/table/interface"
 import {addTag, getTag, editTag} from "@/utils/api"
@@ -91,8 +92,11 @@ onMounted(async () => {
 const getTableData = () => {
   const data = {
     pageNo: pages.pageNo,
-    pageSize: pages.pageSize
+    pageSize: pages.pageSize,
+    nonceStr: Date.parse(Date()) / 1000,
+    sign: ''
   }
+  data.sign = signStr(data)
   getTag(data).then(res => {
     pages.total = res.total
     dataSource.value = res.result
@@ -102,7 +106,6 @@ const getTableData = () => {
   })
 }
 const edit = (key: number) => {
-  console.log(key)
   if (key || key === 0) {
     tagData[key] = cloneDeep(dataSource.value.filter(item => key === item.key)[0])
   } else {

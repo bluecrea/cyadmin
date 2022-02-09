@@ -60,6 +60,7 @@ export default {
 </script>
 <script lang="ts" setup>
 import { getIng, addIng, editIng, upload } from '@/utils/api'
+import { signStr } from '@/utils/sign'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import { message } from "ant-design-vue"
 import { TableState } from "ant-design-vue/es/table/interface"
@@ -125,7 +126,14 @@ onMounted(async () => {
   await getData()
 })
 const getData = () => {
-  getIng({pageNo: pageData.pageNo, pageSize: pageData.pageSize}).then(r => {
+  const nonceStr: number = Date.parse(Date()) / 1000
+  const data = {
+    pageNo: pageData.pageNo,
+    pageSize: pageData.pageSize,
+    nonceStr: nonceStr,
+    sign: ''}
+  data.sign = signStr(data)
+  getIng(data).then(r => {
     pageData.total = r.total
     dataSource.value = r.result
     dataSource.value.forEach((item, id) => {
