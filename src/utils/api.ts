@@ -1,7 +1,5 @@
 import request from "./request"
-import {Axios, AxiosPromise} from "axios"
-import exp from "constants";
-import {Tag} from "ant-design-vue";
+import { AxiosPromise } from "axios"
 
 interface SendSMS {
 	phoneNumbers?: string,
@@ -35,7 +33,9 @@ type TagData = {
 
 type PageData = {
 	pageSize: number,
-	pageNo: number
+	pageNo: number,
+	nonceStr: number,
+	sign: string
 }
 
 const UploadApi = {

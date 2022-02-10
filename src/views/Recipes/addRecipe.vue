@@ -56,7 +56,7 @@
         <div class="divider"></div>
         <div class="direction-row">
           <h5 style="flex: 3 1 0">食材名称</h5>
-          <h5 style="flex: 3 1 0px">数量</h5>
+          <h5 style="flex: 3 1 0">数量</h5>
           <h5 style="flex: 2 1 0">单位</h5>
           <h5 style="flex: 1 1 0">主料</h5>
         </div>
@@ -157,11 +157,12 @@
         </a-button>
       </dl>-->
     </a-form>
-    <a-modal v-model:visible="visible" title="选择食材" @ok="selectIng">
+    <a-modal v-model:visible="visible" width="768px" title="选择食材" @ok="selectIng">
       <a-table
-          :row-selection="{ selectedRowKeys: ingArrData, onChange: onSelectChange }"
+          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
           :columns="columns"
           :data-source="ingTableData"
+          :loading="tableLoading"
       />
     </a-modal>
   </div>
@@ -173,9 +174,11 @@ import {reactive, ref, toRefs} from "vue"
 import {debounce} from "lodash-es"
 import {LoadingOutlined, PictureOutlined, PlusOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
+import type {AxiosResponse} from '@/axios'
 import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import {message} from 'ant-design-vue'
-import {searchTag} from '@/utils/api'
+import {getIng, searchTag } from '@/utils/api'
+import { signStr } from "@/utils/sign"
 
 interface Setup {
   img: string
@@ -205,6 +208,8 @@ const columns = [
 const fileList = ref([])
 const loading = ref<boolean>(false)
 const visible = ref<boolean>(false)
+const tableLoading = ref<boolean>(true)
+const nonceStr: number = Date.parse(Date()) / 1000
 
 const addRecipes = reactive({
   title: '',
@@ -214,26 +219,35 @@ const addRecipes = reactive({
   tagArr: [],
   setup: [],
 })
-const state = reactive({
+const state = reactive<{
+  fetching: boolean,
+  tagArrData:[],
+  selectedRowKeys: Key[]
+}>({
   fetching: false,
   tagArrData: [],
-  ingArrData: []
+  selectedRowKeys: []
 })
-const {fetching, tagArrData, ingArrData} = toRefs(state)
+const pageData = reactive({
+  total: 0,
+  pageSize: 15,
+  pageNo: 1
+})
+const {fetching, tagArrData, selectedRowKeys} = toRefs(state)
 let lastFetchId = 0
-const ingTableData:TableType[] = []
+const ingTableData = ref<TableType[]>([])
 const fetchTag = debounce((value:string) => {
   // 节流
   lastFetchId += 1
   const fetchId = lastFetchId
   const data = {keyword: value}
   state.fetching = true
-  searchTag(data).then(res => {
+  searchTag(data).then((res:AxiosResponse) => {
     if (fetchId !== lastFetchId) {
       // for fetch callback order
       return
     }
-    state.tagArrData = res.result.map(tag => ({
+    state.tagArrData = res.result.map((tag: any) => ({
       label: `${tag.tagName}`,
       value: tag.tagId,
     }))
@@ -244,11 +258,25 @@ const fetchTag = debounce((value:string) => {
 const addIng = () => {
   // show modal
   visible.value = true
-  /*addRecipes.ingArr.push({
-
-  })*/
+  const data = {
+    pageNo: pageData.pageNo,
+    pageSize: pageData.pageSize,
+    nonceStr: nonceStr,
+    sign: ''
+  }
+  data.sign = signStr(data)
+  getIng(data).then((res:AxiosResponse) => {
+    if (!res.code) {
+      pageData.total = res.total
+      ingTableData.value = res.result
+      ingTableData.value.forEach((item, id) => {
+        item.key = id
+      })
+      tableLoading.value = false
+    }
+  })
 }
-const removeIng = (item) => {
+const removeIng = (item: never) => {
   let index = addRecipes.ingArr.indexOf(item)
   if (index !== -1) {
     addRecipes.ingArr.splice(index, 1)
@@ -258,7 +286,8 @@ const selectIng = () => {
 
 }
 const onSelectChange = (selectedRowKeys: Key[]) => {
-  console.log('selectedRowKeys changed: ', selectedRowKeys);
+  console.log('selectedRowKeys changed: ', selectedRowKeys)
+  state.selectedRowKeys = selectedRowKeys
 };
 
 const handleChange = (info: UploadChangeParam) => {

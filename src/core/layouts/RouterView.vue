@@ -251,7 +251,30 @@
         }
       }
     }
-
+    .ant-select {
+      &:not(.ant-select-customize-input) {
+        .ant-select-selector {
+          color: var(--channels-default);
+          background-color: var(--channeltextarea-background);
+          border-color: var(--channels-default);
+        }
+      }
+      .ant-select-selector {
+        height: 40px;
+      }
+    }
+    .ant-select-multiple .ant-select-selection-item {
+      color: var(--interactive-active);
+      background-color: var(--background-tertiary);
+      border: 1px solid transparent;
+      svg {
+        fill: var(--interactive-normal);
+      }
+    }
+    .ant-select-arrow {
+      top: 50%;
+      color: var(--interactive-normal);
+    }
     .ant-form-item-label > label {
       color: var(--channels-default);
     }
@@ -263,31 +286,6 @@
       }
     }
   }
-  .ant-select {
-    &:not(.ant-select-customize-input) {
-      .ant-select-selector {
-        color: var(--channels-default);
-        background-color: var(--channeltextarea-background);
-        border-color: var(--channels-default);
-      }
-    }
-    .ant-select-selector {
-      height: 40px;
-    }
-  }
-  .ant-select-multiple .ant-select-selection-item {
-    color: var(--interactive-active);
-    background-color: var(--background-tertiary);
-    border: 1px solid transparent;
-    svg {
-      fill: var(--interactive-normal);
-    }
-  }
-  .ant-select-arrow {
-    top: 50%;
-    color: var(--interactive-normal);
-  }
-
   /*.avatar-uploader > .ant-upload {
     width: 220px;
     height: 118px;
@@ -419,83 +417,97 @@
       border: 1px solid var(--deprecated-text-input-border);
     }
   }
-}
-.page-table {
-  width: 100%;
   .ant-table-wrapper {
-    .ant-table,.ant-table-thead > tr > th {
-      background: var(--background-secondary);
-      color: var(--header-secondary);
-      .ant-table-thead > tr > th {
-        padding: 8px 10px;
-        background: @tableBarColor;
-        border-right-color: @tableBorderColor;
-        border-bottom-color: @tableBorderColor;
+    .ant-table-content {
+      .ant-checkbox-inner {
+        border-color: var(--text-normal);
+        background-color: transparent;
       }
-      .ant-table-tbody > tr > td {
-        padding: 10px;
-        border-bottom-color: @tableBorderColor;
+      .ant-checkbox-disabled .ant-checkbox-inner {
+        background-color: var(--header-secondary);
+        border-color: var(--channels-default) !important;
       }
-    }
-    .ant-table-empty {
-      .ant-table-placeholder {
-        background: var(--background-secondary);
-        border-top-color: @tableBorderColor;
-        border-bottom-color: @tableBorderColor;
-        .ant-empty {
-          .ant-empty-image {
-            svg {
-              fill: var(--header-secondary);
-            }
-          }
-        }
-
-        p {
-          color: var(--header-secondary);
-        }
-      }
-    }
-
-    .ant-table-bordered .ant-table-thead > tr > th,
-    .ant-table-bordered .ant-table-tbody > tr > td {
-      border-right-color: @tableBorderColor;
-    }
-    .ant-table-bordered .ant-table-header > table,
-    .ant-table-bordered .ant-table-body > table,
-    .ant-table-bordered .ant-table-fixed-left table,
-    .ant-table-bordered .ant-table-fixed-right table {
-      border-color: @tableBorderColor;
-    }
-    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
-      background-color: var(--background-modifier-selected);
-    }
-
-    .ant-pagination-item {
-      border-color: var(--background-tertiary);
-      background: var(--background-accent);
-    }
-    .ant-pagination-item-active {
-      background-color: @tableBorderColor;
-      border-color: transparent;
-    }
-    .ant-pagination-prev .ant-pagination-item-link,
-    .ant-pagination-next .ant-pagination-item-link {
-      border-color: var(--background-tertiary);
-      background-color: var(--channeltextarea-background);
-    }
-    .ant-pagination-disabled a,
-    .ant-pagination-disabled:hover a,
-    .ant-pagination-disabled:focus a,
-    .ant-pagination-disabled .ant-pagination-item-link,
-    .ant-pagination-disabled:hover .ant-pagination-item-link,
-    .ant-pagination-disabled:focus .ant-pagination-item-link {
-      border-color: @tableBorderColor;
     }
 
   }
+
+}
+.ant-table-wrapper {
+  .ant-table,.ant-table-thead > tr > th {
+    background: var(--background-secondary);
+    color: var(--header-secondary);
+    .ant-table-thead > tr > th {
+      padding: 8px 10px;
+      background: @tableBarColor;
+      border-right-color: @tableBorderColor;
+      border-bottom-color: @tableBorderColor;
+    }
+    .ant-table-tbody > tr > td {
+      padding: 10px;
+      border-bottom-color: @tableBorderColor;
+    }
+  }
+  .ant-table-empty {
+    .ant-table-placeholder {
+      background: var(--background-secondary);
+      border-top-color: @tableBorderColor;
+      border-bottom-color: @tableBorderColor;
+      .ant-empty {
+        .ant-empty-image {
+          svg {
+            fill: var(--header-secondary);
+          }
+        }
+      }
+
+      p {
+        color: var(--header-secondary);
+      }
+    }
+  }
+
+  .ant-table-bordered .ant-table-thead > tr > th,
+  .ant-table-bordered .ant-table-tbody > tr > td {
+    border-right-color: @tableBorderColor;
+  }
+  .ant-table-bordered .ant-table-header > table,
+  .ant-table-bordered .ant-table-body > table,
+  .ant-table-bordered .ant-table-fixed-left table,
+  .ant-table-bordered .ant-table-fixed-right table {
+    border-color: @tableBorderColor;
+  }
+  .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+  .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+  .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+    background-color: var(--background-modifier-selected);
+  }
+
+  .ant-pagination-item {
+    border-color: var(--background-tertiary);
+    background: var(--background-accent);
+  }
+  .ant-pagination-item-active {
+    background-color: @tableBorderColor;
+    border-color: transparent;
+  }
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    border-color: var(--background-tertiary);
+    background-color: var(--channeltextarea-background);
+  }
+  .ant-pagination-disabled a,
+  .ant-pagination-disabled:hover a,
+  .ant-pagination-disabled:focus a,
+  .ant-pagination-disabled .ant-pagination-item-link,
+  .ant-pagination-disabled:hover .ant-pagination-item-link,
+  .ant-pagination-disabled:focus .ant-pagination-item-link {
+    border-color: @tableBorderColor;
+  }
+
+}
+.page-table {
+  width: 100%;
   .ant-btn {
     cursor: pointer;
     &.editable-add-btn {
