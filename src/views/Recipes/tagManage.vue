@@ -137,6 +137,7 @@ const save = (key: number) => {
 }
 const cancel = (key: number) => {
   delete tagData[key]
+  getTableData()
 }
 const changeTable = (pag: Pagination) => {
   pages.pageNo = pag?.current

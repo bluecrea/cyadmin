@@ -271,6 +271,23 @@
             }
           }
         }
+        .card-step {
+          border-color: var(--background-secondary-alt);
+          padding: 0;
+          margin-bottom: 16px;
+          background: var(--deprecated-card-editable-bg);
+          position: relative;
+          border: 1px solid;
+          border-radius: 5px;
+          .flex-vertical {
+            flex: 1 1 auto;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            display: flex;
+          }
+        }
       }
     }
     .ant-select {

@@ -90,6 +90,9 @@
       </div>
       <div class="form-item">
         <h5>步骤</h5>
+        <div class="card-step" style="height: 90px">
+
+        </div>
       </div>
 
 
