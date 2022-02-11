@@ -40,7 +40,7 @@
         <a-select
           v-model:value="addRecipes.tagArr"
           mode="multiple"
-          placeholder="选择"
+          placeholder="输入关键词搜索分类"
           :filter-option="false"
           :not-found-content="fetching ? undefined : null"
           :options="tagArrData"
@@ -224,7 +224,12 @@ const fetchTag = debounce((value:string) => {
   // 节流
   lastFetchId += 1
   const fetchId = lastFetchId
-  const data = {keyword: value}
+  const data = {
+    keyword: value,
+    nonceStr: nonceStr,
+    sign: ''
+  }
+  data.sign = signStr(data)
   state.fetching = true
   searchTag(data).then((res:AxiosResponse) => {
     if (fetchId !== lastFetchId) {
