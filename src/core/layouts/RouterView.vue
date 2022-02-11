@@ -248,6 +248,28 @@
               }
             }
           }
+          .remove-ing {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            opacity: 0;
+            transition: opacity .1s ease;
+            z-index: 2;
+            text-indent: -9999em;
+            overflow: hidden;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            background-image: url('../../assets/images/close.svg');
+          }
+          &:hover {
+            .remove-ing {
+              opacity: 1;
+            }
+          }
         }
       }
     }
@@ -427,8 +449,14 @@
         background-color: var(--header-secondary);
         border-color: var(--channels-default) !important;
       }
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: @primary-color;
+        border-color: @primary-color;
+      }
     }
-
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background-color: var(--background-modifier-selected);
+    }
   }
 
 }

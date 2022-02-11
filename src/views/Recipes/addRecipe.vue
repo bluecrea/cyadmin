@@ -60,26 +60,24 @@
           <h5 style="flex: 2 1 0">单位</h5>
           <h5 style="flex: 1 1 0">主料</h5>
         </div>
+        <div class="invite-row" v-for="(ing, index) in addRecipes.ingArr" :key="index">
+          <div class="horizontal" style="flex: 3 1 0;margin-left: 0;" v-if="ing.ingId">
+            <div class="ing-flex">
+              <span class="ing-name">{{ ing.ingLabel }}</span>
+            </div>
+          </div>
+          <div class="horizontal" style="flex: 3 1 0">
+            <a-input style="width: 60%" v-model:value="ing.amount" type="text" placeholder="请输入数量"/>
+          </div>
+          <div class="horizontal" style="flex: 2 1 0">
+            <a-input style="width: 60%" v-model:value="ing.unit" type="text" placeholder="请输入单位"/>
+          </div>
+          <div class="horizontal" style="flex: 1 1 0">
+            <a-switch v-model:checked="ing.isForemost" />
+          </div>
+          <div class="remove-ing default-keg button" @click="removeIng(ing)"/>
+        </div>
         <div class="invite-row">
-          <template v-for="(ing, index) in addRecipes.ingArr">
-            <div class="horizontal" style="flex: 3 1 0;margin-left: 0;" v-if="ing.ingId">
-              <div class="ing-flex">
-                <a-button type="primary" shape="circle" v-if="index > 1" @clickre="removeIng(ing)">
-                  <template #icon><MinusOutlined /></template>
-                </a-button>
-                <span class="ing-name">{{ ing.ingLabel }}</span>
-              </div>
-            </div>
-            <div class="horizontal" style="flex: 3 1 0">
-              <a-input style="width: 60%" v-model:value="ing.amount" type="text" placeholder="请输入数量"/>
-            </div>
-            <div class="horizontal" style="flex: 2 1 0">
-              <a-input style="width: 60%" v-model:value="ing.unit" type="text" placeholder="请输入单位"/>
-            </div>
-            <div class="horizontal" style="flex: 1 1 0">
-              <a-switch v-model:checked="ing.isForemost" />
-            </div>
-          </template>
           <div class="horizontal" style="flex: 3 1 0;margin-left: 0;">
             <div class="ing-flex">
               <a-button type="primary" shape="circle" @click="addIng">
@@ -90,36 +88,12 @@
           </div>
         </div>
       </div>
+      <div class="form-item">
+        <h5>步骤</h5>
+      </div>
 
 
-<!--      <div class="tag-cate">
-        <h3>分类和标签</h3>
-        <div class="tag-input">
-          <a-select mode="tags" v-model="addRecipes.tagArr" :maxTagCount="3" style="width: 100%" :token-separators="[',']" placeholder="添加或选择分类英文逗号分隔" @change="tagChange">
-            <a-select-option v-for="(item, index) in addRecipes.tagArr" :key="index">
-              {{ item }}
-            </a-select-option>
-          </a-select>
-        </div>
-      </div>
-      <div class="ingredient">
-        <h3>食材</h3>
-        <div class="in-box" v-for="(options, index) in addRecipes.ingredient" :key="index">
-          <a-select
-              style="width: 190px"
-              v-model:value="options.id"
-              :options="ingredientOptions"
-              @change="selectIngredient">
-          </a-select>
-          <a-input size="small"  v-model:value="options.count"/>
-          <a-checkbox v-model:value="options.isForemost">主料</a-checkbox>
-        </div>
-        <a-button type="dashed" style="width: 60%" @click="addList(1)">
-          <PlusOutlined />
-          添加食材
-        </a-button>
-      </div>
-      <dl class="setup">
+<!--  <dl class="setup">
         <dt>制作步骤</dt>
         <dd v-for="(setup, index) in addRecipes.setup" :key="index">
           <div class="setup-img">
@@ -157,27 +131,35 @@
         </a-button>
       </dl>-->
     </a-form>
-    <a-modal v-model:visible="visible" width="768px" title="选择食材" @ok="selectIng">
-      <a-table
-          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-          :columns="columns"
-          :data-source="ingTableData"
-          :loading="tableLoading"
-      />
+    <a-modal
+        v-model:visible="visible"
+        width="768px"
+        title="选择食材"
+        :ok-button-props="{ disabled: !hasSelected }"
+        @ok="selectIng">
+      <div style="padding: 0 8px">
+        <a-table
+            :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+            :columns="columns"
+            :data-source="ingTableData"
+            :loading="tableLoading"
+            bordered
+        />
+      </div>
     </a-modal>
   </div>
 
 </template>
 
 <script lang="ts" setup>
-import {reactive, ref, toRefs} from "vue"
+import {computed, reactive, ref, toRefs} from "vue"
 import {debounce} from "lodash-es"
 import {LoadingOutlined, PictureOutlined, PlusOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
 import type {AxiosResponse} from '@/axios'
 import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import {message} from 'ant-design-vue'
-import {getIng, searchTag } from '@/utils/api'
+import { getIng, searchTag } from '@/utils/api'
 import { signStr } from "@/utils/sign"
 
 interface Setup {
@@ -205,11 +187,6 @@ const columns = [
     dataIndex: 'ingImg',
   }
 ]
-const fileList = ref([])
-const loading = ref<boolean>(false)
-const visible = ref<boolean>(false)
-const tableLoading = ref<boolean>(true)
-const nonceStr: number = Date.parse(Date()) / 1000
 
 const addRecipes = reactive({
   title: '',
@@ -234,6 +211,13 @@ const pageData = reactive({
   pageNo: 1
 })
 const {fetching, tagArrData, selectedRowKeys} = toRefs(state)
+const fileList = ref([])
+const loading = ref<boolean>(false)
+const visible = ref<boolean>(false)
+const tableLoading = ref<boolean>(true)
+const hasSelected = computed(() => state.selectedRowKeys.length > 0)
+const nonceStr: number = Date.parse(Date()) / 1000
+
 let lastFetchId = 0
 const ingTableData = ref<TableType[]>([])
 const fetchTag = debounce((value:string) => {
@@ -283,10 +267,12 @@ const removeIng = (item: never) => {
   }
 }
 const selectIng = () => {
-
+  state.selectedRowKeys.map(key => {
+    addRecipes.ingArr[key] = ingTableData.value[key]
+  })
+  visible.value = false
 }
 const onSelectChange = (selectedRowKeys: Key[]) => {
-  console.log('selectedRowKeys changed: ', selectedRowKeys)
   state.selectedRowKeys = selectedRowKeys
 };
 
