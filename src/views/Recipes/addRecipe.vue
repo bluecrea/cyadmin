@@ -93,7 +93,7 @@
         <a-button type="primary" style="margin-bottom: 24px;" @click="addStep">添加步骤</a-button>
         <a-collapse v-model:activeKey="activeKey" expand-icon-position="right">
           <a-collapse-panel v-for="(step, index) in addRecipes.stepArr" :key="index.toString()" :header="`步骤 ${index +1} / 共 ${addRecipes.stepArr.length}`">
-            <div class="divider"/>
+            <div class="divider mb24"/>
             <div class="step-view">
               <div class="flex-upload">
                 <a-upload
@@ -117,6 +117,11 @@
               <div class="step-txt">
                 <h5>步骤说明：(支持markdown)</h5>
                 <a-textarea v-model:value="step.instructions" />
+                <div class="divider" style="margin:24px 0"/>
+                <div class="button-flex">
+                  <a-button>确定</a-button>
+                  <a-button>删除</a-button>
+                </div>
               </div>
             </div>
           </a-collapse-panel>

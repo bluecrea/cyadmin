@@ -210,6 +210,11 @@
       font-size: 14px;
       line-height: 25px;
     }
+    .divider {
+      width: 100%;
+      height: 1px;
+      border-top: thin solid var(--background-modifier-accent);
+    }
     &.page-form-group {
       .form-item {
         margin-bottom: 20px;
@@ -279,12 +284,6 @@
             color: rgba(255, 255, 255, .3);
           }
 
-        }
-        .divider {
-          margin-bottom: 10px;
-          width: 100%;
-          height: 1px;
-          border-top: thin solid var(--background-modifier-accent);
         }
         .direction-row {
           flex: 1 1 auto;
@@ -449,10 +448,7 @@
               padding: 0;
             }
           }
-          .divider {
-            width: 100%;
-            height: 1px;
-            border-top: thin solid var(--background-modifier-accent);
+          .mb24 {
             margin-bottom: 24px;
           }
           .step-flex() {
