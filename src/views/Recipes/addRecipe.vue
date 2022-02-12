@@ -90,12 +90,38 @@
       </div>
       <div class="form-item">
         <h5>步骤</h5>
-        <div class="card-step" style="height: 90px">
-
-        </div>
+        <a-button type="primary" style="margin-bottom: 24px;" @click="addStep">添加步骤</a-button>
+        <a-collapse v-model:activeKey="activeKey" expand-icon-position="right">
+          <a-collapse-panel v-for="(step, index) in addRecipes.stepArr" :key="index.toString()" :header="`步骤 ${index +1} / 共 ${addRecipes.stepArr.length}`">
+            <div class="divider"/>
+            <div class="step-view">
+              <div class="flex-upload">
+                <a-upload
+                    v-model:file-list="fileList"
+                    name="avatar"
+                    list-type="picture-card"
+                    class="step-upload"
+                    :show-upload-list="false"
+                    action="https://api.xiachuyi.com/admin/upload"
+                    :before-upload="beforeUpload"
+                    @change="updateSetupImg(index, $event)"
+                >
+                  <img v-if="step.stepImg" :src="step.stepImg" alt="avatar" />
+                  <div v-else>
+                    <loading-outlined v-if="loading"></loading-outlined>
+                    <plus-outlined v-else></plus-outlined>
+                    <div class="ant-upload-text">建议512*512大小的图片</div>
+                  </div>
+                </a-upload>
+              </div>
+              <div class="step-txt">
+                <h5>步骤说明：(支持markdown)</h5>
+                <a-textarea v-model:value="step.instructions" />
+              </div>
+            </div>
+          </a-collapse-panel>
+        </a-collapse>
       </div>
-
-
 <!--  <dl class="setup">
         <dt>制作步骤</dt>
         <dd v-for="(setup, index) in addRecipes.setup" :key="index">
@@ -155,7 +181,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, reactive, ref, toRefs} from "vue"
+import {computed, reactive, ref, toRefs, watch} from "vue"
 import {debounce} from "lodash-es"
 import {LoadingOutlined, PictureOutlined, PlusOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import type {UploadChangeParam, UploadProps} from 'ant-design-vue'
@@ -165,10 +191,6 @@ import {message} from 'ant-design-vue'
 import { getIng, searchTag } from '@/utils/api'
 import { signStr } from "@/utils/sign"
 
-interface Setup {
-  img: string
-  txt: string
-}
 type Key = ColumnProps['key']
 interface TableType {
   key: Key
@@ -197,7 +219,12 @@ const addRecipes = reactive({
   markdown: '',
   ingArr: [],
   tagArr: [],
-  setup: [],
+  stepArr: [
+    {
+      stepImg: '',
+      instructions: ''
+    }
+  ],
 })
 const state = reactive<{
   fetching: boolean,
@@ -220,6 +247,7 @@ const visible = ref<boolean>(false)
 const tableLoading = ref<boolean>(true)
 const hasSelected = computed(() => state.selectedRowKeys.length > 0)
 const nonceStr: number = Date.parse(Date()) / 1000
+const activeKey = ref([])
 
 let lastFetchId = 0
 const ingTableData = ref<TableType[]>([])
@@ -268,21 +296,40 @@ const addIng = () => {
     }
   })
 }
+
 const removeIng = (item: never) => {
   let index = addRecipes.ingArr.indexOf(item)
   if (index !== -1) {
     addRecipes.ingArr.splice(index, 1)
   }
 }
+
 const selectIng = () => {
   state.selectedRowKeys.map(key => {
     addRecipes.ingArr[key] = ingTableData.value[key]
   })
   visible.value = false
 }
+
 const onSelectChange = (selectedRowKeys: Key[]) => {
   state.selectedRowKeys = selectedRowKeys
-};
+}
+
+const addStep = () => {
+  addRecipes.stepArr.push({
+    stepImg: '',
+    instructions: ''
+  })
+}
+/*watch(activeKey, val => {
+  console.log(val)
+  if (val === ['add']) {
+
+
+    console.log(addRecipes.stepArr)
+  }
+})*/
+
 
 const handleChange = (info: UploadChangeParam) => {
   if (info.file.status === 'uploading') {
