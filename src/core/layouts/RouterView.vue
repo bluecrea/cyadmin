@@ -215,6 +215,9 @@
       height: 1px;
       border-top: thin solid var(--background-modifier-accent);
     }
+    .mb24 {
+      margin-bottom: 24px;
+    }
     &.page-form-group {
       .form-item {
         margin-bottom: 20px;
@@ -448,9 +451,6 @@
               padding: 0;
             }
           }
-          .mb24 {
-            margin-bottom: 24px;
-          }
           .step-flex() {
             display: flex;
             justify-content: flex-start;
@@ -475,6 +475,14 @@
                   color: var(--text-normal);
                   background-color: var(--deprecated-text-input-bg);
                   border: 1px solid var(--deprecated-text-input-border);
+                }
+              }
+              .button-flex {
+                .step-flex();
+                flex: 1 1 auto;
+                flex-direction: row;
+                .btn-del {
+                  color: red;
                 }
               }
             }

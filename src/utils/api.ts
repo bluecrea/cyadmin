@@ -39,7 +39,7 @@ type PageData = {
 }
 
 const UploadApi = {
-	uploadFile: '/admin/upload'
+	uploadFile: '/config/v1/upload'
 }
 
 const userApi = {
@@ -115,6 +115,7 @@ export const editTag = (data: TagData): AxiosPromise => request({
 
 export const upload = (data:any) => request({
 	url: UploadApi.uploadFile,
+	method: 'post',
 	data
 })
 

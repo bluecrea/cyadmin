@@ -53,7 +53,7 @@
       </div>
       <div class="form-item">
         <h5>食材清单</h5>
-        <div class="divider"></div>
+        <div class="divider mb24"></div>
         <div class="direction-row">
           <h5 style="flex: 3 1 0">食材名称</h5>
           <h5 style="flex: 3 1 0">数量</h5>
@@ -98,11 +98,11 @@
               <div class="flex-upload">
                 <a-upload
                     v-model:file-list="fileList"
-                    name="avatar"
+                    name="step"
                     list-type="picture-card"
                     class="step-upload"
                     :show-upload-list="false"
-                    action="https://api.xiachuyi.com/admin/upload"
+                    action=""
                     :before-upload="beforeUpload"
                     @change="updateSetupImg(index, $event)"
                 >
@@ -116,12 +116,13 @@
               </div>
               <div class="step-txt">
                 <h5>步骤说明：(支持markdown)</h5>
-                <a-textarea v-model:value="step.instructions" />
-                <div class="divider" style="margin:24px 0"/>
-                <div class="button-flex">
-                  <a-button>确定</a-button>
-                  <a-button>删除</a-button>
-                </div>
+                <a-textarea v-model:value="step.instructions" :autosize="{minRows: 4}"/>
+                <template v-if="index>0">
+                  <div class="divider" style="margin:24px 0"/>
+                  <div class="button-flex">
+                    <a-button class="btn-del">删除</a-button>
+                  </div>
+                </template>
               </div>
             </div>
           </a-collapse-panel>

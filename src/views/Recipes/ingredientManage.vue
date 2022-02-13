@@ -10,18 +10,6 @@
         :loading="tableLoading"
         @change="changeTable"
         bordered>
-<!--      <template v-for="col in ['ingId', 'ingImg', 'ingLabel']" #[col]="{ text, record }" :key="col">
-        <div>
-          <a-input
-              v-if="editableData[record.key]"
-              v-model:value="editableData[record.key][col]"
-              style="margin: -5px 0"
-          />
-          <template v-else>
-            {{ text }}
-          </template>
-        </div>
-      </template>-->
       <template #operation="{ record }">
         <div class="editable-row-operations">
           <span>
@@ -37,7 +25,7 @@
           class="ing-upload"
           :name="uploadName"
           :multiple="false"
-          action="https://api.xiachuyi.com/admin/upload"
+          action=""
           accept="image/png, image/gif"
           :customRequest="uploadFile"
           :before-upload="beforeUpload"
@@ -84,7 +72,7 @@ const columns = [
   {
     title: '图片',
     dataIndex: 'ingImg',
-    width: '45%',
+    width: '55%',
     slots: { customRender: 'ingImg' },
   },
   {
@@ -154,13 +142,13 @@ const showModal = (ingData: any) => {
   visibleModal.value = true
   if (ingData) {
     modalTit.value = '编辑食材'
-    uploadName.value = 'change'
+    uploadName.value = 'changeIngredient'
     addIngredient.ingImg = ingData.ingImg
     addIngredient.ingLabel = ingData.ingLabel
     addIngredient.ingId = ingData.ingId
   } else {
     modalTit.value = '添加食材'
-    uploadName.value = 'file'
+    uploadName.value = 'ingredient'
     addIngredient.ingImg = ''
     addIngredient.ingLabel = ''
     addIngredient.ingId = null
@@ -176,7 +164,7 @@ const beforeUpload = (file: any) => {
 const uploadFile = (e:any) => {
   const formData = new FormData()
   let fileName = e.file.fileName
-  if (uploadName.value === 'change') {
+  if (uploadName.value === 'changeIngredient') {
     fileName = addIngredient.ingImg.substring(addIngredient.ingImg.lastIndexOf('/') + 1)
   }
   if (!addIngredient.ingLabel) {
@@ -187,7 +175,7 @@ const uploadFile = (e:any) => {
   upload(formData).then(res => {
     addIngredient.ingImg = res.result
     e.onSuccess(res, e.file)
-    if (uploadName.value === 'change') {
+    if (uploadName.value === 'changeIngredient') {
       editInit()
     }
   })
@@ -203,7 +191,7 @@ const editInit = () => {
 }
 
 const onFinish = () => {
-  if (uploadName.value === 'change') {
+  if (uploadName.value === 'changeIngredient') {
     editInit()
   } else {
     if (!addIngredient.ingImg) {
@@ -215,6 +203,12 @@ const onFinish = () => {
         if (!res.code) {
           visibleModal.value = false
           getData()
+        } else {
+          message.error(res.result)
+          setTimeout(() => {
+            addIngredient.ingImg = ''
+            addIngredient.ingLabel = ''
+          }, 1000)
         }
       })
     }
