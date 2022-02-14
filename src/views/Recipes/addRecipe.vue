@@ -27,7 +27,7 @@
           >
             <img v-if="addRecipes.thumbImg" :src="`${addRecipes.thumbImg}?x-oss-process=image/resize,h_115,m_lfit`" alt="avatar" />
             <div v-else>
-              <loading-outlined v-if="loading"></loading-outlined>
+              <loading-outlined v-if="loading"/>
               <picture-outlined v-else/>
               <div class="ant-upload-text">512×512</div>
             </div>
@@ -327,14 +327,6 @@ const addStep = () => {
     instructions: ''
   })
 }
-/*watch(activeKey, val => {
-  console.log(val)
-  if (val === ['add']) {
-
-
-    console.log(addRecipes.stepArr)
-  }
-})*/
 
 
 const handleChange = (info: UploadChangeParam) => {
