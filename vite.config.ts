@@ -28,5 +28,14 @@ export default defineConfig({
         javascriptEnabled: true,
       }
     }
+  },
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'https://api.xiachuyi.com',
+        changeOrigin: true
+      }
+    }
   }
 })
